@@ -24,30 +24,24 @@
 * id
 * customerId
 * balance
-* transactionsAmount
-* transactionsEntity
+* transactionsCarriedOut
+* List<String> transactionIds
 
-**transactions**
+**transactions (posting)**
 * id
-* accountId
+* accountId (source)
+* destinationAccountId
 * amount
-* source 
-* destination
-* date
+* dateOfProcess
 
 **credits**
 * id
 * customerId
-* date
+* dateOfCreation
 * originalTerm (Laufzeit)
 * remainingTerm (Restlaufzeit)
 * originalCreditAmount
 * currentCeditAmount
-
-
-**postings**
-* id
-
 
 
 ## Models 
@@ -62,6 +56,26 @@
 * salutation
 * date of birth
 * addressRequest
+
+**address**
+* city
+* street
+* province
+* zip-code
+* country
+
+### Responses
+
+**customersNameAndAndress**
+* firstname
+* secondname
+* salutation
+* addressResponse
+
+**customerRated**
+* firstname
+* secondename
+* salutation
 * rating
 
 **address**
@@ -71,7 +85,41 @@
 * zip-code
 * country
 
-### Response
+**accountsWithBalance**
+* id
+* balance
+
+**credit**
+* id
+* originalterm
+* remainingterm
+* originalCreditAmount
+* currentCreditAmount
+
+**creditExceeded**
+* orignial credit amount
+* current credit amount
+* fistname
+* lastname
+
+**transactionsFull**
+* id
+* accountId(source)
+* destinationAccountId
+* amount
+* dateOfProcess
+
+**transactionsCustomer**
+* accountId
+* customerName
+* accountIdDestination
+* customerNameDestination
 
 
+### Linkage (foreign Key Possible)
+
+* customer <---> address
+* customer <--- account
+* account <---> transactions
+* customer <---  credits
 
