@@ -54,7 +54,7 @@
 * firstname
 * secondname
 * salutation
-* date of birth
+* dateOfBirth(dd/mm/yyyy)
 * addressRequest
 
 **address**
