@@ -8,17 +8,20 @@ public class CustomerAndAddressResponse {
   private final String firstname;
   private final String secondname;
   private final String salutation;
+  private final Integer rating;
   private final AddressResponse address;
 
   public CustomerAndAddressResponse(
     String firstname, 
     String secondname, 
-    String salutation, 
+    String salutation,
+    Integer rating,
     AddressResponse address
     ) {
       this.firstname = firstname;
       this.secondname = secondname;
       this.salutation = salutation;
+      this.rating = rating;
       this.address = address;
   }
 
@@ -26,6 +29,7 @@ public class CustomerAndAddressResponse {
     this.firstname = customer.getFirstname();
     this.secondname = customer.getSecondname();
     this.salutation = customer.getSalutation();
+    this.rating = customer.getRating();
     this.address = new AddressResponse(address);
   }
 
@@ -40,5 +44,8 @@ public class CustomerAndAddressResponse {
   }
   public AddressResponse getAddress() {
     return address;
+  }
+  public Integer getRating(){
+    return this.rating;
   }
 }

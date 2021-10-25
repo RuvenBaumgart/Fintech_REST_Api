@@ -40,7 +40,7 @@ public class CustomerServiceTest {
     );
   };  
   @Test 
-  public void isDateStringCorrectConvertetToDateObject() throws WrongDateFormatException{
+   public void isDateStringCorrectConvertetToDateObject() throws WrongDateFormatException{
     //given
     String date = "22/05/2020";
     LocalDate expectedDate = LocalDate.of(2020,05,22);
@@ -51,14 +51,14 @@ public class CustomerServiceTest {
   }
 
   @Test
-  public void isInvalidDateThrowingCorrectException(){
+    public void isInvalidDateThrowingCorrectException(){
     //given
     String date = "22.05.2020";
     assertThatThrownBy(() -> CustomerService.convertToDate(date)).isInstanceOf(WrongDateFormatException.class);
   }
 
   @Test
-  public void returnSavedCustomerResponse() throws Exception{
+    public void returnSavedCustomerResponse() throws Exception{
   //given
   CustomerEntity customerEntity = new CustomerEntity(
     UUID.randomUUID().toString(),

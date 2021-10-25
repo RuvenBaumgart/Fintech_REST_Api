@@ -30,7 +30,7 @@ public class CustomerRepositoryTest {
   @Test
   public void findAllCustomersAfterSavingCustomer() throws Exception{
     //given
-    final CustomerEntity customer = new CustomerEntity(
+   final CustomerEntity customer = new CustomerEntity(
       UUID.randomUUID().toString(),
       "Donald",
       "Duck",

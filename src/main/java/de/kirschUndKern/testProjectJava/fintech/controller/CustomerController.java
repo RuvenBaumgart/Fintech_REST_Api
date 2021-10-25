@@ -21,7 +21,7 @@ public class CustomerController {
     this.customerService = customerService;
   }
 
-  @PostMapping
+  @PostMapping ("/customers")
   public CustomerAndAddressResponse createCustomer(
     @RequestBody CustomerRequest customerRequest
   )throws WrongDateFormatException {

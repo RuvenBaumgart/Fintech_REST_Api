@@ -2,7 +2,7 @@ package de.kirschUndKern.testProjectJava.fintech.modell;
 import de.kirschUndKern.testProjectJava.fintech.entities.AddressEntity;
 
 public class AddressResponse {
-  private final String customerId;
+
   private final String city;
   private final String street;
   private final String province;
@@ -11,13 +11,13 @@ public class AddressResponse {
 
 
   public AddressResponse(
-    String customerId,
+ 
     String city, 
     String street, 
     String province, 
     String zipCode,
     String country) {
-      this.customerId = customerId;
+   
       this.city = city;
       this.street = street;
       this.province = province;
@@ -25,7 +25,7 @@ public class AddressResponse {
       this.country = country;
   }
   public AddressResponse(AddressEntity ae){
-    this.customerId = ae.getCustomerId();
+   
     this.city = ae.getCity();
     this.street = ae.getStreet();
     this.province = ae.getProvince();
@@ -33,9 +33,7 @@ public class AddressResponse {
     this.country = ae.getZipCode();
   }
   
-  public String getCustomerId() {
-    return customerId;
-  }
+
   public String getCity() {
     return city;
   }
