@@ -1,6 +1,4 @@
 package de.kirschUndKern.testProjectJava.fintech.modell;
-
-import de.kirschUndKern.testProjectJava.fintech.modell.AddressResponse;
 import de.kirschUndKern.testProjectJava.fintech.modell.AddressRequest;
 
 public class CustomerRequest {
@@ -36,7 +34,7 @@ public class CustomerRequest {
     return salutation;
   }
  
-  public String getDateOfBirthString() {
+  public String getDateOfBirth() {
     return dateOfBirth;
   }
   

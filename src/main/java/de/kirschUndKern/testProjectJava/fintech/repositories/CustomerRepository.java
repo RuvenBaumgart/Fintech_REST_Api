@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import de.kirschUndKern.testProjectJava.fintech.entities.CustomerEntity;
 
-public interface CustomerRepositroy extends JpaRepository<CustomerEntity, String> {
+public interface CustomerRepository extends JpaRepository<CustomerEntity, String> {
   
 }

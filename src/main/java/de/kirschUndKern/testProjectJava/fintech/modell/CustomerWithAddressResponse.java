@@ -2,7 +2,7 @@ package de.kirschUndKern.testProjectJava.fintech.modell;
 
 import de.kirschUndKern.testProjectJava.fintech.entities.AddressEntity;
 import de.kirschUndKern.testProjectJava.fintech.entities.CustomerEntity;
-import de.kirschUndKern.testProjectJava.fintech.modell.AddressResponse;
+
 
 public class CustomerWithAddressResponse {
   private final String firstname;
