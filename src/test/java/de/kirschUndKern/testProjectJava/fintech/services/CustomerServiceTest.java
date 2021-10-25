@@ -16,7 +16,7 @@ import de.kirschUndKern.testProjectJava.fintech.entities.AddressEntity;
 import de.kirschUndKern.testProjectJava.fintech.entities.CustomerEntity;
 import de.kirschUndKern.testProjectJava.fintech.exceptions.WrongDateFormatException;
 import de.kirschUndKern.testProjectJava.fintech.modell.AddressRequest;
-import de.kirschUndKern.testProjectJava.fintech.modell.CustomerAddressResponse;
+import de.kirschUndKern.testProjectJava.fintech.modell.CustomerAndAddressResponse;
 import de.kirschUndKern.testProjectJava.fintech.modell.CustomerRequest;
 import de.kirschUndKern.testProjectJava.fintech.repositories.AddressRepository;
 import de.kirschUndKern.testProjectJava.fintech.repositories.CustomerRepository;
@@ -95,10 +95,10 @@ public class CustomerServiceTest {
 
 
 
-  CustomerAddressResponse customerAddressResponse = new CustomerAddressResponse (customerEntity, addressEntity);
+  CustomerAndAddressResponse customerAddressResponse = new CustomerAndAddressResponse (customerEntity, addressEntity);
 
   //when
-  CustomerAddressResponse result = customerService.createCustomerWithAddress(customerRequest, addressRequest);
+  CustomerAndAddressResponse result = customerService.createCustomerWithAddress(customerRequest, addressRequest);
 
   //then
   /**

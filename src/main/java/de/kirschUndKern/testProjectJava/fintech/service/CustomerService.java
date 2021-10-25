@@ -13,7 +13,7 @@ import de.kirschUndKern.testProjectJava.fintech.modell.CustomerRequest;
 import de.kirschUndKern.testProjectJava.fintech.repositories.AddressRepository;
 import de.kirschUndKern.testProjectJava.fintech.repositories.CustomerRepository;
 import de.kirschUndKern.testProjectJava.fintech.modell.AddressRequest;
-import de.kirschUndKern.testProjectJava.fintech.modell.CustomerAddressResponse;
+import de.kirschUndKern.testProjectJava.fintech.modell.CustomerAndAddressResponse;
 
 public class CustomerService {
 
@@ -37,7 +37,7 @@ public class CustomerService {
     }
   }
   
-  public CustomerAddressResponse createCustomerWithAddress(CustomerRequest customerRequest, AddressRequest addressRequest) throws Exception{
+  public CustomerAndAddressResponse createCustomerWithAddress(CustomerRequest customerRequest, AddressRequest addressRequest) throws WrongDateFormatException{
     CustomerEntity newCustomer = new CustomerEntity(customerRequest);
     AddressEntity newAddress = new AddressEntity(
       UUID.randomUUID().toString(),
@@ -48,6 +48,6 @@ public class CustomerService {
       addressRequest.getZipCode(),
       addressRequest.getCountry()
     );
-    return new CustomerAddressResponse(customerRepository.save(newCustomer), addressRepository.save(newAddress));
+    return new CustomerAndAddressResponse(customerRepository.save(newCustomer), addressRepository.save(newAddress));
   }
 }
