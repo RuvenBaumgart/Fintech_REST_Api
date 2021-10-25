@@ -104,8 +104,6 @@ public class CustomerServiceTest {
   /**
    * The address object are same based on the values bud somhow the object it self ist  * not the same
    */
-  assertThat(result).isEqualToIgnoringGivenFields(customerAddressResponse, "address");
-  //checking if the customerId is mapped correctly
-  assertThat(result.getAddress().getCustomerId()).isEqualTo(customerAddressResponse.getAddress().getCustomerId());
+  assertThat(result).usingRecursiveComparison().isEqualTo(customerAddressResponse);
   };
 }

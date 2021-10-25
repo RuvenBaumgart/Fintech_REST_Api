@@ -41,14 +41,9 @@ public class CustomerRepositoryTest {
     );
     customerRepository.save(customer);
     //when
-    List<CustomerEntity> customers = customerRepository.findAll();
-    CustomerEntity customerFound = customers.get(0);
+    CustomerEntity customers = customerRepository.findAll().get(0);
     //
     
-    assertThat(customerFound.getId()).isEqualTo(customer.getId());
-    assertThat(customerFound.getBirthday()).isEqualTo(customer.getBirthday());
-    assertThat(customerFound.getFirstname()).isEqualTo(customer.getFirstname());
-    assertThat(customerFound.getSecondname()).isEqualTo(customer.getSecondname());
-    assertThat(customerFound.getRating()).isEqualTo(customer.getRating());
+    assertThat(customers).usingRecursiveComparison().isEqualTo(customer);
   }
 }
