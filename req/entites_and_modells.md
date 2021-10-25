@@ -32,7 +32,7 @@
 * accountId (source)
 * destinationAccountId
 * amount
-* dateOfProcess
+* transactionDate
 
 **credits**
 * id
@@ -57,16 +57,10 @@
 * dateOfBirth(dd/mm/yyyy)
 * addressRequest
 
-**address**
-* city
-* street
-* province
-* zip-code
-* country
 
 ### Responses
 
-**customersNameAndAndress**
+**customersNameAndAdress**
 * firstname
 * secondname
 * salutation

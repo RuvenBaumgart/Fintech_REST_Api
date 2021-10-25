@@ -50,7 +50,7 @@ public class CreditsEntity {
   public SimpleDateFormat getRemainingTerm() {
     return remainingTerm;
   }
-  public Long getOrignialCreditAmount() {
+  public Long getOriginalCreditAmount() {
     return orignialCreditAmount;
   }
   public Long getCurrentCreditAmount() {

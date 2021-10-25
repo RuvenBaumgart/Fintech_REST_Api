@@ -37,7 +37,7 @@ public class TransactionsEntity {
   public String getSourceAccountId() {
     return sourceAccountId;
   }
-  public String getDestinationAccoutnId() {
+  public String getDestinationAccountId() {
     return destinationAccoutnId;
   }
   public Long getAmount() {
