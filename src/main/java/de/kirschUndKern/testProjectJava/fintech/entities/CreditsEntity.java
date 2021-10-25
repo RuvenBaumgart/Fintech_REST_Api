@@ -10,14 +10,17 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "credits")
 public class CreditsEntity {
-  @Id private final String id;
-  private final String customerId;
-  private final SimpleDateFormat dataOfCreation;
-  private final SimpleDateFormat originalTerm;
-  private final SimpleDateFormat remainingTerm;
-  private final Long orignialCreditAmount;
-  private final Long currentCreditAmount;
+  @Id private  String id;
+  private String customerId;
+  private SimpleDateFormat dataOfCreation;
+  private SimpleDateFormat originalTerm;
+  private SimpleDateFormat remainingTerm;
+  private Long orignialCreditAmount;
+  private Long currentCreditAmount;
 
+  public CreditsEntity(){
+  }
+  
   public CreditsEntity(
     String customerId, 
     SimpleDateFormat dataOfCreation, 

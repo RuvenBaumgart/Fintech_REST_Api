@@ -13,13 +13,16 @@ import de.kirschUndKern.testProjectJava.fintech.modell.TransactionRequest;
 @Table (name = "transactions")
 public class TransactionsEntity {
  
-  @Id private final String id;
-  private final String sourceAccountId;
-  private final String destinationAccoutnId;
-  private final Long amount;
-  private final LocalDateTime transactionDate;
+  @Id private String id;
+  private String sourceAccountId;
+  private String destinationAccoutnId;
+  private Long amount;
+  private LocalDateTime transactionDate;
 
 
+  public TransactionsEntity(){
+  }
+  
   public TransactionsEntity( 
     TransactionRequest tr, 
     String sourceAccountId

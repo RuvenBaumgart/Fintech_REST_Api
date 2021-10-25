@@ -11,22 +11,16 @@ import de.kirschUndKern.testProjectJava.fintech.modell.AddressRequest;
 @Entity
 @Table (name = "addresses")
 public class AddressEntity {
-  @Id private final String id; 
-  private final String customerId;
-  private final String city;
-  private final String street;
-  private final String province;
-  private final String zipCode;
-  private final String country;
+  @Id private String id; 
+  private String customerId;
+  private String city;
+  private String street;
+  private String province;
+  private String zipCode;
+  private String country;
+
 
   public AddressEntity(){
-    this.id = UUID.randomUUID().toString();
-    this.customerId = null;
-    this.city = null;
-    this.street = null;
-    this.province = null;
-    this.zipCode = null;
-    this.country = null;
   }
 
   public AddressEntity(String customerId){

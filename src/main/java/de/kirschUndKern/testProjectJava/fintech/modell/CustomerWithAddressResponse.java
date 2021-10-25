@@ -1,5 +1,6 @@
 package de.kirschUndKern.testProjectJava.fintech.modell;
 
+import de.kirschUndKern.testProjectJava.fintech.entities.AddressEntity;
 import de.kirschUndKern.testProjectJava.fintech.entities.CustomerEntity;
 import de.kirschUndKern.testProjectJava.fintech.modell.AddressResponse;
 
@@ -21,11 +22,11 @@ public class CustomerWithAddressResponse {
       this.address = address;
   }
 
-  public CustomerWithAddressResponse(CustomerEntity ce){
-    this.firstname = ce.getFirstname();
-    this.secondname = ce.getSecondname();
-    this.salutation = ce.getSalutation();
-    this.address = new AddressResponse (ce.getAddress());
+  public CustomerWithAddressResponse(CustomerEntity customer, AddressEntity address){
+    this.firstname = customer.getFirstname();
+    this.secondname = customer.getSecondname();
+    this.salutation = customer.getSalutation();
+    this.address = new AddressResponse(address);
   }
 
   public String getFirstname() {

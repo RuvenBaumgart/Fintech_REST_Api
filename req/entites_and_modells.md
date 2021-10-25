@@ -8,7 +8,7 @@
 * secondname
 * salutation
 * day of birth
-* addressEntity
+* adressId
 * rating *default=2*
 
 **address**
@@ -112,8 +112,8 @@
 
 ### Linkage (foreign Key Possible)
 
-* customer <---> address
-* customer <--- account
-* account <---> transactions
-* customer <---  credits
+* customer  <---  address
+* customer  <---  account
+* account   <---> transactions
+* customer  <---  credits
 

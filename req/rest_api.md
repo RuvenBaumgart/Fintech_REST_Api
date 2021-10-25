@@ -44,6 +44,7 @@ Possible blocks:
 
 * GET /api/accounts/{customerId}
   * list all accounts of one customer with their current balance
+    * Response: AccountWithBalance
 
 * GET /api/accounts/{customerId}?tag=balance
   * show the balance for one customers
@@ -61,7 +62,7 @@ Possible blocks:
   * List all postings(transactions) of the financial institution for a given date
 
 * GET /api/transactions/{customerId}
-  * List all postings
+  * List all postings for the given customer
 
 * POST /api/transactions/{customerId}
   * add a new transaction for given customer (transfer money from one accoutn to another)

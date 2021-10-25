@@ -12,21 +12,14 @@ import de.kirschUndKern.testProjectJava.fintech.entities.AddressEntity;
 @Table (name = "customers")
 public class CustomerEntity {
   @Id private String id;
-  private final String firstname;
-  private final String secondname;
-  private final String salutation;
-  private final Date birthday;
-  private final AddressEntity address;
-  private final Integer rating;
+  private String firstname;
+  private String secondname;
+  private String salutation;
+  private Date birthday;
+  private String addressId;
+  private Integer rating;
 
   public CustomerEntity(){
-    this.id = UUID.randomUUID().toString();
-    this.firstname = null;
-    this.secondname = null;
-    this.salutation = null;
-    this.birthday = null;
-    this.address = new AddressEntity(this.id);
-    this.rating= 2;
   }
 
   public CustomerEntity( CustomerRequest cr){
@@ -35,7 +28,7 @@ public class CustomerEntity {
     this.secondname = cr.getSecondname();
     this.salutation = cr.getSalutation();
     this.birthday = createBirthday(cr.getDateOfBirthString());
-    this.address = new AddressEntity(cr.getAddress(), this.id);
+    this.addressId = UUID.randomUUID().toString();
     this.rating = 2;
   }
 
@@ -59,8 +52,8 @@ public class CustomerEntity {
     return birthday;
   }
 
-  public AddressEntity getAddress() {
-    return address;
+  public String getAddressId() {
+    return addressId;
   }
 
   public Integer getRating() {

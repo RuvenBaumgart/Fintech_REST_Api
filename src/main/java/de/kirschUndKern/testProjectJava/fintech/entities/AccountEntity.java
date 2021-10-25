@@ -10,11 +10,14 @@ import java.util.List;
 @Entity
 @Table(name = "accounts")
 public class AccountEntity {
-  @Id private final String id;
-  private final String customerId;
-  private final Long balance;
-  private final Long transactionsCarriedOut;
-  @ElementCollection  private final List<String> transactionIds;
+  @Id private String id;
+  private String customerId;
+  private Long balance;
+  private Long transactionsCarriedOut;
+  @ElementCollection private List<String> transactionIds;
+
+  public AccountEntity(){
+  }
   
   public AccountEntity(
     String id, 
