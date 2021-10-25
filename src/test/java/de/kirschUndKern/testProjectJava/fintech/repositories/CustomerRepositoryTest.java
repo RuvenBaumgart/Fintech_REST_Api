@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.UUID;
 
 import de.kirschUndKern.testProjectJava.fintech.entities.CustomerEntity;
-import de.kirschUndKern.testProjectJava.fintech.repositories.CustomerRepository;
 import de.kirschUndKern.testProjectJava.fintech.service.CustomerService;
 
 import static org.assertj.core.api.Assertions.*;

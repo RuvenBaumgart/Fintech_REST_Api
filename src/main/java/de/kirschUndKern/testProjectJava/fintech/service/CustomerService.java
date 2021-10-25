@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
 
 import de.kirschUndKern.testProjectJava.fintech.entities.AddressEntity;
 import de.kirschUndKern.testProjectJava.fintech.entities.CustomerEntity;
@@ -15,6 +16,7 @@ import de.kirschUndKern.testProjectJava.fintech.repositories.CustomerRepository;
 import de.kirschUndKern.testProjectJava.fintech.modell.AddressRequest;
 import de.kirschUndKern.testProjectJava.fintech.modell.CustomerAndAddressResponse;
 
+@Service
 public class CustomerService {
 
   private final CustomerRepository customerRepository;
