@@ -23,6 +23,23 @@ public class AddressEntity {
   public AddressEntity(){
   }
 
+  public AddressEntity(
+    String id, 
+    String customerId, 
+    String city, 
+    String street, 
+    String province, 
+    String zipCode,
+    String country) {
+      this.id = id;
+      this.customerId = customerId;
+      this.city = city;
+      this.street = street;
+      this.province = province;
+      this.zipCode = zipCode;
+      this.country = country;
+  }
+
   public AddressEntity(String customerId){
     this.id = UUID.randomUUID().toString();
     this.customerId = customerId;

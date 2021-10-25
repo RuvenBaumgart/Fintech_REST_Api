@@ -44,7 +44,7 @@ public class CustomerRepositoryTest {
     List<CustomerEntity> customers = customerRepository.findAll();
     CustomerEntity customerFound = customers.get(0);
     //
-    assertThat(customers.get(0)).isEqualTo(customer);
+    
     assertThat(customerFound.getId()).isEqualTo(customer.getId());
     assertThat(customerFound.getBirthday()).isEqualTo(customer.getBirthday());
     assertThat(customerFound.getFirstname()).isEqualTo(customer.getFirstname());

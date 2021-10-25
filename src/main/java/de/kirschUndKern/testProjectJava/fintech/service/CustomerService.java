@@ -2,14 +2,32 @@ package de.kirschUndKern.testProjectJava.fintech.service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 
+import de.kirschUndKern.testProjectJava.fintech.entities.AddressEntity;
+import de.kirschUndKern.testProjectJava.fintech.entities.CustomerEntity;
 import de.kirschUndKern.testProjectJava.fintech.exceptions.WrongDateFormatException;
+import de.kirschUndKern.testProjectJava.fintech.modell.CustomerRequest;
+import de.kirschUndKern.testProjectJava.fintech.repositories.AddressRepository;
+import de.kirschUndKern.testProjectJava.fintech.repositories.CustomerRepository;
+import de.kirschUndKern.testProjectJava.fintech.modell.AddressRequest;
+import de.kirschUndKern.testProjectJava.fintech.modell.CustomerAddressResponse;
 
 public class CustomerService {
 
-  public static  LocalDate convertToDate(String date) throws WrongDateFormatException{
+  private final CustomerRepository customerRepository;
+  private final AddressRepository addressRepository;
+
+  public CustomerService(
+    CustomerRepository customerRepository,
+    AddressRepository addressRepository){
+    this.customerRepository = customerRepository;
+    this.addressRepository = addressRepository;
+  }
+
+  public static LocalDate convertToDate(String date) throws WrongDateFormatException{
     try{
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     LocalDate convertedDate = LocalDate.parse(date,formatter);
@@ -19,4 +37,17 @@ public class CustomerService {
     }
   }
   
+  public CustomerAddressResponse createCustomerWithAddress(CustomerRequest customerRequest, AddressRequest addressRequest) throws Exception{
+    CustomerEntity newCustomer = new CustomerEntity(customerRequest);
+    AddressEntity newAddress = new AddressEntity(
+      UUID.randomUUID().toString(),
+      newCustomer.getId(),
+      addressRequest.getCity(),
+      addressRequest.getStreet(),
+      addressRequest.getProvince(),
+      addressRequest.getZipCode(),
+      addressRequest.getCountry()
+    );
+    return new CustomerAddressResponse(customerRepository.save(newCustomer), addressRepository.save(newAddress));
+  }
 }

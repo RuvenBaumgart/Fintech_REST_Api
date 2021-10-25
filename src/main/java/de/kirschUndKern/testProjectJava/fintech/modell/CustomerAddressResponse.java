@@ -4,13 +4,13 @@ import de.kirschUndKern.testProjectJava.fintech.entities.AddressEntity;
 import de.kirschUndKern.testProjectJava.fintech.entities.CustomerEntity;
 
 
-public class CustomerWithAddressResponse {
+public class CustomerAddressResponse {
   private final String firstname;
   private final String secondname;
   private final String salutation;
   private final AddressResponse address;
 
-  public CustomerWithAddressResponse(
+  public CustomerAddressResponse(
     String firstname, 
     String secondname, 
     String salutation, 
@@ -22,7 +22,7 @@ public class CustomerWithAddressResponse {
       this.address = address;
   }
 
-  public CustomerWithAddressResponse(CustomerEntity customer, AddressEntity address){
+  public CustomerAddressResponse(CustomerEntity customer, AddressEntity address){
     this.firstname = customer.getFirstname();
     this.secondname = customer.getSecondname();
     this.salutation = customer.getSalutation();
