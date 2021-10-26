@@ -9,6 +9,7 @@ import de.kirschUndKern.testProjectJava.fintech.repositories.AccountRepository;
 import de.kirschUndKern.testProjectJava.fintech.repositories.CustomerRepository;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -44,14 +45,28 @@ public class AccountService {
     }
   };
 
-  public AccountResponse updateAccountBalance(String accountId , Long amount, String transactionId) throws BankAccountNotFoundException{
-    Optional<AccountEntity> account = accountRepository.findById(accountId);
-    if(account.isPresent()){
-      AccountEntity newAccount = new AccountEntity(account.get(), amount, transactionId);
-      accountRepository.save(newAccount);
-      return new AccountResponse(newAccount);
-    } else {
-      throw new BankAccountNotFoundException("The Account with the id " + accountId + "is not existing", HttpStatus.BAD_REQUEST);
+  public AccountResponse updateAccountBalance(
+    String accountId , 
+    Long amount, 
+    String transactionId
+    ) throws BankAccountNotFoundException
+    {
+      Optional<AccountEntity> account = accountRepository.findById(accountId);
+      
+      if(account.isPresent()){
+        AccountEntity newAccount = new AccountEntity(account.get(), amount, appendTransactionId(account.get().getTransactionIds(), transactionId));
+        accountRepository.save(newAccount);
+        return new AccountResponse(newAccount);
+      } else {
+        throw new BankAccountNotFoundException("The Account with the id " + accountId + "is not existing", HttpStatus.BAD_REQUEST);
+      }
     }
+
+  private List<String> appendTransactionId(List<String> oldTransactionIds, String newTransactionId)
+  {
+    List<String> newTransactionIds = new ArrayList<>();
+    newTransactionIds.addAll(oldTransactionIds);
+    newTransactionIds.add(newTransactionId);
+    return newTransactionIds;
   }
 }

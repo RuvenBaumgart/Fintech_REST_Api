@@ -36,13 +36,13 @@ public class AccountEntity {
   public AccountEntity(
     AccountEntity accountEntity, 
     Long amountInCent, 
-    String newTransactionId
+    List<String> newTransactionIds
     ){
       this.id = accountEntity.getId();
       this.customerId = accountEntity.getCustomerId();
       this.balanceInCent= accountEntity.getBalanceInCent() + amountInCent;
       this.sumOfTransactions = accountEntity.getsumOfTransactions() + 1;
-      this.transactionIds = appendTransactionId(accountEntity.getTransactionIds(), newTransactionId);
+      this.transactionIds = newTransactionIds;
 
   }
 
@@ -62,12 +62,5 @@ public class AccountEntity {
     return transactionIds;
   }
 
-  private List<String> appendTransactionId(List<String> oldTransactionIds, String newTransactionId)
-  {
-    List<String> newTransactionIds = new ArrayList<>();
-    newTransactionIds.addAll(oldTransactionIds);
-    newTransactionIds.add(newTransactionId);
-    return newTransactionIds;
-  }
 
 }
