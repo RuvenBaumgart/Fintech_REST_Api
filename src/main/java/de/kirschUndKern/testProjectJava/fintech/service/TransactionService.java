@@ -38,7 +38,7 @@ public class TransactionService {
 
   public TransactionsFullResponse processNewTransaction(String customerId, TransactionRequest request) throws BankAccountNotFoundException {
     
-    Optional<AccountEntity> source = accountRepository.findByCustomerId(request.getSourceAccountId());
+    Optional<AccountEntity> source = accountRepository.findById(request.getSourceAccountId());
     Optional<AccountEntity> destination = accountRepository.findById(request.getDestinationAccoutnId());
   
     if(source.isPresent() && destination.isPresent()){
