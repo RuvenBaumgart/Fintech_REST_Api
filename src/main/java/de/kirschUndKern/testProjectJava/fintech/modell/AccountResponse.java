@@ -1,7 +1,6 @@
 package de.kirschUndKern.testProjectJava.fintech.modell;
 
 import java.util.List;
-import java.util.UUID;
 
 import de.kirschUndKern.testProjectJava.fintech.entities.AccountEntity;
 

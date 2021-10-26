@@ -45,11 +45,7 @@ public class AccountService {
     }
   };
 
-  public AccountResponse updateAccountBalance(
-    String accountId , 
-    Long amount, 
-    String transactionId
-    ) throws BankAccountNotFoundException
+  public AccountResponse updateAccountBalance(String accountId, Long amount, String transactionId) throws BankAccountNotFoundException
     {
       Optional<AccountEntity> account = accountRepository.findById(accountId);
       

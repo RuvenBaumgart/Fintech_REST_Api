@@ -1,6 +1,7 @@
 package de.kirschUndKern.testProjectJava.fintech.services;
 
-import static org.mockito.ArgumentMatchers.anyIterable;
+import static org.mockito.ArgumentMatchers.any;
+
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 import static org.assertj.core.api.Assertions.*;
@@ -8,8 +9,7 @@ import static org.assertj.core.api.Assertions.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+
 import java.util.Optional;
 import java.util.UUID;
 
@@ -43,7 +43,7 @@ public class TransactionServiceTest {
   }
 
   @Test
-  public void isCreatingTwoComplimentaryTransactions() throws BankAccountNotFoundException{
+  public void isCreatingTransaction() throws BankAccountNotFoundException{
     Optional<AccountEntity> sender = Optional.of(
       new AccountEntity(
       UUID.randomUUID().toString(),
@@ -64,7 +64,7 @@ public class TransactionServiceTest {
       )
     );
 
-    TransactionsEntity firstTransactionResponse = new TransactionsEntity(
+    TransactionsEntity transactionResponse = new TransactionsEntity(
       "12312",
       sender.get().getId(),
       recipient.get().getId(),
@@ -74,19 +74,9 @@ public class TransactionServiceTest {
       "testmessage"
     );
 
-    TransactionsEntity secTransactionResponse = new TransactionsEntity(
-      "12312",
-      recipient.get().getId(),
-      sender.get().getId(),
-      -500000L,
-      LocalDate.now(),
-      LocalTime.now(),
-      "testmessage"
-    );
-    
     when(accountRepository.findByCustomerId(anyString())).thenReturn(sender);
     when(accountRepository.findById(anyString())).thenReturn(recipient);
-    when(transactionRepository.saveAll(anyIterable())).thenReturn(Arrays.asList(firstTransactionResponse, secTransactionResponse));
+    when(transactionRepository.save(any())).thenReturn(transactionResponse);
     
     TransactionRequest transactionRequest = new TransactionRequest (
       500000L,
@@ -95,9 +85,9 @@ public class TransactionServiceTest {
     );
 
 
-    List<TransactionsFullResponse> results = transactionService.createNewTransactionForCustomer("12312", transactionRequest);
+   TransactionsFullResponse results = transactionService.processNewTransaction("12312", transactionRequest);
     
-    assertThat(results).usingRecursiveComparison().isEqualTo(Arrays.asList(new TransactionsFullResponse(firstTransactionResponse), new TransactionsFullResponse(secTransactionResponse)));
+    assertThat(results).usingRecursiveComparison().isEqualTo(new TransactionsFullResponse(transactionResponse));
   }
 
 }

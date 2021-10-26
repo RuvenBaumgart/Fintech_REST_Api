@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 import de.kirschUndKern.testProjectJava.fintech.exceptions.BankAccountNotFoundException;
 
 import de.kirschUndKern.testProjectJava.fintech.modell.TransactionRequest;
@@ -24,10 +23,10 @@ public class TransactionController {
   }
 
   @PostMapping("/transactions/{id}")
-  public List<TransactionsFullResponse> createNewTransactions(
+  public TransactionsFullResponse newTransactions(
     @PathVariable (name = "id") String customerId,
     @RequestBody TransactionRequest transactionRequest
   )throws BankAccountNotFoundException{
-    return transactionService.createNewTransactionForCustomer(customerId, transactionRequest);
+    return transactionService.processNewTransaction(customerId, transactionRequest);
   }
 }

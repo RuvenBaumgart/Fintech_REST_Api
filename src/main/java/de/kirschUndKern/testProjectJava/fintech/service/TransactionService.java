@@ -2,17 +2,16 @@ package de.kirschUndKern.testProjectJava.fintech.service;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Arrays;
+
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
+
 
 
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import de.kirschUndKern.testProjectJava.fintech.entities.AccountEntity;
 import de.kirschUndKern.testProjectJava.fintech.entities.TransactionsEntity;
 import de.kirschUndKern.testProjectJava.fintech.exceptions.BankAccountNotFoundException;
@@ -37,46 +36,43 @@ public class TransactionService {
     this.transactionRepository = transactionRepository;
   }
 
-  public List<TransactionsFullResponse> createNewTransactionForCustomer(String customerId, TransactionRequest transactionRequest) throws BankAccountNotFoundException {
-    Optional<AccountEntity> sourceAccount = accountRepository.findByCustomerId(customerId);
-    Optional<AccountEntity> destinationAccount = accountRepository.findById(transactionRequest.getDestinationAccoutnId());
+  public TransactionsFullResponse processNewTransaction(String customerId, TransactionRequest request) throws BankAccountNotFoundException {
+    
+    Optional<AccountEntity> source = accountRepository.findByCustomerId(customerId);
+    Optional<AccountEntity> destination = accountRepository.findById(request.getDestinationAccoutnId());
   
-    if(sourceAccount.isPresent() && destinationAccount.isPresent()){
-      AccountEntity sender = sourceAccount.get();
-      AccountEntity recipient = destinationAccount.get();
-      
-      TransactionsEntity newSourceTransaction = createTransaction(sender, recipient, customerId, transactionRequest);
-
-      TransactionsEntity newDestinationTransaction = createTransaction(recipient, sender, customerId, transactionRequest);
-
-
-      List<TransactionsEntity> transactions = transactionRepository.saveAll(Arrays.asList(newSourceTransaction, newDestinationTransaction));
-
-      List<TransactionsFullResponse> transactionResponse = transactions.stream()
-      .map(transaction -> new TransactionsFullResponse(transaction))
-      .collect(Collectors.toList());
-
-      return transactionResponse;
-
+    if(source.isPresent() && destination.isPresent()){
+      TransactionsEntity savedTransaction = saveNewTransaction(source.get(), destination.get(), customerId, request);
+      return new TransactionsFullResponse(savedTransaction);
     } else {
       throw new BankAccountNotFoundException(
-        "SourceAccount with id: " + customerId + " not found or DestinatiounAccount with id: " + transactionRequest.getDestinationAccoutnId() + "not found", HttpStatus.BAD_REQUEST);
+        "SourceAccount with id: " 
+        + customerId + " not found or DestinatiounAccount with id: " 
+        + request.getDestinationAccoutnId() 
+        + "not found", HttpStatus.BAD_REQUEST);
     }
   }
 
-  private TransactionsEntity createTransaction(AccountEntity source, AccountEntity destination, String requestinCustomerId, TransactionRequest transactionRequest){
-    Long amount = transactionRequest.getAmountInCent();
+
+  private TransactionsEntity createTransaction(AccountEntity source, AccountEntity destination, String requestingCustomerId, TransactionRequest transactionRequest){
+    Long amountInCent = transactionRequest.getAmountInCent();
     
+    //The requesting Customer is always asking for sending money not receiving
     TransactionsEntity newTransaction = new TransactionsEntity(
       UUID.randomUUID().toString(),
       source.getId(),
       destination.getId(),
-      requestinCustomerId == source.getCustomerId() ? amount * -1 : amount,
+      amountInCent,
       LocalDate.now(),
       LocalTime.now(),
       transactionRequest.getMessage()
     );
+
     return newTransaction;
   }
- 
+
+  private TransactionsEntity saveNewTransaction (AccountEntity source, AccountEntity destination, String customerId, TransactionRequest request){
+    return transactionRepository.save(createTransaction(source, destination, customerId, request));
+  };
+  
 }
