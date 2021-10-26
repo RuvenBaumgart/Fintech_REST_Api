@@ -14,7 +14,7 @@ public class WrongDateFormatException extends Exception {
     this.errorStatus = errorStatus;
   }
 
-  public String getErrorMessage(){
+  public String getMessage(){
     return this.errorMessage;
   }
 

@@ -187,6 +187,26 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "get all credits by customerId",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/credits/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"credits",
+						""
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
