@@ -207,6 +207,26 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "get all transactions for a given date",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/transactions/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"transactions",
+						""
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

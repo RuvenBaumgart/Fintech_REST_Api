@@ -64,9 +64,35 @@ public class TransactionRepositoryTest {
       "Test Transaction"
     );
 
-    List<TransactionsEntity> results = transactionRespository.saveAll(Arrays.asList(firstTransaction,secTransaction));
-
+    transactionRespository.saveAll(Arrays.asList(firstTransaction,secTransaction));
+    List<TransactionsEntity> results = transactionRespository.findAll();
     assertThat(results).usingRecursiveComparison().isEqualTo(Arrays.asList(firstTransaction,secTransaction));
+  }
+
+  @Test 
+  public void findTransactionsByDate(){
+    final TransactionsEntity firstTransaction = new TransactionsEntity(
+      UUID.randomUUID().toString(),
+      "1234",
+      "4321",
+      500000L,
+      LocalDate.parse("2020-05-13"),
+      LocalTime.now(),
+      "Test Transaction"
+    );
+    final TransactionsEntity secTransaction = new TransactionsEntity(
+      UUID.randomUUID().toString(),
+      "4321",
+      "4321",
+      500000L,
+      LocalDate.now(),
+      LocalTime.now(),
+      "Test Transaction"
+    );
+
+    transactionRespository.saveAll(Arrays.asList(firstTransaction,secTransaction));
+    List<TransactionsEntity> results = transactionRespository.findAllByDate(LocalDate.parse("2020-05-13"));
+    assertThat(results).usingRecursiveComparison().isEqualTo(Arrays.asList(firstTransaction));
   }
 
 }

@@ -4,7 +4,7 @@ import de.kirschUndKern.testProjectJava.fintech.entities.CustomerEntity;
 import de.kirschUndKern.testProjectJava.fintech.entities.TransactionsEntity;
 
 public class TransactionsForCustomerResponse {
-  private final String accountId;
+  private final String accountSourceId;
   private final String customerFirstname;
   private final String customerSecondname;
   private final String accountDestinationId;
@@ -15,7 +15,7 @@ public class TransactionsForCustomerResponse {
     TransactionsEntity transaction,
     CustomerEntity sourceCustomer,
     CustomerEntity destinationCustomer){
-      this.accountId = transaction.getSourceAccountId();
+      this.accountSourceId = transaction.getSourceAccountId();
       this.customerFirstname = sourceCustomer.getFirstname();
       this.customerSecondname = sourceCustomer.getSecondname();
       this.accountDestinationId = transaction.getDestinationAccountId();
@@ -23,8 +23,8 @@ public class TransactionsForCustomerResponse {
       this.customerSecondnameDesitnation = destinationCustomer.getSecondname();
     }
 
-    public String getAccountId() {
-      return accountId;
+    public String getAccountSourceId() {
+      return accountSourceId;
     }
   
     public String getCustomerFirstname() {

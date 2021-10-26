@@ -2,12 +2,10 @@ package de.kirschUndKern.testProjectJava.fintech.service;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-
-
-
+import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -75,6 +73,17 @@ public class TransactionService {
 
   private TransactionsEntity saveNewTransaction (AccountEntity source, AccountEntity destination, String customerId, TransactionRequest request){
     return transactionRepository.save(createTransaction(source, destination, customerId, request));
+  }
+
+  public List<TransactionsFullResponse> getAllTransactionsBy(String date) {
+    LocalDate localdate = LocalDate.parse(date);
+    List<TransactionsEntity> transactions = transactionRepository.findAllByDate(localdate);
+    
+    List<TransactionsFullResponse> transactionsResponse = transactions.stream()
+    .map(transactionEntity -> new TransactionsFullResponse(transactionEntity)).
+    collect(Collectors.toList());
+    return transactionsResponse;
+
   };
   
 }
