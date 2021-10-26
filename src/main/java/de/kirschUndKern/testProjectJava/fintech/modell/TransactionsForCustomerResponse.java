@@ -5,7 +5,7 @@ import de.kirschUndKern.testProjectJava.fintech.entities.TransactionsEntity;
 
 public class TransactionsForCustomerResponse {
   private final String accountId;
-    private final String customerFirstname;
+  private final String customerFirstname;
   private final String customerSecondname;
   private final String accountDestinationId;
   private final String customerFirstnameDestination;

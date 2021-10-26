@@ -1,6 +1,4 @@
 package de.kirschUndKern.testProjectJava.fintech.modell;
-
-import java.text.SimpleDateFormat;
 import de.kirschUndKern.testProjectJava.fintech.entities.CreditsEntity;
 
 public class CreditResponse {

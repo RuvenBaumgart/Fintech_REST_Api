@@ -17,9 +17,9 @@ import de.kirschUndKern.testProjectJava.fintech.service.AccountService;
 
 public class AccountServiceTest {
   
-  AccountService accountService;
-  CustomerRepository customerRepository;
-  AccountRepository accountRepository;
+  private AccountService accountService;
+  private CustomerRepository customerRepository;
+  private AccountRepository accountRepository;
 
   @BeforeEach
   public void init(){

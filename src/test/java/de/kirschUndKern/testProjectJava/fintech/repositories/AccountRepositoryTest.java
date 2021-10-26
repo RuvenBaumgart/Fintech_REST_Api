@@ -35,10 +35,10 @@ public class AccountRepositoryTest {
      accountRepository.save(account);
 
     //when
-    AccountEntity expected = accountRepository.findAll().get(0);
+    AccountEntity result = accountRepository.findAll().get(0);
     
     //then 
-    assertThat(expected).usingRecursiveComparison().isEqualTo(account);
+    assertThat(result).usingRecursiveComparison().isEqualTo(account);
   
   }
 

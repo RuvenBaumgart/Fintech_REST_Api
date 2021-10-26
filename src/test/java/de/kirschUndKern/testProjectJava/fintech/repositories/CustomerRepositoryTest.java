@@ -1,6 +1,4 @@
 package de.kirschUndKern.testProjectJava.fintech.repositories;
-
-import org.hibernate.persister.walking.spi.WalkingException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;

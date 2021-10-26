@@ -120,6 +120,7 @@ public class CustomerServiceTest {
   List<CustomerResponse> resultsResponse = results.stream()
   .map(entity -> new CustomerResponse(entity))
   .collect(Collectors.toList());
+  
   assertThat(resultsResponse).usingRecursiveComparison().isEqualTo(Arrays.asList(customerResponse));
   }
 

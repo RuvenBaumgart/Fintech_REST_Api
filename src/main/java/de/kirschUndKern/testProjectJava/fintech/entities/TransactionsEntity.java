@@ -1,6 +1,7 @@
 package de.kirschUndKern.testProjectJava.fintech.entities;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.UUID;
 
 import javax.persistence.Entity;
@@ -16,12 +17,32 @@ public class TransactionsEntity {
   @Id private String id;
   private String sourceAccountId;
   private String destinationAccoutnId;
-  private Long amount;
-  private LocalDateTime transactionDate;
+  private Long amountInCent;
+  private LocalDate transactionDate;
+  private LocalTime transactionTime;
+  private String message;
 
 
   public TransactionsEntity(){
   }
+
+  public TransactionsEntity(
+    String id, 
+    String sourceAccountId, 
+    String destinationAccoutnId, 
+    Long amountInCent,
+    LocalDate transactionDate, 
+    LocalTime transactionTime, 
+    String message
+    ){
+      this.id = id;
+      this.sourceAccountId = sourceAccountId;
+      this.destinationAccoutnId = destinationAccoutnId;
+      this.amountInCent = amountInCent;
+      this.transactionDate = transactionDate;
+      this.transactionTime = transactionTime;
+      this.message = message;
+}
   
   public TransactionsEntity( 
     TransactionRequest tr, 
@@ -30,8 +51,10 @@ public class TransactionsEntity {
       this.id = UUID.randomUUID().toString();
       this.sourceAccountId = sourceAccountId;
       this.destinationAccoutnId = tr.getDestinationAccoutnId();
-      this.amount = tr.getAmount();
-      this.transactionDate = LocalDateTime.now();
+      this.amountInCent = tr.getAmountInCent();
+      this.transactionDate = LocalDate.now();
+      this.transactionTime = LocalTime.now();
+      this.message = tr.getMessage();
   }
 
   public String getId() {
@@ -43,10 +66,18 @@ public class TransactionsEntity {
   public String getDestinationAccountId() {
     return destinationAccoutnId;
   }
-  public Long getAmount() {
-    return amount;
+  public Long getAmountInCent() {
+    return amountInCent;
   }
-  public LocalDateTime getTransactionDate() {
+  public LocalDate getTransactionDate() {
     return transactionDate;
   }
+
+  public LocalTime getTransactionTime(){
+    return transactionTime;
+  }
+  public String getMessage(){
+    return message;
+  }
+
 }
