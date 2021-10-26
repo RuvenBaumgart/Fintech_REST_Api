@@ -12,8 +12,8 @@ import java.util.List;
 public class AccountEntity {
   @Id private String id;
   private String customerId;
-  private Long balance;
-  private Long transactionsCarriedOut;
+  private Long balanceInCent;
+  private Long sumOfTransactions;
   @ElementCollection private List<String> transactionIds;
 
   public AccountEntity(){
@@ -22,13 +22,13 @@ public class AccountEntity {
   public AccountEntity(
     String id, 
     String customerId, 
-    Long balance, 
-    Long transactionsCarriedOut,
+    Long balanceInCent, 
+    Long sumOfTransactions,
     List<String> transactionIds) {
       this.id = id;
       this.customerId = customerId;
-      this.balance = balance;
-      this.transactionsCarriedOut = transactionsCarriedOut;
+      this.balanceInCent = balanceInCent;
+      this.sumOfTransactions = sumOfTransactions;
       this.transactionIds = transactionIds;
   }
 
@@ -38,13 +38,14 @@ public class AccountEntity {
   public String getCustomerId() {
     return customerId;
   }
-  public Long getBalance() {
-    return balance;
+  public Long getBalanceInCent() {
+    return balanceInCent;
   }
-  public Long getTransactionsCarriedOut() {
-    return transactionsCarriedOut;
+  public Long getsumOfTransactions() {
+    return sumOfTransactions;
   }
   public List<String> getTransactionIds() {
     return transactionIds;
   }
+
 }

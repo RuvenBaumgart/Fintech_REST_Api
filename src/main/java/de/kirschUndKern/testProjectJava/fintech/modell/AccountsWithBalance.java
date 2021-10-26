@@ -8,7 +8,7 @@ public class AccountsWithBalance {
 
   public AccountsWithBalance(AccountEntity ae){
    this.id = ae.getId();
-   this.balance = ae.getBalance();
+   this.balance = ae.getBalanceInCent();
   }
 
   public String getId(){

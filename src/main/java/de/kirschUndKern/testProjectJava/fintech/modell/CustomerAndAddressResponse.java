@@ -5,6 +5,7 @@ import de.kirschUndKern.testProjectJava.fintech.entities.CustomerEntity;
 
 
 public class CustomerAndAddressResponse {
+  private final String customerId;
   private final String firstname;
   private final String secondname;
   private final String salutation;
@@ -12,12 +13,14 @@ public class CustomerAndAddressResponse {
   private final AddressResponse address;
 
   public CustomerAndAddressResponse(
+    String customerId,
     String firstname, 
     String secondname, 
     String salutation,
     Integer rating,
     AddressResponse address
     ) {
+      this.customerId = customerId;
       this.firstname = firstname;
       this.secondname = secondname;
       this.salutation = salutation;
@@ -26,6 +29,7 @@ public class CustomerAndAddressResponse {
   }
 
   public CustomerAndAddressResponse(CustomerEntity customer, AddressEntity address){
+    this.customerId = customer.getId();
     this.firstname = customer.getFirstname();
     this.secondname = customer.getSecondname();
     this.salutation = customer.getSalutation();
@@ -46,6 +50,10 @@ public class CustomerAndAddressResponse {
     return address;
   }
   public Integer getRating(){
-    return this.rating;
+    return rating;
+  }
+
+  public String getCustomerId(){
+    return customerId;
   }
 }

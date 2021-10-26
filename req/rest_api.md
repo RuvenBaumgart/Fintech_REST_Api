@@ -32,13 +32,13 @@ Possible blocks:
   *
 * GET /api/customers/{secondname}?sort=tag 
   * get all customers of the banking system by secondname
-  * and allow to sort the result 
+  * and allow to sort the result (default by firstname)
 
 * GET /api/customers?tag=rating
   * List all customers with name grouped by their current rating class
   
 * POST /api/customers/
-  * create a new customer
+  * create a new customer wit firstname, secondname, date of birth, address and rating.
   * the body should contain:
     * firstname, secondname, salutation, date of birth, addressRequest, rating
  
