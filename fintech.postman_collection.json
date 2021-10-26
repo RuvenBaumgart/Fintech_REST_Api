@@ -32,6 +32,52 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Get all Customers with address by their last name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/customers/Mustermann",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"customers",
+						"Mustermann"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all Customers with address by their last name ordered",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/customers/Mustermann?sort=true",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"customers",
+						"Mustermann"
+					],
+					"query": [
+						{
+							"key": "sort",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

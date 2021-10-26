@@ -29,7 +29,10 @@ Possible blocks:
 
 * GET /api/customers/{secondname} 
   * get all customers of the banking systems by secondname.
-  * *sortable*
+  *
+* GET /api/customers/{secondname}?sort=tag 
+  * get all customers of the banking system by secondname
+  * and allow to sort the result 
 
 * GET /api/customers?tag=rating
   * List all customers with name grouped by their current rating class

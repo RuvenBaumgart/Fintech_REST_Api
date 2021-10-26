@@ -6,7 +6,7 @@ import org.mockito.Mockito;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyObject;
+
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
@@ -70,7 +70,6 @@ public class CustomerServiceTest {
   );
 
   AddressRequest addressRequest = new AddressRequest("Musterhausen" , "Musterstraße","NRW", "59821", "Germany");
-
   CustomerRequest customerRequest = new CustomerRequest(
     "Max",
     "Mustermann",
@@ -87,23 +86,16 @@ public class CustomerServiceTest {
     addressRequest.getProvince(),
     addressRequest.getCountry(),
     addressRequest.getZipCode()
-    
   );
 
   when(customerRepository.save(any())).thenReturn(customerEntity);
   when(addressRepository.save(any())).thenReturn(addressEntity);
-
-
-
   CustomerAndAddressResponse customerAddressResponse = new CustomerAndAddressResponse (customerEntity, addressEntity);
 
   //when
   CustomerAndAddressResponse result = customerService.createCustomerWithAddress(customerRequest, addressRequest);
-
-  //then
-  /**
-   * The address object are same based on the values bud somhow the object it self ist  * not the same
-   */
   assertThat(result).usingRecursiveComparison().isEqualTo(customerAddressResponse);
   };
+
+  
 }

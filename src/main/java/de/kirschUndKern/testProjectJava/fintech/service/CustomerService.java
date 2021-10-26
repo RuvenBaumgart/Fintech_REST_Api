@@ -3,10 +3,13 @@ package de.kirschUndKern.testProjectJava.fintech.service;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import de.kirschUndKern.testProjectJava.fintech.entities.AddressEntity;
 import de.kirschUndKern.testProjectJava.fintech.entities.CustomerEntity;
 import de.kirschUndKern.testProjectJava.fintech.exceptions.WrongDateFormatException;
@@ -51,5 +54,26 @@ public class CustomerService {
       addressRequest.getCountry()
     );
     return new CustomerAndAddressResponse(customerRepository.save(newCustomer), addressRepository.save(newAddress));
+  }
+
+  public List<CustomerAndAddressResponse> findAllCustomersByName(String secondname, String filtertag) {
+    List<CustomerEntity> customers;
+    if(filtertag =="true"){
+       customers = customerRepository.findAllByName(secondname);
+    } else {
+      customers = customerRepository.findAllByNameOrdered(secondname);
+    }
+    List<AddressEntity> addresses = addressRepository.findAll();
+    List<CustomerAndAddressResponse> customerAndAddressResponse = new ArrayList<>();
+
+    //Performance must be considered in the future O(n*log(n))
+    for(CustomerEntity customer : customers){
+      for(AddressEntity address : addresses){
+        if(address.getCustomerId() == customer.getId())
+          customerAndAddressResponse.add(new CustomerAndAddressResponse(customer, address));
+      }
+    }
+
+    return customerAndAddressResponse;
   }
 }
