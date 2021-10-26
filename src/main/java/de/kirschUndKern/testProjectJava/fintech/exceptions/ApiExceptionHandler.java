@@ -20,7 +20,7 @@ public class ApiExceptionHandler {
       return ResponseEntity.status(CustomerNotFoundException.class.cast(exception).getErrorStatus()).body(error);
     } else if(exception instanceof WrongDateFormatException){
       return ResponseEntity.status(WrongDateFormatException.class.cast(exception).getErrorStatus()).body(error);
-    }else if(exception instanceof BankAccountNotFoundException){
+    } else if(exception instanceof BankAccountNotFoundException){
       return ResponseEntity.status(BankAccountNotFoundException.class.cast(exception).getErrorStatus()).body(error);
     } else {
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);

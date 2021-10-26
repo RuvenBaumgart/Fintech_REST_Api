@@ -42,6 +42,7 @@ public class TransactionService {
     Optional<AccountEntity> destination = accountRepository.findById(request.getDestinationAccoutnId());
   
     if(source.isPresent() && destination.isPresent()){
+      //Check needs to be made if initiating customer is owner of the accounts
       TransactionsEntity savedTransaction = saveNewTransaction(source.get(), destination.get(), customerId, request);
 
 

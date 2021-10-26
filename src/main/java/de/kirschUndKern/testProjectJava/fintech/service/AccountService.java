@@ -75,7 +75,8 @@ public class AccountService {
 
   public List<AccountResponse> getAccountsBy(String customerId) throws BankAccountNotFoundException {
     Optional<List<AccountEntity>> accounts = accountRepository.findAllByCustomerId(customerId);
-    if(accounts.isPresent()){
+    
+    if(accounts.isPresent() && !accounts.get().isEmpty()){
 
       List<AccountResponse> accountResponse = accounts.get().stream()
       .map(accountEntity -> new AccountResponse(accountEntity))

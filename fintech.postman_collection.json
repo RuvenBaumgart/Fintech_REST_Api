@@ -167,6 +167,26 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Get all accounts for customer by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/customers/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"customers",
+						""
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
