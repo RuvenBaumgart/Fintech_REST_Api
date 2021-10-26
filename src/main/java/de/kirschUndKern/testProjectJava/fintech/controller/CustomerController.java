@@ -11,6 +11,7 @@ import java.util.List;
 import de.kirschUndKern.testProjectJava.fintech.exceptions.WrongDateFormatException;
 import de.kirschUndKern.testProjectJava.fintech.modell.CustomerAndAddressResponse;
 import de.kirschUndKern.testProjectJava.fintech.modell.CustomerRequest;
+import de.kirschUndKern.testProjectJava.fintech.modell.CustomerResponse;
 import de.kirschUndKern.testProjectJava.fintech.service.CustomerService;
 
 @RestController
@@ -32,11 +33,16 @@ public class CustomerController {
   }
 
   @GetMapping("/customers/{secondname}")
-  public List<CustomerAndAddressResponse> getAllCustomers(
+  public List<CustomerAndAddressResponse> getAllCustomersBySeondname(
     @PathVariable String secondname,
     @RequestParam(required = false) String sort
   ){
     return customerService.findAllCustomersByName(secondname, sort);
+  }
+
+  @GetMapping("/customers")
+  public List<CustomerResponse> getAllCustomers(){
+    return customerService.findAllCustomers();
   }
 
 }

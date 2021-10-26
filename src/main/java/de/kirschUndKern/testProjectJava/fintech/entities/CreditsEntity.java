@@ -1,7 +1,7 @@
 package de.kirschUndKern.testProjectJava.fintech.entities;
 
-import java.text.SimpleDateFormat;
-import java.util.UUID;
+import java.time.LocalDate;
+
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -12,31 +12,33 @@ import javax.persistence.Table;
 public class CreditsEntity {
   @Id private  String id;
   private String customerId;
-  private SimpleDateFormat dataOfCreation;
-  private SimpleDateFormat originalTerm;
-  private SimpleDateFormat remainingTerm;
-  private Long orignialCreditAmount;
-  private Long currentCreditAmount;
+  private LocalDate dataOfCreation;
+  private Long originalTermInMonths;
+  private Long remainingTermInMonths;
+  private Long orignialCreditAmountInCents;
+  private Long currentCreditAmountInCents;
 
   public CreditsEntity(){
   }
   
   public CreditsEntity(
+    String id,
     String customerId, 
-    SimpleDateFormat dataOfCreation, 
-    SimpleDateFormat originalTerm,
-    SimpleDateFormat remainingTerm, 
+    LocalDate dataOfCreation,
+    Long originalTermInMonths,
+    Long remainingTermInMonths, 
     Long orignialCreditAmount, 
     Long currentCreditAmount
     ) {
-      this.id = UUID.randomUUID().toString();
+      this.id = id;
       this.customerId = customerId;
       this.dataOfCreation = dataOfCreation;
-      this.originalTerm = originalTerm;
-      this.remainingTerm = remainingTerm;
-      this.orignialCreditAmount = orignialCreditAmount;
-      this.currentCreditAmount = currentCreditAmount;
+      this.originalTermInMonths = originalTermInMonths;
+      this.remainingTermInMonths = remainingTermInMonths;
+      this.orignialCreditAmountInCents = orignialCreditAmount;
+      this.currentCreditAmountInCents = currentCreditAmount;
   }
+
 
   public String getId() {
     return id;
@@ -44,19 +46,19 @@ public class CreditsEntity {
   public String getCustomerId() {
     return customerId;
   }
-  public SimpleDateFormat getDataOfCreation() {
+  public LocalDate getDataOfCreation() {
     return dataOfCreation;
   }
-  public SimpleDateFormat getOriginalTerm() {
-    return originalTerm;
+  public Long getOriginalTermInMonths() {
+    return originalTermInMonths;
   }
-  public SimpleDateFormat getRemainingTerm() {
-    return remainingTerm;
+  public Long getRemainingTermInMonths() {
+    return remainingTermInMonths;
   }
   public Long getOriginalCreditAmount() {
-    return orignialCreditAmount;
+    return orignialCreditAmountInCents;
   }
   public Long getCurrentCreditAmount() {
-    return currentCreditAmount;
+    return currentCreditAmountInCents;
   }
 }

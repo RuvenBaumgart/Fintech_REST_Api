@@ -10,7 +10,10 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import de.kirschUndKern.testProjectJava.fintech.entities.AddressEntity;
 import de.kirschUndKern.testProjectJava.fintech.entities.CustomerEntity;
@@ -18,6 +21,7 @@ import de.kirschUndKern.testProjectJava.fintech.exceptions.WrongDateFormatExcept
 import de.kirschUndKern.testProjectJava.fintech.modell.AddressRequest;
 import de.kirschUndKern.testProjectJava.fintech.modell.CustomerAndAddressResponse;
 import de.kirschUndKern.testProjectJava.fintech.modell.CustomerRequest;
+import de.kirschUndKern.testProjectJava.fintech.modell.CustomerResponse;
 import de.kirschUndKern.testProjectJava.fintech.repositories.AddressRepository;
 import de.kirschUndKern.testProjectJava.fintech.repositories.CustomerRepository;
 import de.kirschUndKern.testProjectJava.fintech.service.CustomerService;
@@ -58,7 +62,7 @@ public class CustomerServiceTest {
   }
 
   @Test
-    public void returnSavedCustomerResponse() throws Exception{
+    public void returnSavedCustomerResponse() throws WrongDateFormatException{
   //given
   CustomerEntity customerEntity = new CustomerEntity(
     UUID.randomUUID().toString(),
@@ -96,6 +100,28 @@ public class CustomerServiceTest {
   CustomerAndAddressResponse result = customerService.createCustomerWithAddress(customerRequest, addressRequest);
   assertThat(result).usingRecursiveComparison().isEqualTo(customerAddressResponse);
   };
+
+  @Test
+  public void findAllCustomers() throws WrongDateFormatException{
+    CustomerEntity customerEntity = new CustomerEntity(
+    UUID.randomUUID().toString(),
+    "Max",
+    "Mustermann",
+    "Mr.",
+    CustomerService.convertToDate("12/04/1988"),
+    2
+  );
+
+  CustomerResponse customerResponse = new CustomerResponse(customerEntity);
+  
+  when(customerRepository.findAll()).thenReturn(Arrays.asList(customerEntity));
+
+  List<CustomerEntity> results = customerRepository.findAll();
+  List<CustomerResponse> resultsResponse = results.stream()
+  .map(entity -> new CustomerResponse(entity))
+  .collect(Collectors.toList());
+  assertThat(resultsResponse).usingRecursiveComparison().isEqualTo(Arrays.asList(customerResponse));
+  }
 
   
 }

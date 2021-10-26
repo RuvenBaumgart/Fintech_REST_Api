@@ -39,7 +39,7 @@ public class AccountService {
       );
       return new AccountResponse(accountRepository.save(newAccount));
     } else {
-      throw new CustomerNotFoundException("Customer with " + customerId + " not fount", HttpStatus.BAD_REQUEST);
+      throw new CustomerNotFoundException("Customer with id: " + customerId + " not fount", HttpStatus.BAD_REQUEST);
     }
   };
 }

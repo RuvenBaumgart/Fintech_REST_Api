@@ -1,5 +1,5 @@
 package de.kirschUndKern.testProjectJava.fintech.modell;
-import de.kirschUndKern.testProjectJava.fintech.modell.AddressRequest;
+
 
 public class CustomerRequest {
   private final String firstname;

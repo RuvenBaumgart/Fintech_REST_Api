@@ -84,6 +84,7 @@ Possible blocks:
   * Create a new credit for given customer
     * The RequestBody should contain:
       * credit volume
+      * runetime or term of the credit
 
 * PUT /api/credits/{customerId}
   * Update or Payoff a part of a credit by transfering money from an account

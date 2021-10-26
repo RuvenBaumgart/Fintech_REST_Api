@@ -14,6 +14,7 @@ import de.kirschUndKern.testProjectJava.fintech.entities.AddressEntity;
 import de.kirschUndKern.testProjectJava.fintech.entities.CustomerEntity;
 import de.kirschUndKern.testProjectJava.fintech.exceptions.WrongDateFormatException;
 import de.kirschUndKern.testProjectJava.fintech.modell.CustomerRequest;
+import de.kirschUndKern.testProjectJava.fintech.modell.CustomerResponse;
 import de.kirschUndKern.testProjectJava.fintech.repositories.AddressRepository;
 import de.kirschUndKern.testProjectJava.fintech.repositories.CustomerRepository;
 import de.kirschUndKern.testProjectJava.fintech.modell.AddressRequest;
@@ -75,5 +76,13 @@ public class CustomerService {
     }
 
     return customerAndAddressResponse;
+  }
+
+  public List<CustomerResponse> findAllCustomers() {
+    List<CustomerEntity> customers = customerRepository.findAll();
+    List<CustomerResponse> customerResponse = customers.stream()
+    .map(customerEntity -> new CustomerResponse(customerEntity))
+    .collect(Collectors.toList());
+    return customerResponse;
   }
 }
