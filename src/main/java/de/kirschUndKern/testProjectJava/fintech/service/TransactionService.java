@@ -43,6 +43,8 @@ public class TransactionService {
   
     if(source.isPresent() && destination.isPresent()){
       TransactionsEntity savedTransaction = saveNewTransaction(source.get(), destination.get(), customerId, request);
+
+
       return new TransactionsFullResponse(savedTransaction);
     } else {
       throw new BankAccountNotFoundException(
@@ -52,8 +54,7 @@ public class TransactionService {
         + "not found", HttpStatus.BAD_REQUEST);
     }
   }
-
-
+  
   private TransactionsEntity createTransaction(AccountEntity source, AccountEntity destination, String requestingCustomerId, TransactionRequest transactionRequest){
     Long amountInCent = transactionRequest.getAmountInCent();
     

@@ -5,6 +5,7 @@ import de.kirschUndKern.testProjectJava.fintech.entities.CustomerEntity;
 import de.kirschUndKern.testProjectJava.fintech.exceptions.BankAccountNotFoundException;
 import de.kirschUndKern.testProjectJava.fintech.exceptions.CustomerNotFoundException;
 import de.kirschUndKern.testProjectJava.fintech.modell.AccountResponse;
+import de.kirschUndKern.testProjectJava.fintech.modell.TransactionsFullResponse;
 import de.kirschUndKern.testProjectJava.fintech.repositories.AccountRepository;
 import de.kirschUndKern.testProjectJava.fintech.repositories.CustomerRepository;
 
@@ -64,5 +65,10 @@ public class AccountService {
     newTransactionIds.addAll(oldTransactionIds);
     newTransactionIds.add(newTransactionId);
     return newTransactionIds;
+  }
+
+  public void processNewTransaction(TransactionsFullResponse newTransaction) throws BankAccountNotFoundException {
+    updateAccountBalance(newTransaction.getSourceAccountId(), newTransaction.getAmountInCent() * -1, newTransaction.getId());
+    updateAccountBalance(newTransaction.getDestinationAccountId(), newTransaction.getAmountInCent(), newTransaction.getId());
   }
 }
