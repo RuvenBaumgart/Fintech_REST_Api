@@ -1,9 +1,13 @@
 package de.kirschUndKern.testProjectJava.fintech.controller;
 
+import java.util.List;
+
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import de.kirschUndKern.testProjectJava.fintech.exceptions.BankAccountNotFoundException;
 import de.kirschUndKern.testProjectJava.fintech.exceptions.CustomerNotFoundException;
 import de.kirschUndKern.testProjectJava.fintech.modell.AccountResponse;
 import de.kirschUndKern.testProjectJava.fintech.service.AccountService;
@@ -25,4 +29,11 @@ public class AccountController {
   ) throws CustomerNotFoundException{
     return accountService.saveNewAccountForCustomer(customerId);
   };
+
+  @GetMapping("/accounts/{id}")
+  public List<AccountResponse> getAllAccounts(
+    @PathVariable (name ="id") String customerId
+  )throws BankAccountNotFoundException{
+    return accountService.getAccountsBy(customerId);
+  }
 }

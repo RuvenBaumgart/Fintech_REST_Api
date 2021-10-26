@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -70,5 +71,20 @@ public class AccountService {
   public void processNewTransaction(TransactionsFullResponse newTransaction) throws BankAccountNotFoundException {
     updateAccountBalance(newTransaction.getSourceAccountId(), newTransaction.getAmountInCent() * -1, newTransaction.getId());
     updateAccountBalance(newTransaction.getDestinationAccountId(), newTransaction.getAmountInCent(), newTransaction.getId());
+  }
+
+  public List<AccountResponse> getAccountsBy(String customerId) throws BankAccountNotFoundException {
+    Optional<List<AccountEntity>> accounts = accountRepository.findAllByCustomerId(customerId);
+    if(accounts.isPresent()){
+
+      List<AccountResponse> accountResponse = accounts.get().stream()
+      .map(accountEntity -> new AccountResponse(accountEntity))
+      .collect(Collectors.toList());
+
+      return accountResponse;
+    } else {
+      throw new BankAccountNotFoundException("Accounts for customerId: " + customerId + "not found", HttpStatus.BAD_REQUEST);
+    }
+      
   }
 }
