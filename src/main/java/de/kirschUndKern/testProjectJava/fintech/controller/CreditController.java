@@ -1,10 +1,12 @@
 package de.kirschUndKern.testProjectJava.fintech.controller;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import de.kirschUndKern.testProjectJava.fintech.exceptions.CustomerNotFoundException;
 import de.kirschUndKern.testProjectJava.fintech.modell.CreditRequest;
 import de.kirschUndKern.testProjectJava.fintech.modell.CreditResponse;
@@ -27,5 +29,12 @@ public class CreditController {
     @RequestBody CreditRequest newCreditRequest
   )throws CustomerNotFoundException{
     return creditService.createCreditForCustomer(customerId, newCreditRequest);
+  }
+
+  @GetMapping("/credits/{id}")
+  public List<CreditResponse> getAllCredits(
+    @PathVariable (name="id") String customerId
+  ){
+    return creditService.getAllCreditsById(customerId);
   }
 }

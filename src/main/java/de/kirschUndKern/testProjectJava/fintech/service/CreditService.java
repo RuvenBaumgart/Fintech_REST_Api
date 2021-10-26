@@ -1,10 +1,12 @@
 package de.kirschUndKern.testProjectJava.fintech.service;
 
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import de.kirschUndKern.testProjectJava.fintech.entities.CreditsEntity;
 import de.kirschUndKern.testProjectJava.fintech.entities.CustomerEntity;
 import de.kirschUndKern.testProjectJava.fintech.exceptions.CustomerNotFoundException;
@@ -54,6 +56,14 @@ public class CreditService {
   public Long calculateRemainingRuntime(LocalDate creationDay, LocalDate currentDay, Long orignialRuntime){
     Long pastMonths =  ChronoUnit.MONTHS.between(creationDay, currentDay);
     return orignialRuntime - pastMonths;
+  }
+
+  public List<CreditResponse> getAllCreditsById(String customerId) {
+    List<CreditsEntity> credits = creditRepository.findAllByCustomerId(customerId);
+    List<CreditResponse> creditsResponse = credits.stream()
+    .map(credit -> new CreditResponse(credit))
+    .collect(Collectors.toList());
+    return creditsResponse;
   }
 
 }

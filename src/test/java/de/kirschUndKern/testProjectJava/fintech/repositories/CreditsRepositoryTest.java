@@ -7,6 +7,7 @@ import static org.assertj.core.api.Assertions.*;
 
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -39,5 +40,34 @@ public class CreditsRepositoryTest {
     CreditsEntity expected = creditsRepository.findAll().get(0);
     assertThat(credit).usingRecursiveComparison().isEqualTo(expected);
 
+  }
+
+  @Test
+  public void findAllByCustomerId(){
+    final CreditsEntity creditOne = new CreditsEntity(
+      UUID.randomUUID().toString(),
+      "1233",
+      LocalDate.parse("2020-02-01"),
+      12L,
+      12L,
+      12L,
+      12L
+    );
+
+    final CreditsEntity creditTwo = new CreditsEntity(
+      UUID.randomUUID().toString(),
+      "1233",
+      LocalDate.parse("2020-02-01"),
+      12L,
+      12L,
+      12L,
+      12L
+    );
+
+    creditsRepository.saveAll(Arrays.asList(creditOne, creditTwo));
+
+    List<CreditsEntity> result = creditsRepository.findAllByCustomerId("1233");
+    
+    assertThat(result).usingRecursiveComparison().isEqualTo(Arrays.asList(creditOne, creditTwo));
   }
 }
