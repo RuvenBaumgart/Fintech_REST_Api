@@ -31,8 +31,11 @@ public class TransactionController {
     @PathVariable (name = "id") String customerId,
     @RequestBody TransactionRequest transactionRequest
   )throws BankAccountNotFoundException{
+
     TransactionsFullResponse newTransaction = transactionService.processNewTransaction(customerId, transactionRequest);
+    
     accountService.processNewTransaction(newTransaction);
+
     return newTransaction;
   }
 }
