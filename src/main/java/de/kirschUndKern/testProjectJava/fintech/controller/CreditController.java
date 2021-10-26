@@ -21,7 +21,7 @@ public class CreditController {
     this.creditService = creditService;
   }
 
-  @PostMapping("/credits")
+  @PostMapping("/credits/{id}")
   public CreditResponse createCreditForCustomer(
     @PathVariable(name ="id") String customerId,
     @RequestBody CreditRequest newCreditRequest

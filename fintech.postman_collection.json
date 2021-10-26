@@ -34,7 +34,75 @@
 			"response": []
 		},
 		{
+			"name": "Create new account for given customerId",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost/accounts/",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"accounts",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a new credit for given customer",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"creditAmountInCents\": 2400000,\n    \"runtimeInMonths\": 24\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/credits/52aaf177-ea44-495a-acfe-0ab09d858780",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"credits",
+						"52aaf177-ea44-495a-acfe-0ab09d858780"
+					]
+				},
+				"description": "The body should contain:\n- the volume or amoutn of credit in cents\n- the runtime of the credit i.e. 24 months\n"
+			},
+			"response": []
+		},
+		{
 			"name": "Get all Customers with address by their last name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/customers/Mustermann",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"customers",
+						"Mustermann"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all Customers",
 			"request": {
 				"method": "GET",
 				"header": [],

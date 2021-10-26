@@ -70,7 +70,7 @@ Possible blocks:
 * POST /api/transactions/{customerId}
   * add a new transaction for given customer (transfer money from one accoutn to another)
   * the body should contain:
-    * the amount of money
+    * the amount of money in Cents
     * the target account by id
 
 #### credits
@@ -83,8 +83,8 @@ Possible blocks:
 * POST /api/credits/{customerId}
   * Create a new credit for given customer
     * The RequestBody should contain:
-      * credit volume
-      * runetime or term of the credit
+      * credit volume in cents
+      * runtime in Months or term of the credit
 
 * PUT /api/credits/{customerId}
   * Update or Payoff a part of a credit by transfering money from an account
