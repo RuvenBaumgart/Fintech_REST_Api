@@ -82,6 +82,27 @@
 			"response": []
 		},
 		{
+			"name": "new Transaction init by Customer with id",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/transactions/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"transactions",
+						""
+					]
+				},
+				"description": "transfereing money from customer to recipient"
+			},
+			"response": []
+		},
+		{
 			"name": "Get all Customers with address by their last name",
 			"request": {
 				"method": "GET",
