@@ -26,7 +26,7 @@ public class AccountResponse {
   }
 
   public AccountResponse(AccountEntity accountEntity){
-    this.id = UUID.randomUUID().toString();
+    this.id = accountEntity.getId();
     this.customerId = accountEntity.getCustomerId();
     this.balanceInCent = accountEntity.getBalanceInCent();
     this.sumOfTransactions = accountEntity.getsumOfTransactions();

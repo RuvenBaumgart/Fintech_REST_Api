@@ -2,6 +2,7 @@ package de.kirschUndKern.testProjectJava.fintech.service;
 
 import de.kirschUndKern.testProjectJava.fintech.entities.AccountEntity;
 import de.kirschUndKern.testProjectJava.fintech.entities.CustomerEntity;
+import de.kirschUndKern.testProjectJava.fintech.exceptions.BankAccountNotFoundException;
 import de.kirschUndKern.testProjectJava.fintech.exceptions.CustomerNotFoundException;
 import de.kirschUndKern.testProjectJava.fintech.modell.AccountResponse;
 import de.kirschUndKern.testProjectJava.fintech.repositories.AccountRepository;
@@ -42,4 +43,15 @@ public class AccountService {
       throw new CustomerNotFoundException("Customer with id: " + customerId + " not fount", HttpStatus.BAD_REQUEST);
     }
   };
+
+  public AccountResponse updateAccountBalance(String accountId , Long amount, String transactionId) throws BankAccountNotFoundException{
+    Optional<AccountEntity> account = accountRepository.findById(accountId);
+    if(account.isPresent()){
+      AccountEntity newAccount = new AccountEntity(account.get(), amount, transactionId);
+      accountRepository.save(newAccount);
+      return new AccountResponse(newAccount);
+    } else {
+      throw new BankAccountNotFoundException("The Account with the id " + accountId + "is not existing", HttpStatus.BAD_REQUEST);
+    }
+  }
 }
