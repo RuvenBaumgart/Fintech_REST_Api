@@ -251,6 +251,45 @@
 			"response": []
 		},
 		{
+			"name": "get balance for the institution",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/accounts/balance",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"accounts",
+						"balance"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List all credits with original credit amount, current credit amount and customer name which are exceeded their original terms.",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/credits",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"credits"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "payoff or update the currentCreditAmountInCents for given credit",
 			"request": {
 				"method": "PUT",

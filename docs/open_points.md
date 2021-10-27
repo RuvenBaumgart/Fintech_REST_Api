@@ -23,4 +23,5 @@ customer and make the result sortable and page-able.
 * Complet remaing open points
 * Create secure log in
 * MySql mirgration scripts need to be created and will be processed and controlled by flyway
+* Create MySql Server
 * make the application deployable
