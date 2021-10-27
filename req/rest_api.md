@@ -49,7 +49,7 @@ Possible blocks:
   * list all accounts of one customer with their current balance
     * Response: AccountWithBalance
 
-* GET /api/accounts/{customerId}?tag=balance
+* GET /api/accounts/balance/{id}
   * show the balance for one customers
 
 * GET /api/accounts/
@@ -67,8 +67,14 @@ Possible blocks:
 * GET /api/transactions/{date}
   * List all postings(transactions) of the financial institution for a given date
 
-* GET /api/transactions/{customerId}
+* GET /api/transactions/{customerId}/?pageno=pageNo&pagesize=pageSize&sortby=sortBy
+  * results are *pageable* and *sortable* by querystrings
   * List all postings for the given customer
+    * The queryString should contain:
+      * pageNo, default = 0
+      * pageSize, default = 10
+      * sortBy, default = id
+
 
 * POST /api/transactions/{customerId}
   * add a new transaction for given customer (transfer money from one accoutn to another)

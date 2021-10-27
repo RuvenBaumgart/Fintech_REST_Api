@@ -128,7 +128,7 @@
 
 ### Linkage (foreign Key Possible)
 
-* customer  <---  address
+* customer  <---  address *unfortunately the way to the customer names is long starting from transactions*
 * customer  <---  account
 * account   <--- transactions
 * customer  <---  credits

@@ -18,11 +18,13 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import de.kirschUndKern.testProjectJava.fintech.entities.AccountEntity;
+import de.kirschUndKern.testProjectJava.fintech.entities.CustomerEntity;
 import de.kirschUndKern.testProjectJava.fintech.entities.TransactionsEntity;
 import de.kirschUndKern.testProjectJava.fintech.exceptions.BankAccountNotFoundException;
 import de.kirschUndKern.testProjectJava.fintech.modell.TransactionRequest;
 import de.kirschUndKern.testProjectJava.fintech.modell.TransactionsFullResponse;
 import de.kirschUndKern.testProjectJava.fintech.repositories.AccountRepository;
+import de.kirschUndKern.testProjectJava.fintech.repositories.CustomerRepository;
 import de.kirschUndKern.testProjectJava.fintech.repositories.TransactionRepository;
 import de.kirschUndKern.testProjectJava.fintech.service.TransactionService;
 
@@ -31,14 +33,17 @@ public class TransactionServiceTest {
   private TransactionService transactionService;
   private AccountRepository accountRepository;
   private TransactionRepository transactionRepository;
+  private CustomerRepository customerRepository;
 
   @BeforeEach
   public void init(){
     accountRepository = Mockito.mock(AccountRepository.class);
     transactionRepository = Mockito.mock(TransactionRepository.class);
+    customerRepository = Mockito.mock(CustomerRepository.class);
     transactionService = new TransactionService(
       accountRepository, 
-      transactionRepository
+      transactionRepository,
+      customerRepository
     );
   }
 
@@ -87,9 +92,14 @@ public class TransactionServiceTest {
     );
 
 
-   TransactionsFullResponse results = transactionService.processNewTransaction("12312", transactionRequest);
+    TransactionsFullResponse results = transactionService.processNewTransaction("12312", transactionRequest);
     
     assertThat(results).usingRecursiveComparison().isEqualTo(new TransactionsFullResponse(transactionResponse));
+  }
+
+  @Test
+  public void listAllTransactionForGivenCustomer(){
+
   }
 
 }

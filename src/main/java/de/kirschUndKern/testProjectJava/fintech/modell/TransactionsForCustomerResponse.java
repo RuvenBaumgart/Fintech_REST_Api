@@ -23,6 +23,7 @@ public class TransactionsForCustomerResponse {
       this.customerSecondnameDesitnation = destinationCustomer.getSecondname();
     }
 
+
     public String getAccountSourceId() {
       return accountSourceId;
     }
