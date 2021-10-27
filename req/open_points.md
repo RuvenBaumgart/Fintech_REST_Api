@@ -5,15 +5,13 @@
 * tested fully automatically 
 * relational memory database as persistence unit 
   * *during development h2 is used. Product ready will contain MySQL*
+* The application should be secured with a login backed with only one hardcoded user and password combination. If a user is not logged he should not have access to the system.
 
 ### Bussines Logic
 * List all postings with the account id and customer name of source and destination of one
 customer and make the result sortable and page-able.
   * *started but not finished due to questoins about how to implement best*
-
 * Payoff a part of a credit by transferring money from an account.
-* The application should be secured with a login backed with only one hardcoded user and password combination. If a user is not logged he should not have access to the system.
-
 * Show the balance for the financial institution.
 * The API should have an online documentation.
 * The first booking should be configurable in the properties of the application.
@@ -26,5 +24,6 @@ customer and make the result sortable and page-able.
 ## Next Steps
 ### General
 * Complet remaing open points
+* Create secure log in
 * MySql mirgration scripts need to be created and will be processed and controlled by flyway
 * make the application deployable
