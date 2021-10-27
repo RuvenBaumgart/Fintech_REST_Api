@@ -38,9 +38,15 @@ public class AccountController {
   };
 
   @GetMapping("/accounts/{id}/balance")
-  public Long getSumBalanceOfAllAccounts(
+  public Long getSumBalanceOfAllAccountsForUser(
     @PathVariable (name = "id") String customerId
-  ) throws BankAccountNotFoundException{
+  ){
     return accountService.getAccountsAndCalculateSum(customerId);
   };
+
+  @GetMapping("/accounts/balance")
+  public Long getSumBalanceOfAllAccounts(){
+    return accountService.getAccountsAndCalculateSum("Institution");
+  }
+
 }

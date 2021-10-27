@@ -134,4 +134,9 @@ public class CreditService {
       );
   }
 
+  public List<CreditResponse> getAllCredits() {
+    List<CreditsEntity> credits = creditRepository.findAllThatExceededOriginalTerm();
+    return credits.stream().map(creditEntity -> new CreditResponse(creditEntity)).collect(Collectors.toList());
+  }
+
 }

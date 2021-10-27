@@ -11,12 +11,9 @@
 * List all postings with the account id and customer name of source and destination of one
 customer and make the result sortable and page-able.
   * *started but not finished due to questoins about how to implement best*
-* Payoff a part of a credit by transferring money from an account.
-* Show the balance for the financial institution.
 * The API should have an online documentation.
 * The first booking should be configurable in the properties of the application.
 * Process to the next booking date. A booking da teshould be every weekday regardless of holidays.
-* List all credits with original credit amount, current credit amount and customer name which are exceeded their original terms.
 * If a customer paid off a credit he will be awarded to a better rating class but at maximum to ‚1‘.
 * If a customer didn‘t paid off a credit before the remaining term is below zero his rating class will be set to ‚4‘.
 * List all customers with name grouped by their current rating class.

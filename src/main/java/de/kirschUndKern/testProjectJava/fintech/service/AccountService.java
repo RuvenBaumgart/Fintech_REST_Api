@@ -73,23 +73,23 @@ public class AccountService {
     updateAccountBalance(newTransaction.getDestinationAccountId(), newTransaction.getAmountInCent(), newTransaction.getId());
   }
 
-  public List<AccountResponse> getAccountsBy(String customerId) throws BankAccountNotFoundException {
-    Optional<List<AccountEntity>> accounts = accountRepository.findAllByCustomerId(customerId);
-    
-    if(accounts.isPresent() && !accounts.get().isEmpty()){
-
-      List<AccountResponse> accountResponse = accounts.get().stream()
-      .map(accountEntity -> new AccountResponse(accountEntity))
-      .collect(Collectors.toList());
-
-      return accountResponse;
+  public List<AccountResponse> getAccountsBy(String customerId){
+    List<AccountEntity> accounts;
+    if(customerId == "Institution"){
+      accounts = accountRepository.findAll();
     } else {
-      throw new BankAccountNotFoundException("Accounts for customerId: " + customerId + "not found", HttpStatus.BAD_REQUEST);
+      accounts = accountRepository.findAllByCustomerId(customerId).get();
     }
-      
+    
+    List<AccountResponse> accountResponse = accounts.stream()
+    .map(accountEntity -> new AccountResponse(accountEntity))
+    .collect(Collectors.toList());
+
+    return accountResponse;
   }
 
-  public Long getAccountsAndCalculateSum(String customerId) throws BankAccountNotFoundException {
+  public Long getAccountsAndCalculateSum(String customerId){
+
     List<AccountResponse> accounts = getAccountsBy(customerId);
     Long sumOfBalanceInCent = 0L;
     for(AccountResponse account : accounts){

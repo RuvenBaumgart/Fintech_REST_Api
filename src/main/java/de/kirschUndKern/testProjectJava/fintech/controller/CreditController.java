@@ -48,4 +48,8 @@ public class CreditController {
     return creditService.createUpdateCredit(id, creditUpdateRequest);
   }
 
+  @GetMapping("/credits")
+  public List<CreditResponse> getAllCredits(){
+    return creditService.getAllCredits();
+  }
 }
