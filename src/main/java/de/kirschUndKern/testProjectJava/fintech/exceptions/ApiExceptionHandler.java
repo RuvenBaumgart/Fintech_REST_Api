@@ -24,6 +24,8 @@ public class ApiExceptionHandler {
       return ResponseEntity.status(BankAccountNotFoundException.class.cast(exception).getErrorStatus()).body(error);
     } else if(exception instanceof TransactionNotFoundException){
       return ResponseEntity.status(TransactionNotFoundException.class.cast(exception).getErrorStatus()).body(error);
+    } else if(exception instanceof CreditNotFoundException){
+      return ResponseEntity.status(CreditNotFoundException.class.cast(exception).getErrorStatus()).body(error);
     } else {
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
     }

@@ -14,5 +14,5 @@ public interface TransactionRepository extends JpaRepository<TransactionsEntity,
 
   @Query("SELECT ALL t FROM TransactionsEntity t WHERE t.transactionDate = :date")
   List<TransactionsEntity> findAllByDate(LocalDate date);
-  
+
 }

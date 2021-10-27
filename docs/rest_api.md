@@ -28,10 +28,10 @@ Possible blocks:
   * get all customers
 
 * GET /api/customers/{secondname} 
-  * get all customers of the banking systems by secondname.
-  *
+  * get all customers of the banking systems by secondname with address
+  
 * GET /api/customers/{secondname}?sort=tag 
-  * get all customers of the banking system by secondname
+  * get all customers of the banking system by secondname with address
   * and allow to sort the result (default by firstname)
 
 * GET /api/customers?tag=rating
@@ -47,13 +47,12 @@ Possible blocks:
 
 * GET /api/accounts/{customerId}
   * list all accounts of one customer with their current balance
-    * Response: AccountWithBalance
 
 * GET /api/accounts/{cusomterId}/balance
-  * show the balance for one customers
+  * show the balance for one customers considering all accounts of the customer
 
-* GET /api/accounts/
-  * show the balance for the financial instituation
+* GET /api/accounts/balance
+  * show the cummulated balance of all account for the financial instituation
 
 * POST /api/accounts/{customerId}
   * create a new account for givven customerId
@@ -95,9 +94,8 @@ Possible blocks:
       * credit volume in cents
       * runtime in Months or term of the credit
 
-* PUT /api/credits/{customerId}
-  * Update or Payoff a part of a credit by transfering money from an account and should trigger an new transaction
+* PUT /api/credits/{id}
+  * Update or Payoff a part of a credit by transfering money from an account and should trigger an new transaction.
     * The body should contain
       * the amount of payoff 
       * the sourceAccount from which to pay
-      * the credit that should be updated 

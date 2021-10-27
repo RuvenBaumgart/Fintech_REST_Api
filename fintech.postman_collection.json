@@ -227,6 +227,57 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "get the balance for one customer",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/accounts/40234c68-037b-4410-ac5c-fd60ab00988c/balance",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"accounts",
+						"40234c68-037b-4410-ac5c-fd60ab00988c",
+						"balance"
+					]
+				},
+				"description": "get the balance for one customer over all accounts of the customer\n"
+			},
+			"response": []
+		},
+		{
+			"name": "payoff or update the currentCreditAmountInCents for given credit",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n \"amountInCent\":\"23536\",\n \"sourceAccountId\": \"0c456df2-6a18-4fce-bb1f-1302362c2801\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/credits/82a83f3a-98d3-4e49-84a2-9f6ad07957bf",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"credits",
+						"82a83f3a-98d3-4e49-84a2-9f6ad07957bf"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

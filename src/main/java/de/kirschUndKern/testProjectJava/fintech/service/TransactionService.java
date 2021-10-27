@@ -52,8 +52,14 @@ public class TransactionService {
     Optional<AccountEntity> destination = accountRepository.findById(request.getDestinationAccoutnId());
   
     if(source.isPresent() && destination.isPresent()){
+      
       //Check needs to be made if initiating customer is owner of the accounts
-      TransactionsEntity savedTransaction = saveNewTransaction(source.get(), destination.get(), customerId, request);
+      TransactionsEntity savedTransaction = saveNewTransaction(
+        source.get().getId(), 
+        destination.get().getId(),
+        request.getAmountInCent(), 
+        request.getMessage()
+      );
 
 
       return new TransactionsFullResponse(savedTransaction);
@@ -66,25 +72,24 @@ public class TransactionService {
     }
   }
   
-  private TransactionsEntity createTransaction(AccountEntity source, AccountEntity destination, String requestingCustomerId, TransactionRequest transactionRequest){
-    Long amountInCent = transactionRequest.getAmountInCent();
-    
+  public TransactionsEntity createTransaction(String sourceId, String destinationId, Long amountInCent, String message){
+  
     //The requesting Customer is always asking for sending money not receiving
     TransactionsEntity newTransaction = new TransactionsEntity(
       UUID.randomUUID().toString(),
-      source.getId(),
-      destination.getId(),
+      sourceId,
+      destinationId,
       amountInCent,
       LocalDate.now(),
       LocalTime.now(),
-      transactionRequest.getMessage()
+      message
     );
-
     return newTransaction;
   }
 
-  private TransactionsEntity saveNewTransaction (AccountEntity source, AccountEntity destination, String customerId, TransactionRequest request){
-    return transactionRepository.save(createTransaction(source, destination, customerId, request));
+  public TransactionsEntity saveNewTransaction (String sourceId, String destinationId, Long amountInCent, String message){
+    return transactionRepository.save(createTransaction(sourceId, destinationId, amountInCent, message)
+    );
   }
 
   public List<TransactionsFullResponse> getAllTransactionsBy(String date) {
@@ -146,5 +151,5 @@ public class TransactionService {
       }
     }
     return transactionsResponse;
-  };
+  }
 }
