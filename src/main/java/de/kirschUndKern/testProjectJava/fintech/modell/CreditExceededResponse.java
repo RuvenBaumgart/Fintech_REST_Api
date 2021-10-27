@@ -5,24 +5,24 @@ import de.kirschUndKern.testProjectJava.fintech.entities.CustomerEntity;
 
 public class CreditExceededResponse {
 
-  private final Long originalCreditAmount;
-  private final Long currentCreditAmount;
+  private final Long originalCreditAmountInCents;
+  private final Long currentCreditAmountInCents;
   private final String firstname;
   private final String secondname;
 
   public CreditExceededResponse(CreditsEntity credit, CustomerEntity customer){
-    this.originalCreditAmount = credit.getOriginalCreditAmount();
-    this.currentCreditAmount = credit.getOriginalCreditAmount();
+    this.originalCreditAmountInCents = credit.getOriginalCreditAmount();
+    this.currentCreditAmountInCents = credit.getOriginalCreditAmount();
     this.firstname = customer.getFirstname();
     this.secondname = customer.getSecondname();
   }
 
   public Long getOriginalCreditAmount() {
-    return originalCreditAmount;
+    return originalCreditAmountInCents;
   }
 
   public Long getCurrentCreditAmount() {
-    return currentCreditAmount;
+    return currentCreditAmountInCents;
   }
 
   public String getFirstname() {

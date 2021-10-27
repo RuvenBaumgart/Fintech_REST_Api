@@ -4,19 +4,19 @@ import de.kirschUndKern.testProjectJava.fintech.entities.AccountEntity;
 
 public class AccountsWithBalance {
   private final String id;
-  private final Long balance;
+  private final Long balanceInCents;
 
   public AccountsWithBalance(AccountEntity ae){
    this.id = ae.getId();
-   this.balance = ae.getBalanceInCent();
+   this.balanceInCents = ae.getBalanceInCent();
   }
 
   public String getId(){
     return this.id;
   };
 
-  public Long getBalance(){
-    return this.balance;
+  public Long getBalanceInCents(){
+    return this.balanceInCents;
   };
 
 }

@@ -23,32 +23,36 @@
 **accounts**
 * id
 * customerId
-* balance
-* transactionsCarriedOut
+* balanceInCent
+* sumOfTransactions
 * List<String> transactionIds
 
 **transactions (posting)**
 * id
 * accountId (source)
 * destinationAccountId
-* amount
+* amountInCent
 * transactionDate
+* transactionTime
+* message
 
 **credits**
 * id
 * customerId
 * dateOfCreation
-* originalTerm (Laufzeit)
-* remainingTerm (Restlaufzeit)
-* originalCreditAmount
-* currentCeditAmount
+* originalTermInMonths(Laufzeit) *Maybe it should be changed to days*
+* remainingTermInMonths(Restlaufzeit)
+* originalCreditAmountInCents
+* currentCeditAmountInCents
 
 
 ## Models 
 ### Requests
 **transaction**
-* amount
-* destination
+* amountInCent
+* sourceAccoundId
+* destinationAccountId
+* message
 
 **customers**
 * firstname
@@ -57,13 +61,22 @@
 * dateOfBirth(dd/mm/yyyy)
 * addressRequest
 
+**address**
+* city 
+* street
+* province
+* zipCode
+* country
+
 
 ### Responses
 
 **customersNameAndAdress**
+* customerId
 * firstname
 * secondname
 * salutation
+* rating
 * addressResponse
 
 **customerRated**
@@ -81,18 +94,19 @@
 
 **accountsWithBalance**
 * id
-* balance
+* balanceInCents
 
 **credit**
 * id
-* originalterm
-* remainingterm
-* originalCreditAmount
-* currentCreditAmount
+* customerId
+* originaltermInMonths
+* remainingtermInMonths
+* originalCreditAmountInCents
+* currentCreditAmountInCents
 
 **creditExceeded**
-* orignial credit amount
-* current credit amount
+* orignialCreditAmountInCents
+* currentCreditAmountInCents
 * fistname
 * lastname
 
@@ -100,20 +114,22 @@
 * id
 * accountId(source)
 * destinationAccountId
-* amount
-* dateOfProcess
+* amountInCent
+* transactionDate
+* transactionTime
 
 **transactionsCustomer**
 * accountId
-* customerName
+* customerFirstName
+* customerSecondName
 * accountIdDestination
-* customerNameDestination
-
+* customerFirstName
+* customerSecondName
 
 ### Linkage (foreign Key Possible)
 
 * customer  <---  address
 * customer  <---  account
-* account   <---> transactions
+* account   <--- transactions
 * customer  <---  credits
 

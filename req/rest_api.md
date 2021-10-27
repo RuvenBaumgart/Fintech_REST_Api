@@ -58,8 +58,11 @@ Possible blocks:
 * POST /api/accounts/{customerId}
   * create a new account for givven customerId
 
+* PUT /api/accounts/{customerId}
+  * update the balance on the account
 
-#### transactions
+
+#### transactions (postings)
 
 * GET /api/transactions/{date}
   * List all postings(transactions) of the financial institution for a given date
