@@ -29,7 +29,7 @@
 
 **transactions (posting)**
 * id
-* accountId (source)
+* sourceAccountId
 * destinationAccountId
 * amountInCent
 * transactionDate
@@ -112,7 +112,7 @@
 
 **transactionsFull**
 * id
-* accountId(source)
+* sourceAccountId
 * destinationAccountId
 * amountInCent
 * transactionDate

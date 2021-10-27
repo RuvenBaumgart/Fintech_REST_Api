@@ -1,8 +1,10 @@
 package de.kirschUndKern.testProjectJava.fintech.services;
 
+import static org.mockito.ArgumentMatchers.anyIterable;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -72,7 +74,32 @@ public class AccountServiceTest {
     AccountResponse result = accountService.updateAccountBalance("123", 500L, "54325");
 
     assertThat(result).usingRecursiveComparison().isEqualTo(expected);
+  }
 
+  @Test
+  public void getCorrectBalanceOfAllCustomerAccounts() throws BankAccountNotFoundException{
+    //given
+    AccountEntity accountOne = 
+      new AccountEntity(
+      "",
+      "",
+      2300000L,
+      0L,
+      new ArrayList<>()
+    );
 
+     AccountEntity accountTwo = 
+      new AccountEntity(
+      "",
+      "",
+      1700000L,
+      1L,
+      new ArrayList<>()
+    );
+
+    when(accountRepository.findAllByCustomerId(anyString())).thenReturn(Optional.of(Arrays.asList(accountOne, accountTwo)));
+
+    Long result = accountService.getAccountsAndCalculateSum("customerId");
+    assertThat(result).isEqualTo(accountOne.getBalanceInCent() + accountTwo.getBalanceInCent());
   }
 }
