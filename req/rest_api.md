@@ -49,7 +49,7 @@ Possible blocks:
   * list all accounts of one customer with their current balance
     * Response: AccountWithBalance
 
-* GET /api/accounts/balance/{id}
+* GET /api/accounts/{cusomterId}/balance
   * show the balance for one customers
 
 * GET /api/accounts/
@@ -96,5 +96,8 @@ Possible blocks:
       * runtime in Months or term of the credit
 
 * PUT /api/credits/{customerId}
-  * Update or Payoff a part of a credit by transfering money from an account
-    * The body should contain the amount of payoff and should trigger an new transaction
+  * Update or Payoff a part of a credit by transfering money from an account and should trigger an new transaction
+    * The body should contain
+      * the amount of payoff 
+      * the sourceAccount from which to pay
+      * the credit that should be updated 

@@ -48,7 +48,7 @@ public class TransactionController {
     return transactionService.getAllTransactionsBy(date);
   };
 
-  /*
+
   @GetMapping("/transactions/{id}")
   public List<TransactionsForCustomerResponse> getAllTransactions(
     @RequestParam(name = "pageno", defaultValue = "0") Integer pageNo,
@@ -58,5 +58,5 @@ public class TransactionController {
   ) throws TransactionNotFoundException{
     return transactionService.getAllTransactions(customerId, pageNo, pageSize, sortBy);
   }
-  */
+  
 }

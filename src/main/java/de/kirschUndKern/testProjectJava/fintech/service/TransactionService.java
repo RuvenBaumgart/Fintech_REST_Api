@@ -19,7 +19,6 @@ import de.kirschUndKern.testProjectJava.fintech.entities.AccountEntity;
 import de.kirschUndKern.testProjectJava.fintech.entities.CustomerEntity;
 import de.kirschUndKern.testProjectJava.fintech.entities.TransactionsEntity;
 import de.kirschUndKern.testProjectJava.fintech.exceptions.BankAccountNotFoundException;
-import de.kirschUndKern.testProjectJava.fintech.exceptions.CustomerNotFoundException;
 import de.kirschUndKern.testProjectJava.fintech.exceptions.TransactionNotFoundException;
 import de.kirschUndKern.testProjectJava.fintech.modell.TransactionRequest;
 import de.kirschUndKern.testProjectJava.fintech.modell.TransactionsForCustomerResponse;

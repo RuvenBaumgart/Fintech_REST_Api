@@ -88,4 +88,13 @@ public class AccountService {
     }
       
   }
+
+  public Long getAccountsAndCalculateSum(String customerId) throws BankAccountNotFoundException {
+    List<AccountResponse> accounts = getAccountsBy(customerId);
+    Long sumOfBalanceInCent = 0L;
+    for(AccountResponse account : accounts){
+      sumOfBalanceInCent += account.getbalanceInCent(); 
+    }
+    return sumOfBalanceInCent;
+  };
 }

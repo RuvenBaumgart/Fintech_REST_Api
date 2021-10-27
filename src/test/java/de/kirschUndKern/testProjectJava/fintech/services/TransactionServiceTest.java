@@ -18,7 +18,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import de.kirschUndKern.testProjectJava.fintech.entities.AccountEntity;
-import de.kirschUndKern.testProjectJava.fintech.entities.CustomerEntity;
 import de.kirschUndKern.testProjectJava.fintech.entities.TransactionsEntity;
 import de.kirschUndKern.testProjectJava.fintech.exceptions.BankAccountNotFoundException;
 import de.kirschUndKern.testProjectJava.fintech.modell.TransactionRequest;
