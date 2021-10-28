@@ -5,22 +5,15 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 import java.util.UUID;
 import java.util.stream.Collectors;
-
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-
 import de.kirschUndKern.testProjectJava.fintech.entities.AccountEntity;
 import de.kirschUndKern.testProjectJava.fintech.entities.CustomerEntity;
 import de.kirschUndKern.testProjectJava.fintech.entities.TransactionsEntity;
 import de.kirschUndKern.testProjectJava.fintech.exceptions.BankAccountNotFoundException;
-import de.kirschUndKern.testProjectJava.fintech.exceptions.TransactionNotFoundException;
+import de.kirschUndKern.testProjectJava.fintech.exceptions.CustomerNotFoundException;
 import de.kirschUndKern.testProjectJava.fintech.modell.TransactionRequest;
 import de.kirschUndKern.testProjectJava.fintech.modell.TransactionsForCustomerResponse;
 import de.kirschUndKern.testProjectJava.fintech.modell.TransactionsFullResponse;
@@ -95,7 +88,6 @@ public class TransactionService {
   public List<TransactionsFullResponse> getAllTransactionsBy(String date) {
     LocalDate localdate = LocalDate.parse(date);
     List<TransactionsEntity> transactions = transactionRepository.findAllByDate(localdate);
-    
     List<TransactionsFullResponse> transactionsResponse = transactions.stream()
     .map(transactionEntity -> new TransactionsFullResponse(transactionEntity)).
     collect(Collectors.toList());
@@ -103,53 +95,44 @@ public class TransactionService {
 
   }
 
-  public List<TransactionsForCustomerResponse> getAllTransactions(String customerId, Integer pageNo, Integer pageSize, String sortBy) throws TransactionNotFoundException {
-    Pageable page = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
-    Page<TransactionsEntity> pagedResult = transactionRepository.findAll(page);
+  public List<TransactionsForCustomerResponse> getAllTransactions(String customerId, Integer pageNo, Integer pageSize, String sortBy) throws Exception {
+    
+    Optional<CustomerEntity> customer = customerRepository.findById(customerId);
+    if(customer.isEmpty())
+      throw new CustomerNotFoundException("Customer with id: " + customerId + "not found", HttpStatus.BAD_REQUEST);
+   
+      Optional<List<AccountEntity>> accounts = accountRepository.findAllByCustomerId(customerId);
+    if(accounts.isEmpty())
+      throw new BankAccountNotFoundException(
+        "No Accounts for the given customer " 
+        + customer.get().getFirstname() + " " 
+        + customer.get().getSecondname() + "found" , 
+        HttpStatus.BAD_REQUEST);
+    
+    List<String> transactions = accounts.get().stream()
+    .flatMap(account -> account.getTransactionIds().stream())
+    .collect(Collectors.toList());
+      
+    return createTransactionsList(transactions);
+  };
 
-    if(pagedResult.hasContent()){
-      List<TransactionsEntity> transactionsPaged = pagedResult.getContent();
-
-      List<TransactionsForCustomerResponse> transactionResponsePaged = buildResults(transactionsPaged);
-
-      return transactionResponsePaged;
-    } else {
-      throw new TransactionNotFoundException("No Transactions for the given parameters found", HttpStatus.BAD_REQUEST);
+  List<TransactionsForCustomerResponse> createTransactionsList(List<String> transactionIds){
+    List<TransactionsEntity> transactions = transactionRepository.findAllById(transactionIds);
+    List<TransactionsForCustomerResponse> result = new ArrayList<>();
+    for(TransactionsEntity transaction : transactions){
+      result.add(new TransactionsForCustomerResponse(
+        transaction, 
+        getCustomer(transaction.getSourceAccountId()),
+        getCustomer(transaction.getDestinationAccountId())
+        )
+      );
     }
+    return result;
   }
 
-  private List<TransactionsForCustomerResponse> buildResults(List<TransactionsEntity> transactionsPaged) {
-    
-    List<CustomerEntity> customers = customerRepository.findAll();
-    List<AccountEntity> accounts = accountRepository.findAll();
-    List<TransactionsForCustomerResponse> transactionsResponse = new ArrayList<>();
-
-    for(TransactionsEntity transaction : transactionsPaged){
-      String sourceAccoundId = transaction.getSourceAccountId();
-      String destinationAccountId = transaction.getDestinationAccountId();
-
-      Optional<AccountEntity> sourceAccount = accounts.stream()
-      .filter(account -> account.getCustomerId().equals(sourceAccoundId))
-      .findFirst();
-
-      Optional<AccountEntity> destinationAccount = accounts.stream()
-      .filter(account -> account.getCustomerId().equals(destinationAccountId))
-      .findFirst();
-
-      if(sourceAccount.isPresent() && destinationAccount.isPresent()){
-        Optional<CustomerEntity> sourceCustomer = customers.stream()
-        .filter(customer -> customer.getId().equals(sourceAccount.get().getCustomerId()))
-        .findFirst();
-
-        Optional<CustomerEntity> destinationCustomer = customers.stream()
-        .filter(customer -> customer.getId().equals(destinationAccount.get().getCustomerId()))
-        .findFirst();
-
-        if(sourceCustomer.isPresent() && destinationCustomer.isPresent()){
-          transactionsResponse.add(new TransactionsForCustomerResponse(transaction, sourceCustomer.get(), destinationCustomer.get()));
-        }
-      }
-    }
-    return transactionsResponse;
+  private CustomerEntity getCustomer(String sourceAccountId) {
+    AccountEntity account = accountRepository.getById(sourceAccountId);
+    CustomerEntity customer = customerRepository.getById(account.getCustomerId());
+    return customer;
   }
 }

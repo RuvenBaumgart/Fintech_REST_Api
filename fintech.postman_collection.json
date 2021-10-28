@@ -86,8 +86,17 @@
 			"request": {
 				"method": "POST",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"amountInCent\":50000,\n    \"sourceAccountId\": \"9ff528b4-bb1e-4399-a2d9-2ad9a30555dd\",\n    \"destinationAccountId\": \"65cb0ad4-c5f6-4b57-8dfd-882034165104\",\n    \"message\":\"Money for amazon bucket\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "localhost:8080/api/transactions/",
+					"raw": "localhost:8080/api/transactions/87a75fd7-6fd1-410e-8a1d-ac9a8d0cb9b5",
 					"host": [
 						"localhost"
 					],
@@ -95,7 +104,7 @@
 					"path": [
 						"api",
 						"transactions",
-						""
+						"87a75fd7-6fd1-410e-8a1d-ac9a8d0cb9b5"
 					]
 				},
 				"description": "transfereing money from customer to recipient"
@@ -214,15 +223,20 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/api/transactions/",
+					"raw": "localhost:8080/api/transactions?data=2021-10-26",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
 						"api",
-						"transactions",
-						""
+						"transactions"
+					],
+					"query": [
+						{
+							"key": "data",
+							"value": "2021-10-26"
+						}
 					]
 				}
 			},
@@ -271,7 +285,7 @@
 			"response": []
 		},
 		{
-			"name": "List all credits with original credit amount, current credit amount and customer name which are exceeded their original terms.",
+			"name": "list all credits with original credit amount, current credit amount and customer name which are exceeded their original terms.",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -284,6 +298,65 @@
 					"path": [
 						"api",
 						"credits"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all customers grouped by their current rating",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/customers?grouped=rating",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"customers"
+					],
+					"query": [
+						{
+							"key": "grouped",
+							"value": "rating"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all transactions for given customer id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/transactions/765da43c-bf41-4f86-b791-cfe50014353a?pageno=&pagesize=&sortby=",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"transactions",
+						"765da43c-bf41-4f86-b791-cfe50014353a"
+					],
+					"query": [
+						{
+							"key": "pageno",
+							"value": ""
+						},
+						{
+							"key": "pagesize",
+							"value": ""
+						},
+						{
+							"key": "sortby",
+							"value": ""
+						}
 					]
 				}
 			},

@@ -1,18 +1,13 @@
 package de.kirschUndKern.testProjectJava.fintech.services;
-
-import static org.mockito.ArgumentMatchers.anyIterable;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Optional;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import static org.assertj.core.api.Assertions.*;
-
+import static org.assertj.core.api.Assertions.*; 
 import de.kirschUndKern.testProjectJava.fintech.entities.AccountEntity;
 import de.kirschUndKern.testProjectJava.fintech.exceptions.BankAccountNotFoundException;
 import de.kirschUndKern.testProjectJava.fintech.exceptions.CustomerNotFoundException;
