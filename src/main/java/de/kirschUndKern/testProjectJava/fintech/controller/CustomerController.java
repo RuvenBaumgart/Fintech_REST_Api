@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
+
 import de.kirschUndKern.testProjectJava.fintech.exceptions.WrongDateFormatException;
 import de.kirschUndKern.testProjectJava.fintech.modell.CustomerAndAddressResponse;
 import de.kirschUndKern.testProjectJava.fintech.modell.CustomerRequest;
@@ -25,12 +27,6 @@ public class CustomerController {
     this.customerService = customerService;
   }
 
-  @PostMapping ("/customers")
-  public CustomerAndAddressResponse createCustomer(
-    @RequestBody CustomerRequest customerRequest
-  )throws WrongDateFormatException {
-    return customerService.createCustomerWithAddress(customerRequest, customerRequest.getAddress());
-  }
 
   @GetMapping("/customers/{secondname}")
   public List<CustomerAndAddressResponse> getAllCustomersBySeondname(
@@ -40,9 +36,24 @@ public class CustomerController {
     return customerService.findAllCustomersByName(secondname, sort);
   }
 
+  @GetMapping("/customers/grouped")
+  public Map<Integer, List<CustomerResponse>> getAllCustomersGroupedBy(
+    @RequestParam(name = "grouped") String groupedBy
+  ){
+    return customerService.findAllCustomersGroupedBy(groupedBy);
+  }
+
   @GetMapping("/customers")
   public List<CustomerResponse> getAllCustomers(){
     return customerService.findAllCustomers();
   }
+
+  @PostMapping ("/customers")
+  public CustomerAndAddressResponse createCustomer(
+    @RequestBody CustomerRequest customerRequest
+  )throws WrongDateFormatException {
+    return customerService.createCustomerWithAddress(customerRequest, customerRequest.getAddress());
+  }
+  
 
 }

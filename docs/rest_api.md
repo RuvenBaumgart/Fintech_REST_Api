@@ -34,8 +34,8 @@ Possible blocks:
   * get all customers of the banking system by secondname with address
   * and allow to sort the result (default by firstname)
 
-* GET /api/customers?tag=rating
-  * List all customers with name grouped by their current rating class
+* GET /api/customers/grouped?grouped=groupedBy
+  * List all customers with name and  grouped by their current rating class
   
 * POST /api/customers/
   * create a new customer wit firstname, secondname, date of birth, address and rating.
@@ -55,7 +55,7 @@ Possible blocks:
   * show the cummulated balance of all account for the financial instituation
 
 * POST /api/accounts/{customerId}
-  * create a new account for givven customerId
+  * create a new account for given customerId
 
 * PUT /api/accounts/{customerId}
   * update the balance on the account

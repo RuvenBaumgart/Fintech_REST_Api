@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
 import de.kirschUndKern.testProjectJava.fintech.entities.AddressEntity;
 import de.kirschUndKern.testProjectJava.fintech.entities.CustomerEntity;
 import de.kirschUndKern.testProjectJava.fintech.exceptions.WrongDateFormatException;
@@ -84,5 +86,15 @@ public class CustomerService {
     .map(customerEntity -> new CustomerResponse(customerEntity))
     .collect(Collectors.toList());
     return customerResponse;
+  }
+
+  public Map<Integer, List<CustomerResponse>> findAllCustomersGroupedBy(String groupedBy) {
+    List<CustomerEntity> customers = customerRepository.findAll();
+    List<CustomerResponse> customersResponse = customers.stream()
+    .map(customerEntity -> new CustomerResponse(customerEntity))
+    .collect(Collectors.toList());
+    
+    return customersResponse.stream()
+    .collect(Collectors.groupingBy(customerResponse -> customerResponse.getRating()));
   }
 }

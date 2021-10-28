@@ -16,4 +16,5 @@ public interface CustomerRepository extends JpaRepository<CustomerEntity, String
   
   @Query("SELECT cus FROM CustomerEntity cus WHERE cus.secondname = :secondname ORDER BY firstname")
   List<CustomerEntity> findAllByNameOrdered(String secondname);
+  
 }
