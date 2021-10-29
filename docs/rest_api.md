@@ -63,7 +63,7 @@ Possible blocks:
 
 #### transactions (postings)
 
-* GET /api/transactions/{date}
+* GET /api/transactions?date=date
   * List all postings(transactions) of the financial institution for a given date
 
 * GET /api/transactions/{customerId}/?pageno=pageNo&pagesize=pageSize&sortby=sortBy

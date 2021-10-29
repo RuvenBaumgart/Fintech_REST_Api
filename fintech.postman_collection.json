@@ -82,7 +82,7 @@
 			"response": []
 		},
 		{
-			"name": "new Transaction init by Customer with id",
+			"name": "Create a new  Transaction init by Customer with id",
 			"request": {
 				"method": "POST",
 				"header": [],

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import de.kirschUndKern.testProjectJava.fintech.exceptions.BankAccountNotFoundException;
-
+import de.kirschUndKern.testProjectJava.fintech.modell.PageResponse;
 import de.kirschUndKern.testProjectJava.fintech.modell.TransactionRequest;
 import de.kirschUndKern.testProjectJava.fintech.modell.TransactionsForCustomerResponse;
 import de.kirschUndKern.testProjectJava.fintech.modell.TransactionsFullResponse;
@@ -50,13 +50,13 @@ public class TransactionController {
 
 
   @GetMapping("/transactions/{id}")
-  public List<TransactionsForCustomerResponse> getAllTransactions(
-    @RequestParam(name = "pageno", defaultValue = "0") Integer pageNo,
+  public PageResponse<TransactionsForCustomerResponse> getAllTransactions(
+    @RequestParam(name = "pageno", defaultValue = "1") Integer pageNo,
     @RequestParam(name = "pagesize", defaultValue = "10") Integer pageSize,
     @RequestParam(name = "sortby", defaultValue = "id") String sortBy,
     @PathVariable(name = "id") String customerId
   ) throws Exception{
-    return transactionService.getAllTransactions(customerId, pageNo, pageSize, sortBy);
+    return transactionService.getPagedTransactions(customerId, pageNo, pageSize, sortBy);
   }
   
 }

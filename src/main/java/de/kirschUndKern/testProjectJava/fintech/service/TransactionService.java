@@ -14,6 +14,7 @@ import de.kirschUndKern.testProjectJava.fintech.entities.CustomerEntity;
 import de.kirschUndKern.testProjectJava.fintech.entities.TransactionsEntity;
 import de.kirschUndKern.testProjectJava.fintech.exceptions.BankAccountNotFoundException;
 import de.kirschUndKern.testProjectJava.fintech.exceptions.CustomerNotFoundException;
+import de.kirschUndKern.testProjectJava.fintech.modell.PageResponse;
 import de.kirschUndKern.testProjectJava.fintech.modell.TransactionRequest;
 import de.kirschUndKern.testProjectJava.fintech.modell.TransactionsForCustomerResponse;
 import de.kirschUndKern.testProjectJava.fintech.modell.TransactionsFullResponse;
@@ -95,7 +96,7 @@ public class TransactionService {
 
   }
 
-  public List<TransactionsForCustomerResponse> getAllTransactions(String customerId, Integer pageNo, Integer pageSize, String sortBy) throws Exception {
+  public List<TransactionsForCustomerResponse> getAllTransactionsForCustomer(String customerId) throws Exception {
     
     Optional<CustomerEntity> customer = customerRepository.findById(customerId);
     if(customer.isEmpty())
@@ -130,9 +131,29 @@ public class TransactionService {
     return result;
   }
 
+  
   private CustomerEntity getCustomer(String sourceAccountId) {
     AccountEntity account = accountRepository.getById(sourceAccountId);
     CustomerEntity customer = customerRepository.getById(account.getCustomerId());
     return customer;
   }
+
+  public PageResponse<TransactionsForCustomerResponse> getPagedTransactions(String customerId, Integer pageNo, Integer pageSize,
+      String sortBy) throws Exception {
+    List<TransactionsForCustomerResponse> allTransactions =  getAllTransactionsForCustomer(customerId);
+    return getPage(pageNo, pageSize, allTransactions);
+  }
+
+  private PageResponse<TransactionsForCustomerResponse> getPage(Integer pageNo, Integer pageSize, List<TransactionsForCustomerResponse> transactions ){
+    Integer skipPreviousTransactions = (pageNo - 1) * pageSize;
+    List<TransactionsForCustomerResponse> transactionsPage = transactions
+    .stream()
+    .skip(skipPreviousTransactions)
+    .limit(pageSize)
+    .collect(Collectors.toList());
+    PageResponse<TransactionsForCustomerResponse> page = new PageResponse<>(pageNo, transactionsPage.size(), transactions.size(), transactionsPage);
+    return page;
+  }
+
+
 }

@@ -43,7 +43,7 @@
 * originalTermInMonths(Laufzeit) *Maybe it should be changed to days*
 * remainingTermInMonths(Restlaufzeit)
 * originalCreditAmountInCents
-* currentCeditAmountInCents
+* currentCreditAmountInCents *if currentCreditAmountInCents eq. orignialCreditAmountInCents then nothing is payed back. When currentCreditAmountInCents is eq to zero than everything is payed back*
 
 
 ## Models 
@@ -119,7 +119,7 @@
 * transactionTime
 
 **transactionsCustomer**
-* accountId
+* sourceAccountId
 * customerFirstName
 * customerSecondName
 * accountIdDestination
