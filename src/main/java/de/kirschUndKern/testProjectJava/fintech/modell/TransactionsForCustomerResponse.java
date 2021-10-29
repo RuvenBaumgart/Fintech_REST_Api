@@ -44,7 +44,7 @@ public class TransactionsForCustomerResponse {
       return customerFirstnameDestination;
     }
   
-    public String getCustomerSecondnameDesitnation() {
+    public String getCustomerSecondnameDestination() {
       return customerSecondnameDesitnation;
     }
 

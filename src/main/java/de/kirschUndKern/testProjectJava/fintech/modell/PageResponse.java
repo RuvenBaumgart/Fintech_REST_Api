@@ -6,7 +6,8 @@ public class PageResponse<T> {
   private final Integer pageNumber;
   private final Integer resultsPerPage;
   private final Integer totalResults;
-  private List<T> items;
+  private final Double totalPages;
+  private final List<T> items;
 
   public PageResponse(
     Integer pageNumber,
@@ -18,6 +19,11 @@ public class PageResponse<T> {
     this.resultsPerPage = resultsPerPage;
     this.totalResults = totalResults;
     this.items = items;
+    this.totalPages = calTotalPages();
+  }
+
+  private Double calTotalPages() {
+    return Math.ceil(Double.valueOf(totalResults) / (Double.valueOf(resultsPerPage)));
   }
 
   public Integer getPageNumber() {
@@ -36,8 +42,8 @@ public class PageResponse<T> {
     return items;
   }
 
-  public void setItems(List<T> items) {
-    this.items = items;
+  public Double getTotalPages(){
+    return totalPages;
   }
 
   //TO-DO: Methode for calculatin the total number of pages

@@ -10,7 +10,6 @@
 ### Bussines Logic
 * List all postings with the account id and customer name of source and destination of one
 customer and make the result sortable and page-able.
-  * *started but not finished due to questoins about how to implement best*
 * The first booking should be configurable in the properties of the application.
 * Process to the next booking date. A booking da teshould be every weekday regardless of holidays.
 * If a customer paid off a credit he will be awarded to a better rating class but at maximum to ‚1‘.

@@ -1,9 +1,13 @@
 package de.kirschUndKern.testProjectJava.fintech.service;
 
+import java.security.Key;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -138,15 +142,18 @@ public class TransactionService {
     return customer;
   }
 
-  public PageResponse<TransactionsForCustomerResponse> getPagedTransactions(String customerId, Integer pageNo, Integer pageSize,
-      String sortBy) throws Exception {
+  public PageResponse<TransactionsForCustomerResponse> getPagedTransactions(String customerId, Integer pageNo, Integer pageSize, String sortBy) throws Exception {
     List<TransactionsForCustomerResponse> allTransactions =  getAllTransactionsForCustomer(customerId);
-    return getPage(pageNo, pageSize, allTransactions);
+    return getPage(pageNo, pageSize, allTransactions, sortBy);
   }
 
-  private PageResponse<TransactionsForCustomerResponse> getPage(Integer pageNo, Integer pageSize, List<TransactionsForCustomerResponse> transactions ){
+  private PageResponse<TransactionsForCustomerResponse> getPage(Integer pageNo, Integer pageSize, List<TransactionsForCustomerResponse> transactions, String sortBy ){
     Integer skipPreviousTransactions = (pageNo - 1) * pageSize;
-    List<TransactionsForCustomerResponse> transactionsPage = transactions
+    List<TransactionsForCustomerResponse> transactionsSorted = transactions.stream()
+    .sorted(getComparator(sortBy))
+    .collect(Collectors.toList());
+
+    List<TransactionsForCustomerResponse> transactionsPage = transactionsSorted
     .stream()
     .skip(skipPreviousTransactions)
     .limit(pageSize)
@@ -155,5 +162,12 @@ public class TransactionService {
     return page;
   }
 
-
+  private Comparator<TransactionsForCustomerResponse> getComparator(String sortBy){
+    Map<String, Comparator<TransactionsForCustomerResponse>> map = new HashMap<>();
+    map.put("sender_firstname", Comparator.comparing(TransactionsForCustomerResponse::getCustomerFirstname));
+    map.put("sender_secondname", Comparator.comparing(TransactionsForCustomerResponse::getCustomerSecondname));
+    map.put("recepient_firstname", Comparator.comparing(TransactionsForCustomerResponse::getCustomerFirstnameDestination));
+    map.put("recepient_secondname", Comparator.comparing(TransactionsForCustomerResponse::getCustomerSecondnameDestination));
+    return map.get(sortBy);
+  };
 }

@@ -53,7 +53,7 @@ public class TransactionController {
   public PageResponse<TransactionsForCustomerResponse> getAllTransactions(
     @RequestParam(name = "pageno", defaultValue = "1") Integer pageNo,
     @RequestParam(name = "pagesize", defaultValue = "10") Integer pageSize,
-    @RequestParam(name = "sortby", defaultValue = "id") String sortBy,
+    @RequestParam(name = "sortby", defaultValue = "sender_firstname") String sortBy,
     @PathVariable(name = "id") String customerId
   ) throws Exception{
     return transactionService.getPagedTransactions(customerId, pageNo, pageSize, sortBy);
