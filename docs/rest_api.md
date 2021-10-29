@@ -72,7 +72,12 @@ Possible blocks:
     * The queryString should contain:
       * pageNo, default = 0
       * pageSize, default = 10
-      * sortBy, default = id
+      * sortBy, default = sender_firstname
+        *Current Sort Options:  
+          * sender_firstname
+          * sender_secondname
+          * recepient_firstname
+          * recepient_secondname
 
 
 * POST /api/transactions/{customerId}

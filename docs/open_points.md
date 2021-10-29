@@ -8,8 +8,6 @@
 * The application should be secured with a login backed with only one hardcoded user and password combination. If a user is not logged he should not have access to the system.
 
 ### Bussines Logic
-* List all postings with the account id and customer name of source and destination of one
-customer and make the result sortable and page-able.
 * The first booking should be configurable in the properties of the application.
 * Process to the next booking date. A booking da teshould be every weekday regardless of holidays.
 * If a customer paid off a credit he will be awarded to a better rating class but at maximum to ‚1‘.
