@@ -1,4 +1,4 @@
-package de.kirschUndKern.testProjectJava.fintech.modell;
+package de.kirschUndKern.testProjectJava.fintech.modell.request;
 
 public class CreditRequest {
   private final Long creditAmountInCents;

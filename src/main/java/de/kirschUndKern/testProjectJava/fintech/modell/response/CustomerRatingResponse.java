@@ -1,4 +1,4 @@
-package de.kirschUndKern.testProjectJava.fintech.modell;
+package de.kirschUndKern.testProjectJava.fintech.modell.response;
 
 public class CustomerRatingResponse {
   private final String firstname;

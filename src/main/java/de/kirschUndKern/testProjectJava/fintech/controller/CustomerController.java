@@ -11,9 +11,9 @@ import java.util.List;
 import java.util.Map;
 
 import de.kirschUndKern.testProjectJava.fintech.exceptions.WrongDateFormatException;
-import de.kirschUndKern.testProjectJava.fintech.modell.CustomerAndAddressResponse;
-import de.kirschUndKern.testProjectJava.fintech.modell.CustomerRequest;
-import de.kirschUndKern.testProjectJava.fintech.modell.CustomerResponse;
+import de.kirschUndKern.testProjectJava.fintech.modell.request.CustomerRequest;
+import de.kirschUndKern.testProjectJava.fintech.modell.response.CustomerAndAddressResponse;
+import de.kirschUndKern.testProjectJava.fintech.modell.response.CustomerResponse;
 import de.kirschUndKern.testProjectJava.fintech.service.CustomerService;
 
 @RestController

@@ -1,6 +1,5 @@
 package de.kirschUndKern.testProjectJava.fintech.service;
 
-import java.security.Key;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -18,16 +17,19 @@ import de.kirschUndKern.testProjectJava.fintech.entities.CustomerEntity;
 import de.kirschUndKern.testProjectJava.fintech.entities.TransactionsEntity;
 import de.kirschUndKern.testProjectJava.fintech.exceptions.BankAccountNotFoundException;
 import de.kirschUndKern.testProjectJava.fintech.exceptions.CustomerNotFoundException;
-import de.kirschUndKern.testProjectJava.fintech.modell.PageResponse;
-import de.kirschUndKern.testProjectJava.fintech.modell.TransactionRequest;
-import de.kirschUndKern.testProjectJava.fintech.modell.TransactionsForCustomerResponse;
-import de.kirschUndKern.testProjectJava.fintech.modell.TransactionsFullResponse;
+import de.kirschUndKern.testProjectJava.fintech.modell.request.TransactionRequest;
+import de.kirschUndKern.testProjectJava.fintech.modell.response.PageResponse;
+import de.kirschUndKern.testProjectJava.fintech.modell.response.TransactionsForCustomerResponse;
+import de.kirschUndKern.testProjectJava.fintech.modell.response.TransactionsFullResponse;
 import de.kirschUndKern.testProjectJava.fintech.repositories.AccountRepository;
 import de.kirschUndKern.testProjectJava.fintech.repositories.CustomerRepository;
 import de.kirschUndKern.testProjectJava.fintech.repositories.TransactionRepository;
 
 @Service
 public class TransactionService {
+
+  private static Map<String, Comparator<TransactionsForCustomerResponse>> sortby = new HashMap<>();
+
   
   public final AccountRepository accountRepository;
   public final TransactionRepository transactionRepository;
@@ -42,6 +44,7 @@ public class TransactionService {
     this.accountRepository = accountRepository;
     this.transactionRepository = transactionRepository;
     this.customerRepository = customerRepository;
+    initSortbyMap();
   }
 
   public TransactionsFullResponse processNewTransaction(String customerId, TransactionRequest request) throws BankAccountNotFoundException {
@@ -162,12 +165,14 @@ public class TransactionService {
     return page;
   }
 
-  private Comparator<TransactionsForCustomerResponse> getComparator(String sortBy){
-    Map<String, Comparator<TransactionsForCustomerResponse>> map = new HashMap<>();
-    map.put("sender_firstname", Comparator.comparing(TransactionsForCustomerResponse::getCustomerFirstname));
-    map.put("sender_secondname", Comparator.comparing(TransactionsForCustomerResponse::getCustomerSecondname));
-    map.put("recepient_firstname", Comparator.comparing(TransactionsForCustomerResponse::getCustomerFirstnameDestination));
-    map.put("recepient_secondname", Comparator.comparing(TransactionsForCustomerResponse::getCustomerSecondnameDestination));
-    return map.get(sortBy);
+  private Comparator<TransactionsForCustomerResponse> getComparator(String sortingFunc){
+    return sortby.get(sortingFunc);
   };
+
+  private void initSortbyMap(){
+    sortby.put("sender_firstname", Comparator.comparing(TransactionsForCustomerResponse::getCustomerFirstname));
+    sortby.put("sender_secondname", Comparator.comparing(TransactionsForCustomerResponse::getCustomerSecondname));
+    sortby.put("recepient_firstname", Comparator.comparing(TransactionsForCustomerResponse::getCustomerFirstnameDestination));
+    sortby.put("recepient_secondname", Comparator.comparing(TransactionsForCustomerResponse::getCustomerSecondnameDestination));
+  }
 }

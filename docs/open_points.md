@@ -16,6 +16,5 @@
 ## Next Steps
 ### General
 * Complet remaing open points
-* Create secure log in
 * Create MySql Server
 * make the application deployable

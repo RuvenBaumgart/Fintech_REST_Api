@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import de.kirschUndKern.testProjectJava.fintech.modell.TransactionRequest;
+import de.kirschUndKern.testProjectJava.fintech.modell.request.TransactionRequest;
 
 @Entity
 @Table (name = "transactions")

@@ -4,9 +4,10 @@ import java.util.UUID;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.persistence.Id;
 
-import de.kirschUndKern.testProjectJava.fintech.modell.AddressRequest;
+import de.kirschUndKern.testProjectJava.fintech.modell.request.AddressRequest;
+
+import javax.persistence.Id;
 
 @Entity
 @Table (name = "addresses")
