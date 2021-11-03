@@ -363,6 +363,34 @@
 			"response": []
 		},
 		{
+			"name": "authentification of a user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\":\"admin\",\n    \"password\":\"password\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/authentification",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"authentification"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "payoff or update the currentCreditAmountInCents for given credit",
 			"request": {
 				"method": "PUT",
