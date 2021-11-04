@@ -14,3 +14,10 @@
 
 ### REST API
   * Please check the document *rest_api.md* in the docs folder
+
+
+### START THE APP
+  * To start the application you need to install docker
+  * After that move to the main folder that is containing the docker-compose.yaml file
+  * run the command *docker-compose up*
+  * you should be able to use the backend-api
