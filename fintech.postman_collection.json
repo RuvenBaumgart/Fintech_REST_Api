@@ -9,10 +9,16 @@
 			"name": "Create a customer with full name, day of birth, address and a rating class which defaults to 2",
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYzNjAzOTIxMCwiaWF0IjoxNjM2MDIxMjEwfQ.yQR9dYt6GlO6w3a7JjNBQZuOIV7ctH4jxk3y2NEw8JsGJEc_aCOcSX2KfR0981vu5c72K5LCp5lXJbRWhvHOaw",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"firstname\":\"Max\",\n    \"secondname\":\"Musterman\",\n    \"salutation\":\"Mr.\",\n    \"dateOfBirth\":\"04/11/1970\",\n    \"address\": \n    {\n        \"city\":\"Musterhausen\",\n        \"street\":\"Musterstrasse\",\n        \"provincd\":\"MM\",\n        \"zipCode\":\"55555\",\n        \"country\":\"Germany\"\n    }\n}",
+					"raw": "{\n    \"firstname\":\"Donald\",\n    \"secondname\":\"Duck\",\n    \"salutation\":\"Mr.\",\n    \"dateOfBirth\":\"04/11/1988\",\n    \"address\": \n    {\n        \"city\":\"Entenhausen\",\n        \"street\":\"Entenstrasse\",\n        \"province\":\"MM\",\n        \"zipCode\":\"55555\",\n        \"country\":\"Germany\"\n    }\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -112,6 +118,34 @@
 			"response": []
 		},
 		{
+			"name": "authentification of a user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\":\"admin\",\n    \"password\":\"password\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/authentification",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"authentification"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Get all Customers with address by their last name",
 			"request": {
 				"method": "GET",
@@ -135,7 +169,13 @@
 			"name": "Get all Customers",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYzNTk5OTE0NiwiaWF0IjoxNjM1OTgxMTQ2fQ.Kv0QsYnuyI6em4tR4nKUAlHDDTJmz8cYA2IS-fXv15RquRcbMXtxHumeOFcavXs44IXCziSJKxxLLaskJdn4oQ",
+						"type": "text"
+					}
+				],
 				"url": {
 					"raw": "localhost:8080/api/customers/Mustermann",
 					"host": [
@@ -357,34 +397,6 @@
 							"key": "sortby",
 							"value": ""
 						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "authentification of a user",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"username\":\"admin\",\n    \"password\":\"password\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "localhost:8080/api/authentification",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"authentification"
 					]
 				}
 			},

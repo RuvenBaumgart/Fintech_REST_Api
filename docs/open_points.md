@@ -1,11 +1,7 @@
 # Open Points
 ## Open requirements
 ### General 
-* self-contained, buildable on a third-party computer and fully production ready.
 * tested fully automatically 
-* relational memory database as persistence unit 
-  * *during development h2 is used. Product ready will contain MySQL*
-
 
 ### Bussines Logic
 * The first booking should be configurable in the properties of the application.

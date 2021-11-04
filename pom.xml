@@ -11,8 +11,9 @@
 	<groupId>de.kirschUndKern.testProjectJava</groupId>
 	<artifactId>fintech</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
 	<name>fintech</name>
-	<description>Java test project context financial sector banking simulation</description>
+	<description>Java test project within the context financial sector banking simulation</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>

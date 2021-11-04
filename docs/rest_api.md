@@ -20,8 +20,16 @@ Possible blocks:
 * accounts
 * transactions (posting)
 * credits
+* users
 
 ### Routes
+
+#### users
+* POST /api/authentification
+  * The body should contain:
+    * username:username 
+    * password:password
+  
 #### customers
 
 * GET /api/customers
