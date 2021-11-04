@@ -17,4 +17,4 @@ create table account_entity_transaction_ids (
 alter table account_entity_transaction_ids 
   add constraint account_entity_transaction_id_account_fk
   foreign key (account_entity_id) 
-  references accounts 
+  references accounts(id)
