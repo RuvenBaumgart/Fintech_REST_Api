@@ -2,6 +2,11 @@
 
 ## Entities
 
+**users**
+* userId
+* username
+* hashedPassword
+
 **customers** 
 * id
 * firstname
@@ -48,6 +53,20 @@
 
 ## Models 
 ### Requests
+
+**AuthentificationRequest**
+* username
+* password
+
+**CreditRequest**
+* creditAmountInCents
+* runtimeInMonths
+
+**CreditUpdateRequest**
+* amountInCent
+* sourceAccountId
+
+
 **transaction**
 * amountInCent
 * sourceAccoundId
@@ -70,6 +89,14 @@
 
 
 ### Responses
+
+**account**
+* id
+* cutomerId
+* balanceInCent
+* sumOfTransactions
+* transactionIds
+
 
 **customersNameAndAdress**
 * customerId

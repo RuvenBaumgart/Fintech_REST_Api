@@ -65,7 +65,7 @@ Possible blocks:
 * POST /api/accounts/{customerId}
   * create a new account for given customerId
 
-* PUT /api/accounts/{customerId}
+* PUT /api/accounts/{customerId} *not implemented*
   * update the balance on the account
 
 
@@ -112,3 +112,10 @@ Possible blocks:
     * The body should contain
       * the amount of payoff 
       * the sourceAccount from which to pay
+
+### authentification
+* POST /api/authentification
+  * authentificate a user based on the given credentials
+    * CREDENTIALS
+      * username
+      * password
