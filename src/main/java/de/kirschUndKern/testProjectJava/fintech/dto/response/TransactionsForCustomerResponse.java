@@ -2,14 +2,21 @@ package de.kirschUndKern.testProjectJava.fintech.dto.response;
 
 import de.kirschUndKern.testProjectJava.fintech.entities.CustomerEntity;
 import de.kirschUndKern.testProjectJava.fintech.entities.TransactionsEntity;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 
 public class TransactionsForCustomerResponse {
-  private final String accountSourceId;
-  private final String customerFirstname;
-  private final String customerSecondname;
-  private final String accountDestinationId;
-  private final String customerFirstnameDestination;
-  private final String customerSecondnameDesitnation;
+  private String accountSourceId;
+  private String customerFirstname;
+  private String customerSecondname;
+  private String accountDestinationId;
+  private String customerFirstnameDestination;
+  private String customerSecondnameDesitnation;
 
   public TransactionsForCustomerResponse(
     TransactionsEntity transaction,
@@ -18,34 +25,8 @@ public class TransactionsForCustomerResponse {
       this.accountSourceId = transaction.getSourceAccountId();
       this.customerFirstname = sourceCustomer.getFirstname();
       this.customerSecondname = sourceCustomer.getSecondname();
-      this.accountDestinationId = transaction.getDestinationAccountId();
+      this.accountDestinationId = transaction.getDestinationAccoutnId();
       this.customerFirstnameDestination = destinationCustomer.getFirstname();
       this.customerSecondnameDesitnation = destinationCustomer.getSecondname();
     }
-
-
-    public String getAccountSourceId() {
-      return accountSourceId;
-    }
-  
-    public String getCustomerFirstname() {
-      return customerFirstname;
-    }
-  
-    public String getCustomerSecondname() {
-      return customerSecondname;
-    }
-  
-    public String getAccountDestinationId() {
-      return accountDestinationId;
-    }
-  
-    public String getCustomerFirstnameDestination() {
-      return customerFirstnameDestination;
-    }
-  
-    public String getCustomerSecondnameDestination() {
-      return customerSecondnameDesitnation;
-    }
-
 }

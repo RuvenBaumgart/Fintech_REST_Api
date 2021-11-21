@@ -93,7 +93,7 @@ public class AccountService {
     List<AccountResponse> accounts = getAccountsBy(customerId);
     Long sumOfBalanceInCent = 0L;
     for(AccountResponse account : accounts){
-      sumOfBalanceInCent += account.getbalanceInCent(); 
+      sumOfBalanceInCent += account.getBalanceInCent(); 
     }
     return sumOfBalanceInCent;
   };

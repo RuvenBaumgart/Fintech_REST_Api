@@ -2,35 +2,26 @@ package de.kirschUndKern.testProjectJava.fintech.dto.response;
 
 import de.kirschUndKern.testProjectJava.fintech.entities.CreditsEntity;
 import de.kirschUndKern.testProjectJava.fintech.entities.CustomerEntity;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 
 public class CreditExceededResponse {
 
-  private final Long originalCreditAmountInCents;
-  private final Long currentCreditAmountInCents;
-  private final String firstname;
-  private final String secondname;
+  private Long originalCreditAmountInCents;
+  private Long currentCreditAmountInCents;
+  private String firstname;
+  private String secondname;
 
   public CreditExceededResponse(CreditsEntity credit, CustomerEntity customer){
-    this.originalCreditAmountInCents = credit.getOriginalCreditAmount();
-    this.currentCreditAmountInCents = credit.getOriginalCreditAmount();
+    this.originalCreditAmountInCents = credit.getOrignialCreditAmountInCents();
+    this.currentCreditAmountInCents = credit.getOrignialCreditAmountInCents();
     this.firstname = customer.getFirstname();
     this.secondname = customer.getSecondname();
   }
-
-  public Long getOriginalCreditAmount() {
-    return originalCreditAmountInCents;
-  }
-
-  public Long getCurrentCreditAmount() {
-    return currentCreditAmountInCents;
-  }
-
-  public String getFirstname() {
-    return firstname;
-  }
-
-  public String getSecondname() {
-    return secondname;
-  }
-  
 }

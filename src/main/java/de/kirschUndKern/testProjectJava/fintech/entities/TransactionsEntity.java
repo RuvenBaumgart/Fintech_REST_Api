@@ -9,9 +9,15 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import de.kirschUndKern.testProjectJava.fintech.dto.request.TransactionRequest;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table (name = "transactions")
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class TransactionsEntity {
  
   @Id private String id;
@@ -21,28 +27,6 @@ public class TransactionsEntity {
   private LocalDate transactionDate;
   private LocalTime transactionTime;
   private String message;
-
-
-  public TransactionsEntity(){
-  }
-
-  public TransactionsEntity(
-    String id, 
-    String sourceAccountId, 
-    String destinationAccoutnId, 
-    Long amountInCent,
-    LocalDate transactionDate, 
-    LocalTime transactionTime, 
-    String message
-    ){
-      this.id = id;
-      this.sourceAccountId = sourceAccountId;
-      this.destinationAccoutnId = destinationAccoutnId;
-      this.amountInCent = amountInCent;
-      this.transactionDate = transactionDate;
-      this.transactionTime = transactionTime;
-      this.message = message;
-}
   
   public TransactionsEntity( 
     TransactionRequest tr, 
@@ -56,28 +40,4 @@ public class TransactionsEntity {
       this.transactionTime = LocalTime.now();
       this.message = tr.getMessage();
   }
-
-  public String getId() {
-    return id;
-  }
-  public String getSourceAccountId() {
-    return sourceAccountId;
-  }
-  public String getDestinationAccountId() {
-    return destinationAccoutnId;
-  }
-  public Long getAmountInCent() {
-    return amountInCent;
-  }
-  public LocalDate getTransactionDate() {
-    return transactionDate;
-  }
-
-  public LocalTime getTransactionTime(){
-    return transactionTime;
-  }
-  public String getMessage(){
-    return message;
-  }
-
 }

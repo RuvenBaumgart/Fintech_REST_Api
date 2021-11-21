@@ -4,14 +4,20 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Component;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 @Component
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+
 public class UserEntity {
     private String userId;
     private String username;
     private String hashedPassword;
 
-    public UserEntity(){};
-    
     public UserEntity(UserEntity user){
       this.userId = user.getUserId();
       this.username = user.getUsername();
@@ -25,17 +31,5 @@ public class UserEntity {
       this.userId = UUID.randomUUID().toString();
       this.username = username;
       this.hashedPassword = hashedPassword;
-    }
-
-    public String getUsername(){
-      return username;
-    }
-
-    public String getHashedPassword(){
-      return hashedPassword;
-    }
-
-    public String getUserId(){
-      return userId;
     }
 }

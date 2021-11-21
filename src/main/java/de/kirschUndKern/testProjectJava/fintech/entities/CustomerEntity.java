@@ -7,11 +7,18 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import de.kirschUndKern.testProjectJava.fintech.service.CustomerService;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import de.kirschUndKern.testProjectJava.fintech.dto.request.CustomerRequest;
 import de.kirschUndKern.testProjectJava.fintech.exceptions.WrongDateFormatException;
 
 @Entity
 @Table (name = "customers")
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+
 public class CustomerEntity {
   @Id private String id;
   private String firstname;
@@ -20,25 +27,6 @@ public class CustomerEntity {
   private LocalDate birthday;
   private Integer rating;
 
-  public CustomerEntity(){
-  }
-
-  public CustomerEntity(
-    String id,
-    String firstname,
-    String secondname,
-    String salutation,
-    LocalDate birthday,
-    Integer rating
-  ){
-    this.id = id;
-    this.firstname = firstname;
-    this.secondname = secondname;
-    this.salutation = salutation;
-    this.birthday = birthday;
-    this.rating = rating;
-  }
-
   public CustomerEntity( CustomerRequest cr) throws WrongDateFormatException{
     this.id = UUID.randomUUID().toString();
     this.firstname = cr.getFirstname();
@@ -46,30 +34,6 @@ public class CustomerEntity {
     this.salutation = cr.getSalutation();
     this.birthday = CustomerService.convertToDate(cr.getDateOfBirth());
     this.rating = 2;
-  }
-
-  public String getId() {
-    return id;
-  }
-
-  public String getFirstname() {
-    return firstname;
-  }
-
-  public String getSecondname() {
-    return secondname;
-  }
-
-  public LocalDate getBirthday() {
-    return birthday;
-  }
-
-  public Integer getRating() {
-    return rating;
-  }
-
-  public String getSalutation(){
-    return this.salutation;
   }
 
 }

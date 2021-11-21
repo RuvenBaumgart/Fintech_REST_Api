@@ -132,7 +132,7 @@ public class TransactionService {
       result.add(new TransactionsForCustomerResponse(
         transaction, 
         getCustomer(transaction.getSourceAccountId()),
-        getCustomer(transaction.getDestinationAccountId())
+        getCustomer(transaction.getDestinationAccoutnId())
         )
       );
     }
@@ -174,6 +174,6 @@ public class TransactionService {
     sortby.put("sender_firstname", Comparator.comparing(TransactionsForCustomerResponse::getCustomerFirstname));
     sortby.put("sender_secondname", Comparator.comparing(TransactionsForCustomerResponse::getCustomerSecondname));
     sortby.put("recepient_firstname", Comparator.comparing(TransactionsForCustomerResponse::getCustomerFirstnameDestination));
-    sortby.put("recepient_secondname", Comparator.comparing(TransactionsForCustomerResponse::getCustomerSecondnameDestination));
+    sortby.put("recepient_secondname", Comparator.comparing(TransactionsForCustomerResponse::getCustomerSecondnameDesitnation));
   }
 }

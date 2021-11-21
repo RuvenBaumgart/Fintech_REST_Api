@@ -119,8 +119,8 @@ public class CreditService {
       credit.getDataOfCreation(),
       credit.getOriginalTermInMonths(),
       credit.getRemainingTermInMonths(),
-      credit.getOriginalCreditAmount(),
-      credit.getCurrentCreditAmount() - creditUpdateRequest.getAmountInCent()
+      credit.getOrignialCreditAmountInCents(),
+      credit.getCurrentCreditAmountInCents() - creditUpdateRequest.getAmountInCent()
     );
     return new CreditResponse(
       creditRepository.save(updatedCredit)

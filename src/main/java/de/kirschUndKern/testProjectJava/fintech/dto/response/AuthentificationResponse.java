@@ -1,15 +1,13 @@
 package de.kirschUndKern.testProjectJava.fintech.dto.response;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+
 public class AuthentificationResponse {
-  private final String jwtToken;
-
-  public AuthentificationResponse(
-    String jwtToken
-  ){
-    this.jwtToken = jwtToken;
-  };
-
-  public String getJwtToken(){
-    return jwtToken;
-  }
+  private String jwtToken;
 }

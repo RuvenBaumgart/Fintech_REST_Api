@@ -6,11 +6,18 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import de.kirschUndKern.testProjectJava.fintech.dto.request.AddressRequest;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Id;
 
 @Entity
 @Table (name = "addresses")
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+
 public class AddressEntity {
   @Id private String id; 
   private String customerId;
@@ -19,27 +26,6 @@ public class AddressEntity {
   private String province;
   private String zipCode;
   private String country;
-
-
-  public AddressEntity(){
-  }
-
-  public AddressEntity(
-    String id, 
-    String customerId, 
-    String city, 
-    String street, 
-    String province, 
-    String zipCode,
-    String country) {
-      this.id = id;
-      this.customerId = customerId;
-      this.city = city;
-      this.street = street;
-      this.province = province;
-      this.zipCode = zipCode;
-      this.country = country;
-  }
 
   public AddressEntity(String customerId){
     this.id = UUID.randomUUID().toString();
@@ -61,25 +47,4 @@ public class AddressEntity {
     this.country = ar.getCountry();
   }
   
-  public String getId() {
-    return id;
-  }
-  public String getCustomerId() {
-    return customerId;
-  }
-  public String getCity() {
-    return city;
-  }
-  public String getStreet() {
-    return street;
-  }
-  public String getProvince() {
-    return province;
-  }
-  public String getZipCode() {
-    return zipCode;
-  }
-  public String getCountry() {
-    return country;
-  }
 }
