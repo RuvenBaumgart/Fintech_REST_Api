@@ -1,11 +1,11 @@
 package de.kirschUndKern.testProjectJava.fintech.service;
 
+import de.kirschUndKern.testProjectJava.fintech.dto.response.AccountResponse;
+import de.kirschUndKern.testProjectJava.fintech.dto.response.TransactionsFullResponse;
 import de.kirschUndKern.testProjectJava.fintech.entities.AccountEntity;
 import de.kirschUndKern.testProjectJava.fintech.entities.CustomerEntity;
 import de.kirschUndKern.testProjectJava.fintech.exceptions.BankAccountNotFoundException;
 import de.kirschUndKern.testProjectJava.fintech.exceptions.CustomerNotFoundException;
-import de.kirschUndKern.testProjectJava.fintech.modell.response.AccountResponse;
-import de.kirschUndKern.testProjectJava.fintech.modell.response.TransactionsFullResponse;
 import de.kirschUndKern.testProjectJava.fintech.repositories.AccountRepository;
 import de.kirschUndKern.testProjectJava.fintech.repositories.CustomerRepository;
 

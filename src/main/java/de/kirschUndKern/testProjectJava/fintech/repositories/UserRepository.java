@@ -1,8 +1,9 @@
 package de.kirschUndKern.testProjectJava.fintech.repositories;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import de.kirschUndKern.testProjectJava.fintech.dto.request.UserRequest;
 import de.kirschUndKern.testProjectJava.fintech.entities.UserEntity;
-import de.kirschUndKern.testProjectJava.fintech.modell.request.UserRequest;
 
 import org.springframework.stereotype.Repository;
 

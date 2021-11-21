@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import de.kirschUndKern.testProjectJava.fintech.modell.request.TransactionRequest;
+import de.kirschUndKern.testProjectJava.fintech.dto.request.TransactionRequest;
 
 @Entity
 @Table (name = "transactions")
@@ -50,7 +50,7 @@ public class TransactionsEntity {
     ) {
       this.id = UUID.randomUUID().toString();
       this.sourceAccountId = sourceAccountId;
-      this.destinationAccoutnId = tr.getDestinationAccoutnId();
+      this.destinationAccoutnId = tr.getDestinationAccountId();
       this.amountInCent = tr.getAmountInCent();
       this.transactionDate = LocalDate.now();
       this.transactionTime = LocalTime.now();

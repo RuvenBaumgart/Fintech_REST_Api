@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import de.kirschUndKern.testProjectJava.fintech.dto.response.AccountResponse;
 import de.kirschUndKern.testProjectJava.fintech.exceptions.BankAccountNotFoundException;
 import de.kirschUndKern.testProjectJava.fintech.exceptions.CustomerNotFoundException;
-import de.kirschUndKern.testProjectJava.fintech.modell.response.AccountResponse;
 import de.kirschUndKern.testProjectJava.fintech.service.AccountService;
 
 @RestController

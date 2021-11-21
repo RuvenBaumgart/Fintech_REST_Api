@@ -12,15 +12,16 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+
+import de.kirschUndKern.testProjectJava.fintech.dto.request.TransactionRequest;
+import de.kirschUndKern.testProjectJava.fintech.dto.response.PageResponse;
+import de.kirschUndKern.testProjectJava.fintech.dto.response.TransactionsForCustomerResponse;
+import de.kirschUndKern.testProjectJava.fintech.dto.response.TransactionsFullResponse;
 import de.kirschUndKern.testProjectJava.fintech.entities.AccountEntity;
 import de.kirschUndKern.testProjectJava.fintech.entities.CustomerEntity;
 import de.kirschUndKern.testProjectJava.fintech.entities.TransactionsEntity;
 import de.kirschUndKern.testProjectJava.fintech.exceptions.BankAccountNotFoundException;
 import de.kirschUndKern.testProjectJava.fintech.exceptions.CustomerNotFoundException;
-import de.kirschUndKern.testProjectJava.fintech.modell.request.TransactionRequest;
-import de.kirschUndKern.testProjectJava.fintech.modell.response.PageResponse;
-import de.kirschUndKern.testProjectJava.fintech.modell.response.TransactionsForCustomerResponse;
-import de.kirschUndKern.testProjectJava.fintech.modell.response.TransactionsFullResponse;
 import de.kirschUndKern.testProjectJava.fintech.repositories.AccountRepository;
 import de.kirschUndKern.testProjectJava.fintech.repositories.CustomerRepository;
 import de.kirschUndKern.testProjectJava.fintech.repositories.TransactionRepository;
@@ -50,7 +51,7 @@ public class TransactionService {
   public TransactionsFullResponse processNewTransaction(String customerId, TransactionRequest request) throws BankAccountNotFoundException {
     
     Optional<AccountEntity> source = accountRepository.findById(request.getSourceAccountId());
-    Optional<AccountEntity> destination = accountRepository.findById(request.getDestinationAccoutnId());
+    Optional<AccountEntity> destination = accountRepository.findById(request.getDestinationAccountId());
   
     if(source.isPresent() && destination.isPresent()){
       
@@ -68,7 +69,7 @@ public class TransactionService {
       throw new BankAccountNotFoundException(
         "SourceAccount with id: " 
         + customerId + " not found or DestinatiounAccount with id: " 
-        + request.getDestinationAccoutnId() 
+        + request.getDestinationAccountId() 
         + "not found", HttpStatus.BAD_REQUEST);
     }
   }

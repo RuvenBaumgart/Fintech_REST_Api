@@ -9,8 +9,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import de.kirschUndKern.testProjectJava.fintech.dto.request.UserRequest;
 import de.kirschUndKern.testProjectJava.fintech.entities.UserEntity;
-import de.kirschUndKern.testProjectJava.fintech.modell.request.UserRequest;
 import de.kirschUndKern.testProjectJava.fintech.repositories.UserRepository;
 
 @Service

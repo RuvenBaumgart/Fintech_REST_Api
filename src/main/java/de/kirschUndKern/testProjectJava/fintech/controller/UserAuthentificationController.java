@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import de.kirschUndKern.testProjectJava.fintech.modell.request.AuthentificationRequest;
-import de.kirschUndKern.testProjectJava.fintech.modell.response.AuthentificationResponse;
+import de.kirschUndKern.testProjectJava.fintech.dto.request.AuthentificationRequest;
+import de.kirschUndKern.testProjectJava.fintech.dto.response.AuthentificationResponse;
 import de.kirschUndKern.testProjectJava.fintech.service.UserAuthentificationService;
 
 @RestController

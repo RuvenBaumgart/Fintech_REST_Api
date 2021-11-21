@@ -1,4 +1,4 @@
-package de.kirschUndKern.testProjectJava.fintech.modell.response;
+package de.kirschUndKern.testProjectJava.fintech.dto.response;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

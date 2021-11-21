@@ -1,4 +1,4 @@
-package de.kirschUndKern.testProjectJava.fintech.modell.response;
+package de.kirschUndKern.testProjectJava.fintech.dto.response;
 
 public class AuthentificationResponse {
   private final String jwtToken;

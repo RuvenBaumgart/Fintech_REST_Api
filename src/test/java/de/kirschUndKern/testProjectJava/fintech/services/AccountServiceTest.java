@@ -7,11 +7,12 @@ import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import static org.assertj.core.api.Assertions.*; 
+import static org.assertj.core.api.Assertions.*;
+
+import de.kirschUndKern.testProjectJava.fintech.dto.response.AccountResponse;
 import de.kirschUndKern.testProjectJava.fintech.entities.AccountEntity;
 import de.kirschUndKern.testProjectJava.fintech.exceptions.BankAccountNotFoundException;
 import de.kirschUndKern.testProjectJava.fintech.exceptions.CustomerNotFoundException;
-import de.kirschUndKern.testProjectJava.fintech.modell.response.AccountResponse;
 import de.kirschUndKern.testProjectJava.fintech.repositories.AccountRepository;
 import de.kirschUndKern.testProjectJava.fintech.repositories.CustomerRepository;
 import de.kirschUndKern.testProjectJava.fintech.service.AccountService;

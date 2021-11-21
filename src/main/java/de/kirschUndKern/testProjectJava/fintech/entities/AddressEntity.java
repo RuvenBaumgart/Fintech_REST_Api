@@ -5,7 +5,7 @@ import java.util.UUID;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import de.kirschUndKern.testProjectJava.fintech.modell.request.AddressRequest;
+import de.kirschUndKern.testProjectJava.fintech.dto.request.AddressRequest;
 
 import javax.persistence.Id;
 

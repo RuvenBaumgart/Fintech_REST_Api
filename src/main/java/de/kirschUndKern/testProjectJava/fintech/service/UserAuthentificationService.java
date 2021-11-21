@@ -9,9 +9,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-
-import de.kirschUndKern.testProjectJava.fintech.modell.request.AuthentificationRequest;
-import de.kirschUndKern.testProjectJava.fintech.modell.response.AuthentificationResponse;
+import de.kirschUndKern.testProjectJava.fintech.dto.request.AuthentificationRequest;
+import de.kirschUndKern.testProjectJava.fintech.dto.response.AuthentificationResponse;
 import de.kirschUndKern.testProjectJava.fintech.utilities.JWTTokenUtil;
 
 

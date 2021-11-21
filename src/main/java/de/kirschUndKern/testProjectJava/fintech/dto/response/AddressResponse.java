@@ -1,6 +1,8 @@
-package de.kirschUndKern.testProjectJava.fintech.modell.request;
+package de.kirschUndKern.testProjectJava.fintech.dto.response;
+import de.kirschUndKern.testProjectJava.fintech.entities.AddressEntity;
 
-public class AddressRequest {
+public class AddressResponse {
+
   private final String city;
   private final String street;
   private final String province;
@@ -8,19 +10,30 @@ public class AddressRequest {
   private final String country;
 
 
-  public AddressRequest(
+  public AddressResponse(
+ 
     String city, 
     String street, 
     String province, 
     String zipCode,
     String country) {
+   
       this.city = city;
       this.street = street;
       this.province = province;
       this.zipCode = zipCode;
       this.country = country;
   }
+  public AddressResponse(AddressEntity ae){
+   
+    this.city = ae.getCity();
+    this.street = ae.getStreet();
+    this.province = ae.getProvince();
+    this.zipCode = ae.getZipCode();
+    this.country = ae.getZipCode();
+  }
   
+
   public String getCity() {
     return city;
   }

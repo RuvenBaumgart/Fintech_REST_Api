@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import de.kirschUndKern.testProjectJava.fintech.dto.request.TransactionRequest;
+import de.kirschUndKern.testProjectJava.fintech.dto.response.PageResponse;
+import de.kirschUndKern.testProjectJava.fintech.dto.response.TransactionsForCustomerResponse;
+import de.kirschUndKern.testProjectJava.fintech.dto.response.TransactionsFullResponse;
 import de.kirschUndKern.testProjectJava.fintech.exceptions.BankAccountNotFoundException;
-import de.kirschUndKern.testProjectJava.fintech.modell.request.TransactionRequest;
-import de.kirschUndKern.testProjectJava.fintech.modell.response.PageResponse;
-import de.kirschUndKern.testProjectJava.fintech.modell.response.TransactionsForCustomerResponse;
-import de.kirschUndKern.testProjectJava.fintech.modell.response.TransactionsFullResponse;
 import de.kirschUndKern.testProjectJava.fintech.service.AccountService;
 import de.kirschUndKern.testProjectJava.fintech.service.TransactionService;
 

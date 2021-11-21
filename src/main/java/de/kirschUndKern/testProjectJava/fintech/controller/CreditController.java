@@ -8,10 +8,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+
+import de.kirschUndKern.testProjectJava.fintech.dto.request.CreditRequest;
+import de.kirschUndKern.testProjectJava.fintech.dto.request.CreditUpdateRequest;
+import de.kirschUndKern.testProjectJava.fintech.dto.response.CreditResponse;
 import de.kirschUndKern.testProjectJava.fintech.exceptions.CustomerNotFoundException;
-import de.kirschUndKern.testProjectJava.fintech.modell.request.CreditRequest;
-import de.kirschUndKern.testProjectJava.fintech.modell.request.CreditUpdateRequest;
-import de.kirschUndKern.testProjectJava.fintech.modell.response.CreditResponse;
 import de.kirschUndKern.testProjectJava.fintech.service.CreditService;
 
 @RestController

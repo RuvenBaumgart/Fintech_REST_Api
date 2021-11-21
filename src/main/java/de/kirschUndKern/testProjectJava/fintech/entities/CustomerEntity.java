@@ -7,8 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import de.kirschUndKern.testProjectJava.fintech.service.CustomerService;
+import de.kirschUndKern.testProjectJava.fintech.dto.request.CustomerRequest;
 import de.kirschUndKern.testProjectJava.fintech.exceptions.WrongDateFormatException;
-import de.kirschUndKern.testProjectJava.fintech.modell.request.CustomerRequest;
 
 @Entity
 @Table (name = "customers")

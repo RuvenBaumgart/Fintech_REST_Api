@@ -12,13 +12,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import de.kirschUndKern.testProjectJava.fintech.dto.request.AddressRequest;
+import de.kirschUndKern.testProjectJava.fintech.dto.request.CustomerRequest;
+import de.kirschUndKern.testProjectJava.fintech.dto.response.CustomerAndAddressResponse;
+import de.kirschUndKern.testProjectJava.fintech.dto.response.CustomerResponse;
 import de.kirschUndKern.testProjectJava.fintech.entities.AddressEntity;
 import de.kirschUndKern.testProjectJava.fintech.entities.CustomerEntity;
 import de.kirschUndKern.testProjectJava.fintech.exceptions.WrongDateFormatException;
-import de.kirschUndKern.testProjectJava.fintech.modell.request.AddressRequest;
-import de.kirschUndKern.testProjectJava.fintech.modell.request.CustomerRequest;
-import de.kirschUndKern.testProjectJava.fintech.modell.response.CustomerAndAddressResponse;
-import de.kirschUndKern.testProjectJava.fintech.modell.response.CustomerResponse;
 import de.kirschUndKern.testProjectJava.fintech.repositories.AddressRepository;
 import de.kirschUndKern.testProjectJava.fintech.repositories.CustomerRepository;
 

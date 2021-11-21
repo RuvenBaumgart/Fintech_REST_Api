@@ -1,4 +1,4 @@
-package de.kirschUndKern.testProjectJava.fintech.modell.response;
+package de.kirschUndKern.testProjectJava.fintech.dto.response;
 
 import de.kirschUndKern.testProjectJava.fintech.entities.CustomerEntity;
 import de.kirschUndKern.testProjectJava.fintech.entities.TransactionsEntity;
