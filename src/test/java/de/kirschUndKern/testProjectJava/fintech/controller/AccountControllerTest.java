@@ -11,6 +11,7 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
 import static org.assertj.core.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 import de.kirschUndKern.testProjectJava.fintech.service.AccountService;
 import de.kirschUndKern.testProjectJava.fintech.service.UserService;
@@ -47,6 +48,30 @@ public class AccountControllerTest{
     assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
   }
 
-  
+    @Test
+    public void callToGetAccountsBalanceIsReturningStatusOk() throws Exception {
+      MockHttpServletResponse response = mvc.perform(
+        get("/accounts/balance")).andReturn().getResponse(); 
 
+      assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
+    }
+
+    @Test
+    public void callToGetAccountsIdBalanceIsReturningStatusOk() throws Exception {
+      MockHttpServletResponse response = mvc.perform(
+        get("/accounts/someId/balance")).andReturn().getResponse(); 
+
+      assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
+    }
+
+    @Test
+    public void callToPostAccountsIdReturningStatusOk() throws Exception {
+      MockHttpServletResponse response = mvc.perform(
+        post("/accounts/someId")).andReturn().getResponse(); 
+
+      assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
+    }
+
+    
+  
 }
