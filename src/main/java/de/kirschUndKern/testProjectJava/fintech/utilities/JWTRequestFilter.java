@@ -21,8 +21,10 @@ import io.jsonwebtoken.SignatureException;
 
 @Component
 public class JWTRequestFilter extends OncePerRequestFilter{
-  @Autowired private  UserService userService;
-  @Autowired private JWTTokenUtil jwtTokenUtil;
+  @Autowired 
+	private  UserService userService;
+  @Autowired 
+	private JWTTokenUtil jwtTokenUtil;
 
   @Override
 	protected void doFilterInternal(

@@ -12,12 +12,17 @@ import org.springframework.stereotype.Service;
 import de.kirschUndKern.testProjectJava.fintech.dto.request.UserRequest;
 import de.kirschUndKern.testProjectJava.fintech.entities.UserEntity;
 import de.kirschUndKern.testProjectJava.fintech.repositories.UserRepository;
+import lombok.NoArgsConstructor;
 
 @Service
+@NoArgsConstructor
+
 public class UserService implements UserDetailsService{
   private final String user = "admin";
   private final String password = "password";
-  @Autowired private  UserRepository userRepository;
+	
+  @Autowired 
+	private UserRepository userRepository;
 
   @Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
