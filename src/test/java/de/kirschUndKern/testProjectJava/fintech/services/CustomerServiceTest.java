@@ -111,7 +111,7 @@ public class CustomerServiceTest {
     "Mr.",
     CustomerService.convertToDate("12/04/1988"),
     2,
-    null
+    new AddressEntity()
   );
 
   CustomerResponse customerResponse = new CustomerResponse(customerEntity);
