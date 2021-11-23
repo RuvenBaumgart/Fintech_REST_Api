@@ -31,7 +31,6 @@ public class UserAuthentificationController{
     } else {
       return ResponseEntity.notFound().build();
     }
-    
   }
 
 }

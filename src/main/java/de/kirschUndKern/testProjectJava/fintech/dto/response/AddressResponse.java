@@ -17,7 +17,6 @@ public class AddressResponse {
   private String country;
 
   public AddressResponse(AddressEntity ae){
-   
     this.city = ae.getCity();
     this.street = ae.getStreet();
     this.province = ae.getProvince();

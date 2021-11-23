@@ -26,8 +26,10 @@ public class UserService implements UserDetailsService{
 
   @Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    userRepository.saveUser(new UserRequest(user, password));
+    userRepository.saveUser(new UserRequest(user, password)); // always saving the hardcoded user first to ensure the user is present ( later the user must be in the database and will be queried. Now i only call that user after saving it)
+
     UserEntity user = userRepository.getUser();
+		//if the save authorized user is equal to the on asking for permission return that user.
 		if (user.getUsername().equals(username)) {
 			return new User(user.getUsername(), user.getHashedPassword(), new ArrayList<>());
 		} else {

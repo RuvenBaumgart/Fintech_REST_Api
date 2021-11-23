@@ -29,7 +29,7 @@ public class CustomerController {
 
 
   @GetMapping("/customers/{secondname}")
-  public List<CustomerAndAddressResponse> getAllCustomersBySeondname(
+  public List<CustomerResponse> getAllCustomersBySeondname(
     @PathVariable String secondname,
     @RequestParam(required = false) String sort
   ){

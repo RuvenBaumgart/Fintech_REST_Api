@@ -56,28 +56,21 @@ public class CustomerService {
       addressRequest.getZipCode(),
       addressRequest.getCountry()
     );
+    newCustomer.setAddress(newAddress);
     return new CustomerAndAddressResponse(customerRepository.save(newCustomer), addressRepository.save(newAddress));
   }
 
-  public List<CustomerAndAddressResponse> findAllCustomersByName(String secondname, String filtertag) {
+  public List<CustomerResponse> findAllCustomersByName(String secondname, String filtertag) {
     List<CustomerEntity> customers;
     if(filtertag =="true"){
        customers = customerRepository.findAllByName(secondname);
     } else {
       customers = customerRepository.findAllByNameOrdered(secondname);
     }
-    List<AddressEntity> addresses = addressRepository.findAll();
-    List<CustomerAndAddressResponse> customerAndAddressResponse = new ArrayList<>();
-
-    //Performance must be considered in the future O(n*log(n))
-    for(CustomerEntity customer : customers){
-      for(AddressEntity address : addresses){
-        if(address.getCustomerId() == customer.getId())
-          customerAndAddressResponse.add(new CustomerAndAddressResponse(customer, address));
-      }
-    }
-
-    return customerAndAddressResponse;
+    
+    return customers.stream()
+    .map(customerEntity -> new CustomerResponse(customerEntity))
+    .collect(Collectors.toList());
   }
 
   public List<CustomerResponse> findAllCustomers() {

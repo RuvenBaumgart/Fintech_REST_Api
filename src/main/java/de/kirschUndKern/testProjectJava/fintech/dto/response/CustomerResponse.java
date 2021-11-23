@@ -15,6 +15,7 @@ public class CustomerResponse {
   private String secondname;
   private String salutation;
   private Integer rating;
+  private AddressResponse address;
 
   public CustomerResponse(CustomerEntity customer){
     this.customerId = customer.getId();
@@ -22,5 +23,6 @@ public class CustomerResponse {
     this.secondname = customer.getSecondname();
     this.salutation = customer.getSalutation();
     this.rating = customer.getRating();
+    this.address = new AddressResponse(customer.getAddress());
   }
 }

@@ -7,17 +7,21 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
+import de.kirschUndKern.testProjectJava.fintech.entities.AddressEntity;
 import de.kirschUndKern.testProjectJava.fintech.entities.CustomerEntity;
+import de.kirschUndKern.testProjectJava.fintech.exceptions.WrongDateFormatException;
 import de.kirschUndKern.testProjectJava.fintech.service.CustomerService;
 
 import static org.assertj.core.api.Assertions.*;
+
 
 
 @DataJpaTest
 public class CustomerRepositoryTest {
   @Autowired
     CustomerRepository customerRepository;
-
+  @Autowired
+    AddressRepository addressRepository;
   @Test
   public void findAllCustomersOnEmptyDb(){
     //given
@@ -36,7 +40,8 @@ public class CustomerRepositoryTest {
       "Duck",
       "Mr.",
       CustomerService.convertToDate("13/03/1988"),
-      2
+      2,
+      null
     );
     customerRepository.save(customer);
     //when
@@ -55,7 +60,8 @@ public class CustomerRepositoryTest {
       "Duck",
       "Mr.",
       CustomerService.convertToDate("13/03/1988"),
-      2
+      2,
+      null
     );
 
     final CustomerEntity customerB = new CustomerEntity(
@@ -64,7 +70,8 @@ public class CustomerRepositoryTest {
       "Mustermann",
       "Mr.",
       CustomerService.convertToDate("12/03/1944"),
-      2
+      2,
+      null
     );
 
     final CustomerEntity customerC = new CustomerEntity(
@@ -73,17 +80,51 @@ public class CustomerRepositoryTest {
       "Mustermann",
       "Mr.",
       CustomerService.convertToDate("04/04/1955"),
-      2
+      2,
+      null
     );
 
     customerRepository.saveAll(Arrays.asList(customerA, customerB, customerC));
 
     //when
-
     List<CustomerEntity> customers = customerRepository.findAllByName("Mustermann");
-
     //then
     assertThat(customers).usingRecursiveComparison().isEqualTo(Arrays.asList(customerB, customerC));
-    
+  };
+
+  @Test
+  public void getPersonWithAddress() throws WrongDateFormatException{
+    //given
+    CustomerEntity customer = new CustomerEntity(
+      "1",
+      "Tony",
+      "Stark",
+      "Mr.",
+      CustomerService.convertToDate("19/05/1970"),
+      2,
+      null
+    );
+
+    AddressEntity address = new AddressEntity(
+      "1",
+      customer.getId(),
+      "Malibu",
+      "Malibu Point 10880",
+      "California",
+      "90265",
+      "United States"
+    );
+
+    customer.setAddress(address);
+
+    //when
+    AddressEntity savedAddress = addressRepository.save(address);
+    CustomerEntity savedCustomer = customerRepository.save(customer);
+
+    //then
+    CustomerEntity completeCustomer = customerRepository.getById("1");
+    assertThat(completeCustomer.getAddress()).isNotNull();
+    assertThat(completeCustomer.getAddress().getCity()).isEqualTo("Malibu");
   }
+
 }

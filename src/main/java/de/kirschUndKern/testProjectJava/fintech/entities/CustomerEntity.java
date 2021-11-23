@@ -2,8 +2,13 @@ package de.kirschUndKern.testProjectJava.fintech.entities;
 
 import java.time.LocalDate;
 import java.util.UUID;
+
+import javax.persistence.CascadeType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import de.kirschUndKern.testProjectJava.fintech.service.CustomerService;
@@ -26,6 +31,9 @@ public class CustomerEntity {
   private String salutation;
   private LocalDate birthday;
   private Integer rating;
+  @OneToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "address_id", referencedColumnName = "id")
+  private AddressEntity address;
 
   public CustomerEntity( CustomerRequest cr) throws WrongDateFormatException{
     this.id = UUID.randomUUID().toString();
@@ -34,6 +42,10 @@ public class CustomerEntity {
     this.salutation = cr.getSalutation();
     this.birthday = CustomerService.convertToDate(cr.getDateOfBirth());
     this.rating = 2;
+  }
+
+  public void setAddress(AddressEntity address){
+    this.address = address;
   }
 
 }

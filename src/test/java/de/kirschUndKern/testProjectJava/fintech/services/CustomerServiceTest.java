@@ -70,7 +70,8 @@ public class CustomerServiceTest {
     "Mustermann",
     "Mr.",
     CustomerService.convertToDate("12/04/1988"),
-    2
+    2,
+    null
   );
 
   AddressRequest addressRequest = new AddressRequest("Musterhausen" , "Musterstraße","NRW", "59821", "Germany");
@@ -109,7 +110,8 @@ public class CustomerServiceTest {
     "Mustermann",
     "Mr.",
     CustomerService.convertToDate("12/04/1988"),
-    2
+    2,
+    null
   );
 
   CustomerResponse customerResponse = new CustomerResponse(customerEntity);
