@@ -54,7 +54,8 @@ public class CustomerService {
       addressRequest.getStreet(),
       addressRequest.getProvince(),
       addressRequest.getZipCode(),
-      addressRequest.getCountry()
+      addressRequest.getCountry(),
+      new CustomerEntity()
     );
     newCustomer.setAddress(newAddress);
     return new CustomerAndAddressResponse(customerRepository.save(newCustomer), addressRepository.save(newAddress));

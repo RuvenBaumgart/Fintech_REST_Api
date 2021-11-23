@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 import javax.persistence.CascadeType;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;

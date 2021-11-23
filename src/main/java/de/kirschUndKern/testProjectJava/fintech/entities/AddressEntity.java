@@ -15,6 +15,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 @Table (name = "addresses")
@@ -30,6 +31,8 @@ public class AddressEntity {
   private String province;
   private String zipCode;
   private String country;
+  @OneToOne(mappedBy = "address")
+  private CustomerEntity customer;
  
 
   public AddressEntity(String customerId){
@@ -40,6 +43,7 @@ public class AddressEntity {
     this.province = null;
     this.zipCode = null;
     this.country = null;
+    new CustomerEntity();
   }
 
   public AddressEntity(AddressRequest ar){
@@ -49,7 +53,8 @@ public class AddressEntity {
     this.province = ar.getProvince();
     this.zipCode = ar.getZipCode();
     this.country = ar.getCountry();
-   
+    new CustomerEntity();
   }
+
 
 }

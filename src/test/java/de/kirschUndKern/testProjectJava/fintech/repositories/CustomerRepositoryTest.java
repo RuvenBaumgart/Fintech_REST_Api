@@ -112,7 +112,8 @@ public class CustomerRepositoryTest {
       "Malibu Point 10880",
       "California",
       "90265",
-      "United States"
+      "United States",
+      new CustomerEntity()
     );
 
     customer.setAddress(address);

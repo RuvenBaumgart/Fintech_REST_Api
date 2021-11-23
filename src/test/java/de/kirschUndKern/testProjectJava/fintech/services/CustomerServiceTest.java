@@ -71,7 +71,7 @@ public class CustomerServiceTest {
     "Mr.",
     CustomerService.convertToDate("12/04/1988"),
     2,
-    null
+    new AddressEntity()
   );
 
   AddressRequest addressRequest = new AddressRequest("Musterhausen" , "Musterstraße","NRW", "59821", "Germany");
@@ -90,7 +90,8 @@ public class CustomerServiceTest {
     addressRequest.getStreet(),
     addressRequest.getProvince(),
     addressRequest.getCountry(),
-    addressRequest.getZipCode()
+    addressRequest.getZipCode(),
+    customerEntity
   );
 
   when(customerRepository.save(any())).thenReturn(customerEntity);

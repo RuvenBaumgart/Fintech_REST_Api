@@ -16,13 +16,13 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class AccountEntity {
   @Id private String id;
   private String customerId;
   private Long balanceInCent;
   private Long sumOfTransactions;
-  @ElementCollection private List<String> transactionIds;
+  @ElementCollection 
+  private List<String> transactionIds;
 
   public AccountEntity(
     AccountEntity accountEntity, 
