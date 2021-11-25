@@ -52,9 +52,15 @@ public class AccountService {
     {
       Optional<AccountEntity> account = accountRepository.findById(accountId);  
       if(account.isPresent()){
+
         List<TransactionsEntity> transactions = account.get().getTransactions();
         transactions.add(newTransaction);
-        AccountEntity newAccount = new AccountEntity(account.get(), amount, appendTransactionId(account.get().getTransactionIds(), transactionId));
+        
+        AccountEntity newAccount = new AccountEntity(
+          account.get(), 
+          amount,
+          appendTransactionId(account.get().getTransactionIds(), transactionId)
+        );
         accountRepository.save(newAccount);
         return new AccountResponse(newAccount);
       } else {

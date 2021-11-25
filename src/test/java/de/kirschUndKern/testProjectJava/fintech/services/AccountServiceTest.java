@@ -43,7 +43,7 @@ public class AccountServiceTest {
   }
 
   @Test
-  public void isUpdatingAccountCorrectly() throws BankAccountNotFoundException{
+  public void isUpdatingAccountBalanceCorrectly() throws BankAccountNotFoundException{
 
     Long startAmount = 20000L;
     Long addAmount = 500L;
@@ -55,23 +55,28 @@ public class AccountServiceTest {
         startAmount,
         23L,
         Arrays.asList("232", "34424"),
-        new ArrayList<TransactionsEntity>()
+        new ArrayList<>()
       )
     );
+
+    TransactionsEntity emptyTransaction = new TransactionsEntity();
 
     AccountResponse expected = new AccountResponse(
       "123",
       "2135",
       startAmount + addAmount,
       24L,
-      Arrays.asList("232","34424","54325")
+      Arrays.asList("232","34424","54325"),
+      new ArrayList<>(Arrays.asList(emptyTransaction))
     );
 
     when(accountRepository.findById(anyString())).thenReturn(account);
     
-    AccountResponse result = accountService.updateAccountBalance("123", 500L, "54325", new TransactionsEntity());
+    AccountResponse result = accountService.updateAccountBalance("123", 500L, "54325", emptyTransaction);
 
-    assertThat(result).usingRecursiveComparison().isEqualTo(expected);
+    assertThat(result).usingRecursiveComparison()
+    .ignoringFields("transactions")
+    .isEqualTo(expected);
   }
 
   @Test

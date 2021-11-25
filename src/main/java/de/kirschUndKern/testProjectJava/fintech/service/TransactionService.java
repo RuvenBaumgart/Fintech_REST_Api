@@ -49,24 +49,15 @@ public class TransactionService {
   }
 
   public TransactionsFullResponse processNewTransaction(TransactionRequest request) throws BankAccountNotFoundException {
-    
     Optional<AccountEntity> source = accountRepository.findById(request.getSourceAccountId());
-    
     Optional<AccountEntity> destination = accountRepository.findById(request.getDestinationAccountId());
   
     if(source.isPresent() && destination.isPresent()){
-    
-      TransactionsEntity savedTransaction = saveNewTransaction(
-        source.get().getId(), 
-        destination.get().getId(),
-        request.getAmountInCent(), 
-        request.getMessage(),
-        source.get()
-      );
-
-
+      TransactionsEntity savedTransaction = saveNewTransaction(source.get(), destination.get(), request);
+      addTransactionToAccounts(savedTransaction);
       return new TransactionsFullResponse(savedTransaction);
     } else {
+      
       throw new BankAccountNotFoundException(
         "SourceAccount with id: " 
         + source.get().getCustomerId() + " not found or DestinatiounAccount with id: " 
@@ -75,16 +66,22 @@ public class TransactionService {
     }
   }
   
-  public TransactionsEntity saveNewTransaction(String sourceId, String destinationId, Long amountInCent, String message, AccountEntity sourceAccount){
+  private void addTransactionToAccounts(TransactionsEntity savedTransaction) {
+    AccountEntity account = savedTransaction.getSourceAccount();
+    List<TransactionsEntity> currentList = account.getTransactions();
+    currentList.add(savedTransaction);
+  }
+
+  public TransactionsEntity saveNewTransaction(AccountEntity source, AccountEntity destination, TransactionRequest request){
     TransactionsEntity newTransaction = new TransactionsEntity(
       UUID.randomUUID().toString(),
-      sourceId,
-      destinationId,
-      amountInCent,
+      source.getId(),
+      destination.getId(),
+      request.getAmountInCent(),
       LocalDate.now(),
       LocalTime.now(),
-      message,
-      sourceAccount
+      request.getMessage(),
+      source
     );
     return newTransaction;
   }
@@ -170,5 +167,20 @@ public class TransactionService {
     sortby.put("sender_secondname", Comparator.comparing(TransactionsForCustomerResponse::getCustomerSecondname));
     sortby.put("recepient_firstname", Comparator.comparing(TransactionsForCustomerResponse::getCustomerFirstnameDestination));
     sortby.put("recepient_secondname", Comparator.comparing(TransactionsForCustomerResponse::getCustomerSecondnameDesitnation));
+  }
+
+  public TransactionsEntity saveNewTransaction(String sourceAccountId, String id, Long amountInCent, String message,
+          AccountEntity account) {
+      TransactionsEntity newTransaction = new TransactionsEntity(
+        UUID.randomUUID().toString(),
+        sourceAccountId,
+        id,
+        amountInCent,
+        LocalDate.now(),
+        LocalTime.now(),
+        message,
+        account
+      );
+      return newTransaction;
   }
 }
