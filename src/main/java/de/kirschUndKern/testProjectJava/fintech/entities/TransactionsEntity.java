@@ -31,7 +31,7 @@ public class TransactionsEntity {
   private String message;
   @ManyToOne
   @JoinColumn(name = "account_id", referencedColumnName = "id")
-  private AccountEntity account;  
+  private AccountEntity sourceAccount;  
   
   public TransactionsEntity( 
     TransactionRequest tr, 

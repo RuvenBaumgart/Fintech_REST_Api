@@ -26,7 +26,7 @@ public class AccountEntity {
   @ElementCollection 
   private List<String> transactionIds;
   @OneToMany(
-    mappedBy = "account",
+    mappedBy = "sourceAccount",
     cascade = CascadeType.ALL
   )
   @ElementCollection

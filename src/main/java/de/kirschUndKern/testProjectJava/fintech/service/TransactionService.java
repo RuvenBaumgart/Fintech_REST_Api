@@ -51,6 +51,7 @@ public class TransactionService {
   public TransactionsFullResponse processNewTransaction(TransactionRequest request) throws BankAccountNotFoundException {
     
     Optional<AccountEntity> source = accountRepository.findById(request.getSourceAccountId());
+    
     Optional<AccountEntity> destination = accountRepository.findById(request.getDestinationAccountId());
   
     if(source.isPresent() && destination.isPresent()){
@@ -74,7 +75,7 @@ public class TransactionService {
     }
   }
   
-  public TransactionsEntity saveNewTransaction(String sourceId, String destinationId, Long amountInCent, String message, AccountEntity account){
+  public TransactionsEntity saveNewTransaction(String sourceId, String destinationId, Long amountInCent, String message, AccountEntity sourceAccount){
     TransactionsEntity newTransaction = new TransactionsEntity(
       UUID.randomUUID().toString(),
       sourceId,
@@ -83,8 +84,7 @@ public class TransactionService {
       LocalDate.now(),
       LocalTime.now(),
       message,
-      new AccountEntity()
-
+      sourceAccount
     );
     return newTransaction;
   }

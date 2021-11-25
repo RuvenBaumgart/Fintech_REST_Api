@@ -3,6 +3,7 @@ package de.kirschUndKern.testProjectJava.fintech.dto.response;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import de.kirschUndKern.testProjectJava.fintech.entities.AccountEntity;
 import de.kirschUndKern.testProjectJava.fintech.entities.TransactionsEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,6 +16,7 @@ import lombok.NoArgsConstructor;
 public class TransactionsFullResponse {
   private String id;
   private String sourceAccountId;
+  private AccountEntity sourceAccount;
   private String destinationAccountId;
   private Long amountInCent;
   private LocalDate transactionDate;
@@ -22,6 +24,7 @@ public class TransactionsFullResponse {
 
   public TransactionsFullResponse(TransactionsEntity transaction){
     this.id = transaction.getId();
+    this.sourceAccount = transaction.getSourceAccount();
     this.sourceAccountId = transaction.getSourceAccountId();
     this.destinationAccountId = transaction.getDestinationAccoutnId();
     this.amountInCent = transaction.getAmountInCent();

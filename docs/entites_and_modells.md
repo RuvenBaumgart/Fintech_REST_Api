@@ -15,6 +15,8 @@
 * day of birth
 * adressId
 * rating *default=2*
+@OneToOne
+* addressEntity address
 
 **address**
 * id
@@ -24,6 +26,8 @@
 * province
 * zip-code
 * country
+@OneToOne
+* customerEntity customer
 
 **accounts**
 * id
@@ -31,6 +35,8 @@
 * balanceInCent
 * sumOfTransactions
 * List<String> transactionIds
+@OneToMany
+* List<TransactionsEntity> transactions
 
 **transactions (posting)**
 * id
@@ -40,6 +46,8 @@
 * transactionDate
 * transactionTime
 * message
+@ManyToOne
+* accountEntity accounts
 
 **credits**
 * id

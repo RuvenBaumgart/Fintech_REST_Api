@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.UUID;
 
+import javax.sound.midi.Receiver;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -70,7 +72,7 @@ public class TransactionServiceTest {
       )
     );
 
-    TransactionsEntity transactionResponse = new TransactionsEntity(
+    TransactionsEntity transactionEntity = new TransactionsEntity(
       "12312",
       sender.get().getId(),
       recipient.get().getId(),
@@ -81,22 +83,25 @@ public class TransactionServiceTest {
       sender.get()
     );
 
-    when(accountRepository.findByCustomerId(anyString())).thenReturn(sender);
-    when(accountRepository.findById(anyString())).thenReturn(recipient);
-    when(transactionRepository.save(any())).thenReturn(transactionResponse);
+    when(accountRepository.findById(anyString()))
+    .thenReturn(sender)
+    .thenReturn(recipient);
+    when(transactionRepository.save(any())).thenReturn(transactionEntity);
     
 
     TransactionRequest transactionRequest = new TransactionRequest (
       500000L,
-      "1234123",
-      "2345234",
+      sender.get().getId(),
+      recipient.get().getId(),
       "Test Transaction"
     );
 
 
     TransactionsFullResponse results = transactionService.processNewTransaction(transactionRequest);
     
-    assertThat(results).usingRecursiveComparison().ignoringFields("id").isEqualTo(new TransactionsFullResponse(transactionResponse));
+    assertThat(results).usingRecursiveComparison()
+    .ignoringFields("transactionTime","id")
+    .isEqualTo(new TransactionsFullResponse(transactionEntity));
   }
 
   @Test
