@@ -13,6 +13,7 @@ import de.kirschUndKern.testProjectJava.fintech.dto.request.TransactionRequest;
 import de.kirschUndKern.testProjectJava.fintech.dto.response.PageResponse;
 import de.kirschUndKern.testProjectJava.fintech.dto.response.TransactionsForCustomerResponse;
 import de.kirschUndKern.testProjectJava.fintech.dto.response.TransactionsFullResponse;
+import de.kirschUndKern.testProjectJava.fintech.entities.TransactionsEntity;
 import de.kirschUndKern.testProjectJava.fintech.exceptions.BankAccountNotFoundException;
 import de.kirschUndKern.testProjectJava.fintech.service.AccountService;
 import de.kirschUndKern.testProjectJava.fintech.service.TransactionService;
@@ -31,13 +32,12 @@ public class TransactionController {
     this.accountService = accountService;
   }
 
-  @PostMapping("/transactions/{id}")
+  @PostMapping("/transactions")
   public TransactionsFullResponse newTransactions(
-    @PathVariable (name = "id") String customerId,
     @RequestBody TransactionRequest transactionRequest
   )throws BankAccountNotFoundException{
-    TransactionsFullResponse newTransaction = transactionService.processNewTransaction(customerId, transactionRequest);
-    accountService.processNewTransaction(newTransaction);
+    TransactionsFullResponse newTransaction = transactionService.processNewTransaction(transactionRequest);
+    accountService.processNewTransaction(new TransactionsEntity(transactionRequest));
     return newTransaction;
   };
 

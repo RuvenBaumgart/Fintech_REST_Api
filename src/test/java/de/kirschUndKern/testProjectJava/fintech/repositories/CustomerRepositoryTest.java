@@ -119,8 +119,8 @@ public class CustomerRepositoryTest {
     customer.setAddress(address);
 
     //when
-    AddressEntity savedAddress = addressRepository.save(address);
-    CustomerEntity savedCustomer = customerRepository.save(customer);
+    addressRepository.save(address);
+    customerRepository.save(customer);
 
     //then
     CustomerEntity completeCustomer = customerRepository.getById("1");

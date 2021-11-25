@@ -12,6 +12,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import de.kirschUndKern.testProjectJava.fintech.entities.AccountEntity;
+import de.kirschUndKern.testProjectJava.fintech.entities.TransactionsEntity;
 
 @DataJpaTest
 public class AccountRepositoryTest {
@@ -31,7 +32,8 @@ public class AccountRepositoryTest {
       "123",
       10000L,
       23L,
-      new ArrayList<String>()
+      new ArrayList<String>(),
+      new ArrayList<TransactionsEntity>()
     );
      accountRepository.save(account);
     //when
@@ -48,7 +50,8 @@ public class AccountRepositoryTest {
       "123",
       10000L,
       23L,
-      new ArrayList<String>()
+      new ArrayList<String>(),
+      new ArrayList<TransactionsEntity>()
     );
 
     final AccountEntity accountTwo = new AccountEntity(
@@ -56,7 +59,8 @@ public class AccountRepositoryTest {
       "123",
       10000L,
       23L,
-      new ArrayList<String>()
+      new ArrayList<String>(),
+      new ArrayList<TransactionsEntity>()
     );
 
     final AccountEntity accountThree = new AccountEntity(
@@ -64,7 +68,8 @@ public class AccountRepositoryTest {
       "233",
       10000L,
       23L,
-      new ArrayList<String>()
+      new ArrayList<String>(),
+      new ArrayList<TransactionsEntity>()
     );
      accountRepository.saveAll(Arrays.asList(accountOne, accountTwo, accountThree));
     //when

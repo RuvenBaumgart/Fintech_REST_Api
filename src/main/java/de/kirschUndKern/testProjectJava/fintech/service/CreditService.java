@@ -91,13 +91,15 @@ public class CreditService {
               creditUpdateRequest.getSourceAccountId(), 
               id, 
               creditUpdateRequest.getAmountInCent(),
-              "Credit Payoff"
+              "Credit Payoff",
+              account.get()
             );
 
             accountService.updateAccountBalance(
               creditUpdateRequest.getSourceAccountId(), 
               creditUpdateRequest.getAmountInCent() * -1, 
-              newTransaction.getId()
+              newTransaction.getId(),
+              newTransaction
             );
 
             return updatedCredit;

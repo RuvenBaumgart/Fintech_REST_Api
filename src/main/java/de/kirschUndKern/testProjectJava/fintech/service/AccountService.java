@@ -1,9 +1,9 @@
 package de.kirschUndKern.testProjectJava.fintech.service;
 
 import de.kirschUndKern.testProjectJava.fintech.dto.response.AccountResponse;
-import de.kirschUndKern.testProjectJava.fintech.dto.response.TransactionsFullResponse;
 import de.kirschUndKern.testProjectJava.fintech.entities.AccountEntity;
 import de.kirschUndKern.testProjectJava.fintech.entities.CustomerEntity;
+import de.kirschUndKern.testProjectJava.fintech.entities.TransactionsEntity;
 import de.kirschUndKern.testProjectJava.fintech.exceptions.BankAccountNotFoundException;
 import de.kirschUndKern.testProjectJava.fintech.exceptions.CustomerNotFoundException;
 import de.kirschUndKern.testProjectJava.fintech.repositories.AccountRepository;
@@ -39,7 +39,8 @@ public class AccountService {
         customer.get().getId(),
         0L,
         0L,
-        new ArrayList<String>()
+        new ArrayList<String>(),
+        new ArrayList<TransactionsEntity>()
       );
       return new AccountResponse(accountRepository.save(newAccount));
     } else {
@@ -47,11 +48,12 @@ public class AccountService {
     }
   };
 
-  public AccountResponse updateAccountBalance(String accountId, Long amount, String transactionId) throws BankAccountNotFoundException
+  public AccountResponse updateAccountBalance(String accountId, Long amount, String transactionId, TransactionsEntity newTransaction) throws BankAccountNotFoundException
     {
-      Optional<AccountEntity> account = accountRepository.findById(accountId);
-      
+      Optional<AccountEntity> account = accountRepository.findById(accountId);  
       if(account.isPresent()){
+        List<TransactionsEntity> transactions = account.get().getTransactions();
+        transactions.add(newTransaction);
         AccountEntity newAccount = new AccountEntity(account.get(), amount, appendTransactionId(account.get().getTransactionIds(), transactionId));
         accountRepository.save(newAccount);
         return new AccountResponse(newAccount);
@@ -68,9 +70,9 @@ public class AccountService {
     return newTransactionIds;
   }
 
-  public void processNewTransaction(TransactionsFullResponse newTransaction) throws BankAccountNotFoundException {
-    updateAccountBalance(newTransaction.getSourceAccountId(), newTransaction.getAmountInCent() * -1, newTransaction.getId());
-    updateAccountBalance(newTransaction.getDestinationAccountId(), newTransaction.getAmountInCent(), newTransaction.getId());
+  public void processNewTransaction(TransactionsEntity newTransaction) throws BankAccountNotFoundException {
+    updateAccountBalance(newTransaction.getSourceAccountId(), newTransaction.getAmountInCent() * -1, newTransaction.getId(), newTransaction);
+    updateAccountBalance(newTransaction.getDestinationAccoutnId(), newTransaction.getAmountInCent(), newTransaction.getId(), newTransaction);
   }
 
   public List<AccountResponse> getAccountsBy(String customerId){

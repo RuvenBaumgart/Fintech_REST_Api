@@ -11,6 +11,7 @@ import static org.assertj.core.api.Assertions.*;
 
 import de.kirschUndKern.testProjectJava.fintech.dto.response.AccountResponse;
 import de.kirschUndKern.testProjectJava.fintech.entities.AccountEntity;
+import de.kirschUndKern.testProjectJava.fintech.entities.TransactionsEntity;
 import de.kirschUndKern.testProjectJava.fintech.exceptions.BankAccountNotFoundException;
 import de.kirschUndKern.testProjectJava.fintech.exceptions.CustomerNotFoundException;
 import de.kirschUndKern.testProjectJava.fintech.repositories.AccountRepository;
@@ -53,7 +54,8 @@ public class AccountServiceTest {
         "2135",
         startAmount,
         23L,
-        Arrays.asList("232", "34424")
+        Arrays.asList("232", "34424"),
+        new ArrayList<TransactionsEntity>()
       )
     );
 
@@ -67,7 +69,7 @@ public class AccountServiceTest {
 
     when(accountRepository.findById(anyString())).thenReturn(account);
     
-    AccountResponse result = accountService.updateAccountBalance("123", 500L, "54325");
+    AccountResponse result = accountService.updateAccountBalance("123", 500L, "54325", new TransactionsEntity());
 
     assertThat(result).usingRecursiveComparison().isEqualTo(expected);
   }
@@ -81,7 +83,8 @@ public class AccountServiceTest {
       "",
       2300000L,
       0L,
-      new ArrayList<>()
+      new ArrayList<>(),
+      new ArrayList<TransactionsEntity>()
     );
 
      AccountEntity accountTwo = 
@@ -90,7 +93,8 @@ public class AccountServiceTest {
       "",
       1700000L,
       1L,
-      new ArrayList<>()
+      new ArrayList<>(),
+      new ArrayList<TransactionsEntity>()
     );
 
     when(accountRepository.findAllByCustomerId(anyString())).thenReturn(Optional.of(Arrays.asList(accountOne, accountTwo)));

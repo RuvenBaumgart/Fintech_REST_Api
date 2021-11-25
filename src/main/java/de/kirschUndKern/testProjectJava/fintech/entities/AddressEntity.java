@@ -2,12 +2,11 @@ package de.kirschUndKern.testProjectJava.fintech.entities;
 
 import java.util.UUID;
 
-import javax.persistence.Column;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
+
 
 import de.kirschUndKern.testProjectJava.fintech.dto.request.AddressRequest;
 import lombok.AllArgsConstructor;

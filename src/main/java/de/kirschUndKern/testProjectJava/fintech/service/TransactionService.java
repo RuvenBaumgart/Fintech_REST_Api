@@ -48,19 +48,19 @@ public class TransactionService {
     initSortbyMap();
   }
 
-  public TransactionsFullResponse processNewTransaction(String customerId, TransactionRequest request) throws BankAccountNotFoundException {
+  public TransactionsFullResponse processNewTransaction(TransactionRequest request) throws BankAccountNotFoundException {
     
     Optional<AccountEntity> source = accountRepository.findById(request.getSourceAccountId());
     Optional<AccountEntity> destination = accountRepository.findById(request.getDestinationAccountId());
   
     if(source.isPresent() && destination.isPresent()){
-      
-      //Check needs to be made if initiating customer is owner of the accounts
+    
       TransactionsEntity savedTransaction = saveNewTransaction(
         source.get().getId(), 
         destination.get().getId(),
         request.getAmountInCent(), 
-        request.getMessage()
+        request.getMessage(),
+        source.get()
       );
 
 
@@ -68,15 +68,13 @@ public class TransactionService {
     } else {
       throw new BankAccountNotFoundException(
         "SourceAccount with id: " 
-        + customerId + " not found or DestinatiounAccount with id: " 
+        + source.get().getCustomerId() + " not found or DestinatiounAccount with id: " 
         + request.getDestinationAccountId() 
         + "not found", HttpStatus.BAD_REQUEST);
     }
   }
   
-  public TransactionsEntity createTransaction(String sourceId, String destinationId, Long amountInCent, String message){
-  
-    //The requesting Customer is always asking for sending money not receiving
+  public TransactionsEntity saveNewTransaction(String sourceId, String destinationId, Long amountInCent, String message, AccountEntity account){
     TransactionsEntity newTransaction = new TransactionsEntity(
       UUID.randomUUID().toString(),
       sourceId,
@@ -84,14 +82,11 @@ public class TransactionService {
       amountInCent,
       LocalDate.now(),
       LocalTime.now(),
-      message
+      message,
+      new AccountEntity()
+
     );
     return newTransaction;
-  }
-
-  public TransactionsEntity saveNewTransaction (String sourceId, String destinationId, Long amountInCent, String message){
-    return transactionRepository.save(createTransaction(sourceId, destinationId, amountInCent, message)
-    );
   }
 
   public List<TransactionsFullResponse> getAllTransactionsBy(String date) {

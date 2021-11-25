@@ -54,7 +54,8 @@ public class TransactionServiceTest {
       "1234",
       1000000L,
       23L,
-      new ArrayList<>()
+      new ArrayList<>(),
+      new ArrayList<TransactionsEntity>()
       )
     );
 
@@ -64,7 +65,8 @@ public class TransactionServiceTest {
       "4321",
       1000000L,
       23L,
-      new ArrayList<>()
+      new ArrayList<>(),
+      new ArrayList<TransactionsEntity>()
       )
     );
 
@@ -75,7 +77,8 @@ public class TransactionServiceTest {
       500000L,
       LocalDate.now(),
       LocalTime.now(),
-      "testmessage"
+      "testmessage",
+      sender.get()
     );
 
     when(accountRepository.findByCustomerId(anyString())).thenReturn(sender);
@@ -91,9 +94,9 @@ public class TransactionServiceTest {
     );
 
 
-    TransactionsFullResponse results = transactionService.processNewTransaction("12312", transactionRequest);
+    TransactionsFullResponse results = transactionService.processNewTransaction(transactionRequest);
     
-    assertThat(results).usingRecursiveComparison().isEqualTo(new TransactionsFullResponse(transactionResponse));
+    assertThat(results).usingRecursiveComparison().ignoringFields("id").isEqualTo(new TransactionsFullResponse(transactionResponse));
   }
 
   @Test

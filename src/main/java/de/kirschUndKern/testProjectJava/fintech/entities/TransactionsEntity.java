@@ -6,6 +6,8 @@ import java.util.UUID;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import de.kirschUndKern.testProjectJava.fintech.dto.request.TransactionRequest;
@@ -27,6 +29,9 @@ public class TransactionsEntity {
   private LocalDate transactionDate;
   private LocalTime transactionTime;
   private String message;
+  @ManyToOne
+  @JoinColumn(name = "account_id", referencedColumnName = "id")
+  private AccountEntity account;  
   
   public TransactionsEntity( 
     TransactionRequest tr, 
@@ -39,5 +44,17 @@ public class TransactionsEntity {
       this.transactionDate = LocalDate.now();
       this.transactionTime = LocalTime.now();
       this.message = tr.getMessage();
+  };
+
+  public TransactionsEntity(
+    TransactionRequest tr
+  ){
+    this.id = UUID.randomUUID().toString();
+    this.sourceAccountId = tr.getSourceAccountId();
+    this.destinationAccoutnId = tr.getDestinationAccountId();
+    this.amountInCent = tr.getAmountInCent();
+    this.transactionDate = LocalDate.now();
+    this.transactionTime = LocalTime.now();
+    this.message = tr.getMessage();
   }
 }

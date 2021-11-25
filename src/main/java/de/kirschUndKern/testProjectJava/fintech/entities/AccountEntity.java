@@ -1,8 +1,10 @@
 package de.kirschUndKern.testProjectJava.fintech.entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -23,6 +25,12 @@ public class AccountEntity {
   private Long sumOfTransactions;
   @ElementCollection 
   private List<String> transactionIds;
+  @OneToMany(
+    mappedBy = "account",
+    cascade = CascadeType.ALL
+  )
+  @ElementCollection
+  private List<TransactionsEntity> transactions;
 
   public AccountEntity(
     AccountEntity accountEntity, 
