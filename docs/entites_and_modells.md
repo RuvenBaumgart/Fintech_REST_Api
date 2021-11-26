@@ -163,8 +163,8 @@
 
 ### Linkage (foreign Key Possible)
 
-* customer  <---  address 
+* customer  <---> address 
 * customer  <---  account
-* account   <--- transactions
+* account   <---> transactions
 * customer  <---  credits
 

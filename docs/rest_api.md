@@ -88,10 +88,11 @@ Possible blocks:
           * recepient_secondname
 
 
-* POST /api/transactions/{customerId}
+* POST /api/transactions
   * add a new transaction for given customer (transfer money from one accoutn to another)
   * the body should contain:
     * the amount of money in Cents
+    * the source account by id
     * the target account by id
 
 #### credits

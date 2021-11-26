@@ -5,10 +5,13 @@ import java.time.LocalTime;
 import java.util.UUID;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import de.kirschUndKern.testProjectJava.fintech.dto.request.TransactionRequest;
 import lombok.AllArgsConstructor;
@@ -20,6 +23,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+
 public class TransactionsEntity {
  
   @Id private String id;
@@ -29,9 +33,28 @@ public class TransactionsEntity {
   private LocalDate transactionDate;
   private LocalTime transactionTime;
   private String message;
-  @ManyToOne
-  @JoinColumn(name = "account_id", referencedColumnName = "id")
-  private AccountEntity sourceAccount;  
+  @ManyToOne(
+    fetch = FetchType.LAZY,
+    optional = false,
+    targetEntity = AccountEntity.class
+  )
+  @JoinColumn(
+    name = "sender_id", 
+    referencedColumnName = "id")
+  @JsonBackReference
+  private AccountEntity sourceAccount; //for debit
+
+  @ManyToOne(
+    fetch = FetchType.LAZY,
+    optional = false,
+    targetEntity = AccountEntity.class
+  )
+  @JoinColumn (
+  name = "receiver_id", 
+  referencedColumnName = "id")
+  @JsonBackReference
+  private AccountEntity destinationAccount; //for credit
+
   
   public TransactionsEntity( 
     TransactionRequest tr, 

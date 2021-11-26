@@ -26,6 +26,7 @@ import de.kirschUndKern.testProjectJava.fintech.exceptions.BankAccountNotFoundEx
 import de.kirschUndKern.testProjectJava.fintech.repositories.AccountRepository;
 import de.kirschUndKern.testProjectJava.fintech.repositories.CustomerRepository;
 import de.kirschUndKern.testProjectJava.fintech.repositories.TransactionRepository;
+import de.kirschUndKern.testProjectJava.fintech.service.AccountService;
 import de.kirschUndKern.testProjectJava.fintech.service.TransactionService;
 
 public class TransactionServiceTest {
@@ -34,73 +35,84 @@ public class TransactionServiceTest {
   private AccountRepository accountRepository;
   private TransactionRepository transactionRepository;
   private CustomerRepository customerRepository;
+  private AccountService accountService;
 
   @BeforeEach
   public void init(){
     accountRepository = Mockito.mock(AccountRepository.class);
     transactionRepository = Mockito.mock(TransactionRepository.class);
     customerRepository = Mockito.mock(CustomerRepository.class);
+    accountService = new AccountService(
+      accountRepository,
+      customerRepository
+    );
     transactionService = new TransactionService(
       accountRepository, 
       transactionRepository,
-      customerRepository
+      customerRepository,
+      accountService
     );
   }
 
   @Test
   public void isCreatingTransaction() throws BankAccountNotFoundException{
-    Optional<AccountEntity> sender = Optional.of(
+    Optional<AccountEntity> accountA = Optional.of(
       new AccountEntity(
       UUID.randomUUID().toString(),
       "1234",
       1000000L,
       23L,
       new ArrayList<>(),
+      new ArrayList<TransactionsEntity>(),
       new ArrayList<TransactionsEntity>()
       )
     );
 
-    Optional<AccountEntity> recipient = Optional.of(
+    Optional<AccountEntity> accountB = Optional.of(
       new AccountEntity(
       UUID.randomUUID().toString(),
       "4321",
       1000000L,
       23L,
       new ArrayList<>(),
+      new ArrayList<TransactionsEntity>(),
       new ArrayList<TransactionsEntity>()
       )
     );
 
     TransactionsEntity transactionEntity = new TransactionsEntity(
       "12312",
-      sender.get().getId(),
-      recipient.get().getId(),
+      accountA.get().getId(),
+      accountB.get().getId(),
       500000L,
       LocalDate.now(),
       LocalTime.now(),
       "testmessage",
-      sender.get()
+      accountA.get(),
+      new AccountEntity()
     );
 
     when(accountRepository.findById(anyString()))
-    .thenReturn(sender)
-    .thenReturn(recipient);
-    when(transactionRepository.save(any())).thenReturn(transactionEntity);
+    .thenReturn(accountA)
+    .thenReturn(accountB);
+    when(transactionRepository.save(any()))
+    .thenReturn(transactionEntity);
+
     
 
     TransactionRequest transactionRequest = new TransactionRequest (
       500000L,
-      sender.get().getId(),
-      recipient.get().getId(),
+      accountA.get().getId(),
+      accountB.get().getId(),
       "Test Transaction"
     );
 
 
     TransactionsFullResponse results = transactionService.processNewTransaction(transactionRequest);
-    
+    TransactionsFullResponse expected = new TransactionsFullResponse(transactionEntity);
     assertThat(results).usingRecursiveComparison()
-    .ignoringFields("transactionTime","id")
-    .isEqualTo(new TransactionsFullResponse(transactionEntity));
+    .ignoringFields("transactionTime","transactionId", "id")
+    .isEqualTo(expected);
   }
 
   @Test
@@ -112,6 +124,7 @@ public class TransactionServiceTest {
       1000000L,
       23L,
       new ArrayList<>(),
+      new ArrayList<TransactionsEntity>(),
       new ArrayList<TransactionsEntity>()
       )
     );
@@ -123,6 +136,7 @@ public class TransactionServiceTest {
       1000000L,
       23L,
       new ArrayList<>(),
+      new ArrayList<TransactionsEntity>(),
       new ArrayList<TransactionsEntity>()
       )
     );
@@ -135,7 +149,8 @@ public class TransactionServiceTest {
       LocalDate.now(),
       LocalTime.now(),
       "testmessage",
-      sender.get()
+      sender.get(),
+      new AccountEntity()
     );
 
     TransactionsEntity secTransactionEntity = new TransactionsEntity(
@@ -146,7 +161,8 @@ public class TransactionServiceTest {
       LocalDate.now(),
       LocalTime.now(),
       "testmessage",
-      sender.get()
+      sender.get(),
+      new AccountEntity()
     );
 
     when(accountRepository.findById(anyString()))
@@ -179,7 +195,7 @@ public class TransactionServiceTest {
     transactionService.processNewTransaction(secTransactionRequest);
     AccountResponse result = new AccountResponse(accountRepository.findById(anyString()).get());
     //then
-    assertThat(result.getTransactions()).hasSize(2);
+    assertThat(result.getTransactionIds()).hasSize(2);
 
 
   }

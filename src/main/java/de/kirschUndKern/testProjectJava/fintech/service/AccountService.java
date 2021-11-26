@@ -40,6 +40,7 @@ public class AccountService {
         0L,
         0L,
         new ArrayList<String>(),
+        new ArrayList<TransactionsEntity>(),
         new ArrayList<TransactionsEntity>()
       );
       return new AccountResponse(accountRepository.save(newAccount));
@@ -48,38 +49,41 @@ public class AccountService {
     }
   };
 
-  public AccountResponse updateAccountBalance(String accountId, Long amount, String transactionId, TransactionsEntity newTransaction) throws BankAccountNotFoundException
+  public void updateAccounts(TransactionsEntity transaction) throws BankAccountNotFoundException
     {
-      Optional<AccountEntity> account = accountRepository.findById(accountId);  
-      if(account.isPresent()){
+     AccountEntity sourceAccount = transaction.getSourceAccount();
+     AccountEntity destinationAccount = transaction.getDestinationAccount();
+     
+    sourceAccount.setTransactionIds(appendTransaction(sourceAccount.getTransactionIds(), transaction.getId()));
+    destinationAccount.setTransactionIds(appendTransaction(destinationAccount.getTransactionIds(), transaction.getId()));
 
-        List<TransactionsEntity> transactions = account.get().getTransactions();
-        transactions.add(newTransaction);
-        
-        AccountEntity newAccount = new AccountEntity(
-          account.get(), 
-          amount,
-          appendTransactionId(account.get().getTransactionIds(), transactionId)
-        );
-        accountRepository.save(newAccount);
-        return new AccountResponse(newAccount);
-      } else {
-        throw new BankAccountNotFoundException("The Account with the id " + accountId + "is not existing", HttpStatus.BAD_REQUEST);
-      }
+    sourceAccount.setDebitTransactions(appendTransaction(sourceAccount.getDebitTransactions(), transaction));
+    destinationAccount.setCreditTransactions(appendTransaction(destinationAccount.getCreditTransactions(), transaction));
+
+    sourceAccount.setBalance(updateAccountBalance(sourceAccount, transaction.getAmountInCent() * -1));
+    destinationAccount.setBalance(updateAccountBalance(destinationAccount, transaction.getAmountInCent()));
+
+    accountRepository.save(sourceAccount);
+    accountRepository.save(destinationAccount);
+
     }
 
-  private List<String> appendTransactionId(List<String> oldTransactionIds, String newTransactionId)
+
+  public Long updateAccountBalance(AccountEntity account, Long amount){
+    Long currentBalance = account.getBalanceInCent();
+    Long newBalance = currentBalance + amount;
+    return newBalance;
+  }
+
+
+  public static <T> List<T> appendTransaction(List<T> oldTransactionIds, T newTransactionId)
   {
-    List<String> newTransactionIds = new ArrayList<>();
+    List<T> newTransactionIds = new ArrayList<>();
     newTransactionIds.addAll(oldTransactionIds);
     newTransactionIds.add(newTransactionId);
     return newTransactionIds;
   }
 
-  public void processNewTransaction(TransactionsEntity newTransaction) throws BankAccountNotFoundException {
-    updateAccountBalance(newTransaction.getSourceAccountId(), newTransaction.getAmountInCent() * -1, newTransaction.getId(), newTransaction);
-    updateAccountBalance(newTransaction.getDestinationAccoutnId(), newTransaction.getAmountInCent(), newTransaction.getId(), newTransaction);
-  }
 
   public List<AccountResponse> getAccountsBy(String customerId){
     List<AccountEntity> accounts;

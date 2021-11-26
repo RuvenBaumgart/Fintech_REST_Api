@@ -7,4 +7,4 @@ create table credits (
   orignial_credit_amount_in_cents bigint,
   remaining_term_in_months bigint,
   primary key (id)
-)
+);

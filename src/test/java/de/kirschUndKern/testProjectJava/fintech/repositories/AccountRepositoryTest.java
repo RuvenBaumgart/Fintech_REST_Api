@@ -33,6 +33,7 @@ public class AccountRepositoryTest {
       10000L,
       23L,
       new ArrayList<String>(),
+      new ArrayList<TransactionsEntity>(),
       new ArrayList<TransactionsEntity>()
     );
      accountRepository.save(account);
@@ -51,6 +52,7 @@ public class AccountRepositoryTest {
       10000L,
       23L,
       new ArrayList<String>(),
+      new ArrayList<TransactionsEntity>(),
       new ArrayList<TransactionsEntity>()
     );
 
@@ -60,6 +62,7 @@ public class AccountRepositoryTest {
       10000L,
       23L,
       new ArrayList<String>(),
+      new ArrayList<TransactionsEntity>(),
       new ArrayList<TransactionsEntity>()
     );
 
@@ -69,6 +72,7 @@ public class AccountRepositoryTest {
       10000L,
       23L,
       new ArrayList<String>(),
+      new ArrayList<TransactionsEntity>(),
       new ArrayList<TransactionsEntity>()
     );
      accountRepository.saveAll(Arrays.asList(accountOne, accountTwo, accountThree));

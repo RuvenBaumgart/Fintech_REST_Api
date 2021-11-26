@@ -13,32 +13,30 @@ import de.kirschUndKern.testProjectJava.fintech.dto.request.TransactionRequest;
 import de.kirschUndKern.testProjectJava.fintech.dto.response.PageResponse;
 import de.kirschUndKern.testProjectJava.fintech.dto.response.TransactionsForCustomerResponse;
 import de.kirschUndKern.testProjectJava.fintech.dto.response.TransactionsFullResponse;
-import de.kirschUndKern.testProjectJava.fintech.entities.TransactionsEntity;
+
 import de.kirschUndKern.testProjectJava.fintech.exceptions.BankAccountNotFoundException;
-import de.kirschUndKern.testProjectJava.fintech.service.AccountService;
+
 import de.kirschUndKern.testProjectJava.fintech.service.TransactionService;
 
 @RestController
 public class TransactionController {
   
   private TransactionService transactionService;
-  private AccountService accountService;
   
   public TransactionController (
-    TransactionService transactionService,
-    AccountService accountService
+    TransactionService transactionService
+
   ){
     this.transactionService = transactionService;
-    this.accountService = accountService;
+
   }
 
   @PostMapping("/transactions")
   public TransactionsFullResponse newTransactions(
     @RequestBody TransactionRequest transactionRequest
   )throws BankAccountNotFoundException{
-    TransactionsFullResponse newTransaction = transactionService.processNewTransaction(transactionRequest);
-    accountService.processNewTransaction(new TransactionsEntity(transactionRequest));
-    return newTransaction;
+    TransactionsFullResponse newTransactions = transactionService.processNewTransaction(transactionRequest);
+    return newTransactions;
   };
 
   @GetMapping("/transactions")

@@ -35,55 +35,61 @@ public class TransactionService {
   public final AccountRepository accountRepository;
   public final TransactionRepository transactionRepository;
   public final CustomerRepository customerRepository;
+  public final AccountService accountService;
   
 
   public TransactionService(
     AccountRepository accountRepository,
     TransactionRepository transactionRepository,
-    CustomerRepository customerRepository
+    CustomerRepository customerRepository,
+    AccountService accountService
   ){
     this.accountRepository = accountRepository;
     this.transactionRepository = transactionRepository;
     this.customerRepository = customerRepository;
+    this.accountService = accountService;
     initSortbyMap();
   }
 
   public TransactionsFullResponse processNewTransaction(TransactionRequest request) throws BankAccountNotFoundException {
-    Optional<AccountEntity> source = accountRepository.findById(request.getSourceAccountId());
-    Optional<AccountEntity> destination = accountRepository.findById(request.getDestinationAccountId());
+
+      TransactionsEntity newTransaction = saveNewTransaction(request);
+      accountService.updateAccounts(newTransaction);
+      return new TransactionsFullResponse (newTransaction);
+  }
   
-    if(source.isPresent() && destination.isPresent()){
-      TransactionsEntity savedTransaction = saveNewTransaction(source.get(), destination.get(), request);
-      addTransactionToAccounts(savedTransaction);
-      return new TransactionsFullResponse(savedTransaction);
-    } else {
-      
-      throw new BankAccountNotFoundException(
-        "SourceAccount with id: " 
-        + source.get().getCustomerId() + " not found or DestinatiounAccount with id: " 
-        + request.getDestinationAccountId() 
-        + "not found", HttpStatus.BAD_REQUEST);
+
+  public enum TransactionType{
+    DEPOSIT(0),WITHDRAWAL(1);
+    public final int value;
+    private TransactionType(int value){
+      this.value = value;
     }
   }
-  
-  private void addTransactionToAccounts(TransactionsEntity savedTransaction) {
-    AccountEntity account = savedTransaction.getSourceAccount();
-    List<TransactionsEntity> currentList = account.getTransactions();
-    currentList.add(savedTransaction);
-  }
 
-  public TransactionsEntity saveNewTransaction(AccountEntity source, AccountEntity destination, TransactionRequest request){
-    TransactionsEntity newTransaction = new TransactionsEntity(
+  public TransactionsEntity saveNewTransaction(TransactionRequest request) throws BankAccountNotFoundException{
+
+    Optional<AccountEntity> sourceAccount = accountRepository.findById(request.getSourceAccountId());
+    Optional<AccountEntity> destinationAccount = accountRepository.findById(request.getDestinationAccountId());
+
+    if(sourceAccount.isPresent() && destinationAccount.isPresent()){
+      TransactionsEntity newTransaction = new TransactionsEntity(
       UUID.randomUUID().toString(),
-      source.getId(),
-      destination.getId(),
+      sourceAccount.get().getId(),
+      destinationAccount.get().getId(),
       request.getAmountInCent(),
       LocalDate.now(),
       LocalTime.now(),
       request.getMessage(),
-      source
+      sourceAccount.get(),
+      destinationAccount.get()
     );
+    transactionRepository.save(newTransaction);
     return newTransaction;
+
+    } else {
+      throw new BankAccountNotFoundException();
+    }
   }
 
   public List<TransactionsFullResponse> getAllTransactionsBy(String date) {
@@ -104,11 +110,7 @@ public class TransactionService {
    
       Optional<List<AccountEntity>> accounts = accountRepository.findAllByCustomerId(customerId);
     if(accounts.isEmpty())
-      throw new BankAccountNotFoundException(
-        "No Accounts for the given customer " 
-        + customer.get().getFirstname() + " " 
-        + customer.get().getSecondname() + "found" , 
-        HttpStatus.BAD_REQUEST);
+      throw new BankAccountNotFoundException();
     
     List<String> transactions = accounts.get().stream()
     .flatMap(account -> account.getTransactionIds().stream())
@@ -167,20 +169,5 @@ public class TransactionService {
     sortby.put("sender_secondname", Comparator.comparing(TransactionsForCustomerResponse::getCustomerSecondname));
     sortby.put("recepient_firstname", Comparator.comparing(TransactionsForCustomerResponse::getCustomerFirstnameDestination));
     sortby.put("recepient_secondname", Comparator.comparing(TransactionsForCustomerResponse::getCustomerSecondnameDesitnation));
-  }
-
-  public TransactionsEntity saveNewTransaction(String sourceAccountId, String id, Long amountInCent, String message,
-          AccountEntity account) {
-      TransactionsEntity newTransaction = new TransactionsEntity(
-        UUID.randomUUID().toString(),
-        sourceAccountId,
-        id,
-        amountInCent,
-        LocalDate.now(),
-        LocalTime.now(),
-        message,
-        account
-      );
-      return newTransaction;
   }
 }

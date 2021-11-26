@@ -18,7 +18,8 @@ public class AccountResponse {
   private Long balanceInCent;
   private Long sumOfTransactions;
   private List<String> transactionIds;
-  private List<TransactionsEntity> transactions;
+  private List<TransactionsEntity> debitTransactions;
+  private List<TransactionsEntity> creditTransactions;
 
   public AccountResponse(AccountEntity accountEntity){
     this.id = accountEntity.getId();
@@ -26,7 +27,8 @@ public class AccountResponse {
     this.balanceInCent = accountEntity.getBalanceInCent();
     this.sumOfTransactions = accountEntity.getSumOfTransactions();
     this.transactionIds = accountEntity.getTransactionIds();
-    this.transactions = accountEntity.getTransactions();
+    this.creditTransactions = accountEntity.getCreditTransactions();
+    this.debitTransactions = accountEntity.getDebitTransactions();
   }
 
 }

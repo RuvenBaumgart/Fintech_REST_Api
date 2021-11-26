@@ -30,18 +30,30 @@ public class AccountEntity {
     cascade = CascadeType.ALL
   )
   @ElementCollection
-  private List<TransactionsEntity> transactions;
+  @JasonManagedReference
+  private List<TransactionsEntity> debitTransactions;
 
-  public AccountEntity(
-    AccountEntity accountEntity, 
-    Long amountInCent, 
-    List<String> newTransactionIds
-    ){
-      this.id = accountEntity.getId();
-      this.customerId = accountEntity.getCustomerId();
-      this.balanceInCent= accountEntity.getBalanceInCent() + amountInCent;
-      this.sumOfTransactions = accountEntity.getSumOfTransactions() + 1;
-      this.transactionIds = newTransactionIds;
+  @OneToMany(
+    mappedBy = "destinationAccount",
+    cascade = CascadeType.ALL
+  )
+  @ElementCollection
+  private List<TransactionsEntity> creditTransactions;
 
+
+  public void setCreditTransactions(List<TransactionsEntity> newCreditTransactions){
+    this.creditTransactions = newCreditTransactions;
+  }
+
+  public void setDebitTransactions(List<TransactionsEntity> newDebitTransactions){
+    this.debitTransactions = newDebitTransactions;
+  }
+
+  public void setTransactionIds(List<String> newTransactionIds){
+    this.transactionIds = newTransactionIds;
+  }
+
+  public void setBalance(Long newBalanceInCent){
+    this.balanceInCent = newBalanceInCent;
   }
 }

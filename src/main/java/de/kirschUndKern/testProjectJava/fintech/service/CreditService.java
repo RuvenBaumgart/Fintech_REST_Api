@@ -8,6 +8,7 @@ import java.util.List;
 
 import de.kirschUndKern.testProjectJava.fintech.dto.request.CreditRequest;
 import de.kirschUndKern.testProjectJava.fintech.dto.request.CreditUpdateRequest;
+import de.kirschUndKern.testProjectJava.fintech.dto.request.TransactionRequest;
 import de.kirschUndKern.testProjectJava.fintech.dto.response.CreditResponse;
 import de.kirschUndKern.testProjectJava.fintech.entities.AccountEntity;
 import de.kirschUndKern.testProjectJava.fintech.entities.CreditsEntity;
@@ -79,38 +80,37 @@ public class CreditService {
     return creditsResponse;
   }
 
-  public CreditResponse createUpdateCredit(String id, CreditUpdateRequest creditUpdateRequest) throws Exception {
-    Optional<CreditsEntity> credit = creditRepository.findById(id);
-    Optional<AccountEntity> account = accountRepository.findById(creditUpdateRequest.getSourceAccountId());
+  public CreditResponse createUpdateCredit(String creditId, CreditUpdateRequest creditUpdateRequest) throws Exception {
+    Optional<CreditsEntity> credit = creditRepository.findById(creditId);
+    Optional<AccountEntity> sourceAccount = accountRepository.findById(creditUpdateRequest.getSourceAccountId());
         if(credit.isPresent()){
-          if(account.isPresent()){
+          if(sourceAccount.isPresent()){
               
             CreditResponse updatedCredit = createAndSaveUpdatedCredit(credit.get(), creditUpdateRequest);
-              
-            TransactionsEntity newTransaction = transactionService.saveNewTransaction(
-              creditUpdateRequest.getSourceAccountId(), 
-              id, 
-              creditUpdateRequest.getAmountInCent(),
-              "Credit Payoff",
-              account.get()
+
+            // If i would have a transaction interfaced than i could only give the transaction to the mehtod. THis would mean no need for mapping.
+            TransactionsEntity savedTransaction = transactionService.saveNewTransaction(
+              createTransactionRequestFrom(creditUpdateRequest)
             );
 
-            accountService.updateAccountBalance(
-              creditUpdateRequest.getSourceAccountId(), 
-              creditUpdateRequest.getAmountInCent() * -1, 
-              newTransaction.getId(),
-              newTransaction
-            );
+            accountService.updateAccounts(savedTransaction);
 
             return updatedCredit;
           } else {
-            throw new BankAccountNotFoundException("Account with the id: " 
-            + creditUpdateRequest.getSourceAccountId() 
-            + "to payoff the credit not found", HttpStatus.BAD_REQUEST);
+            throw new BankAccountNotFoundException();
           }
     } else {
-      throw new CreditNotFoundException("Credit with the id: " + id + " not found", HttpStatus.BAD_REQUEST);
+      throw new CreditNotFoundException("Credit with the id: " + creditId + " not found", HttpStatus.BAD_REQUEST);
     }
+  }
+
+  private TransactionRequest createTransactionRequestFrom(CreditUpdateRequest creditUpdateRequest) {
+    return new TransactionRequest(
+      creditUpdateRequest.getAmountInCent(),
+      creditUpdateRequest.getSourceAccountId(),
+      null,
+      "Credit payoff"
+    );
   }
 
   private CreditResponse createAndSaveUpdatedCredit(CreditsEntity credit,

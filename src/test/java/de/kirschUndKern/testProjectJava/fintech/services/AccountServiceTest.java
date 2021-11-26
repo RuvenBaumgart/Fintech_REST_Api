@@ -3,13 +3,12 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import static org.assertj.core.api.Assertions.*;
-
-import de.kirschUndKern.testProjectJava.fintech.dto.response.AccountResponse;
 import de.kirschUndKern.testProjectJava.fintech.entities.AccountEntity;
 import de.kirschUndKern.testProjectJava.fintech.entities.TransactionsEntity;
 import de.kirschUndKern.testProjectJava.fintech.exceptions.BankAccountNotFoundException;
@@ -55,24 +54,16 @@ public class AccountServiceTest {
         startAmount,
         23L,
         Arrays.asList("232", "34424"),
-        new ArrayList<>()
+        new ArrayList<TransactionsEntity>(),
+        new ArrayList<TransactionsEntity>()
       )
     );
 
-    TransactionsEntity emptyTransaction = new TransactionsEntity();
-
-    AccountResponse expected = new AccountResponse(
-      "123",
-      "2135",
-      startAmount + addAmount,
-      24L,
-      Arrays.asList("232","34424","54325"),
-      new ArrayList<>(Arrays.asList(emptyTransaction))
-    );
+    Long expected = startAmount + addAmount;
 
     when(accountRepository.findById(anyString())).thenReturn(account);
     
-    AccountResponse result = accountService.updateAccountBalance("123", 500L, "54325", emptyTransaction);
+    Long result = accountService.updateAccountBalance(account.get(), addAmount);
 
     assertThat(result).usingRecursiveComparison()
     .ignoringFields("transactions")
@@ -89,6 +80,7 @@ public class AccountServiceTest {
       2300000L,
       0L,
       new ArrayList<>(),
+      new ArrayList<TransactionsEntity>(),
       new ArrayList<TransactionsEntity>()
     );
 
@@ -99,6 +91,7 @@ public class AccountServiceTest {
       1700000L,
       1L,
       new ArrayList<>(),
+      new ArrayList<TransactionsEntity>(),
       new ArrayList<TransactionsEntity>()
     );
 
@@ -106,5 +99,16 @@ public class AccountServiceTest {
 
     Long result = accountService.getAccountsAndCalculateSum("customerId");
     assertThat(result).isEqualTo(accountOne.getBalanceInCent() + accountTwo.getBalanceInCent());
+  }
+
+  @Test
+  public void upatedTransactionIdsListCorrectly(){
+  
+    List<String> transactions = new ArrayList<String>( Arrays.asList("123","123"));
+    transactions = AccountService.appendTransaction(transactions, "test");
+    
+    assertThat(transactions).hasSize(3);
+    assertThat(transactions).contains("test");
+    
   }
 }
