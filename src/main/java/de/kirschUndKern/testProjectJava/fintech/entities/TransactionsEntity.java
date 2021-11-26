@@ -39,8 +39,7 @@ public class TransactionsEntity {
     targetEntity = AccountEntity.class
   )
   @JoinColumn(
-    name = "sender_id", 
-    referencedColumnName = "id")
+    name = "sender_id")
   @JsonBackReference
   private AccountEntity sourceAccount; //for debit
 
@@ -50,8 +49,7 @@ public class TransactionsEntity {
     targetEntity = AccountEntity.class
   )
   @JoinColumn (
-  name = "receiver_id", 
-  referencedColumnName = "id")
+  name = "receiver_id")
   @JsonBackReference
   private AccountEntity destinationAccount; //for credit
 

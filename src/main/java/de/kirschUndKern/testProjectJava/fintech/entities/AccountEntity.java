@@ -26,16 +26,14 @@ public class AccountEntity {
   @ElementCollection 
   private List<String> transactionIds;
   @OneToMany(
-    mappedBy = "sourceAccount",
-    cascade = CascadeType.ALL
+    mappedBy = "sourceAccount"
   )
   @ElementCollection
   @JasonManagedReference
   private List<TransactionsEntity> debitTransactions;
 
   @OneToMany(
-    mappedBy = "destinationAccount",
-    cascade = CascadeType.ALL
+    mappedBy = "destinationAccount"
   )
   @ElementCollection
   private List<TransactionsEntity> creditTransactions;

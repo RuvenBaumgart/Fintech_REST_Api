@@ -87,7 +87,7 @@ public class AccountService {
 
   public List<AccountResponse> getAccountsBy(String customerId){
     List<AccountEntity> accounts;
-    if(customerId == "Institution"){
+    if(customerId.equals("Institution")){
       accounts = accountRepository.findAll();
     } else {
       accounts = accountRepository.findAllByCustomerId(customerId).get();
