@@ -12,13 +12,13 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYzNjAzOTIxMCwiaWF0IjoxNjM2MDIxMjEwfQ.yQR9dYt6GlO6w3a7JjNBQZuOIV7ctH4jxk3y2NEw8JsGJEc_aCOcSX2KfR0981vu5c72K5LCp5lXJbRWhvHOaw",
+						"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYzODExODI4NSwiaWF0IjoxNjM4MTAwMjg1fQ.HE1ar9IwzdCs8cUe-MTIA3fv3TEHlFnsPQ51q_qso4Sf_adM-WY7hvubw0EtT82KQ-OUxFTPDBCWEuxVoBdubw",
 						"type": "text"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"firstname\":\"Donald\",\n    \"secondname\":\"Duck\",\n    \"salutation\":\"Mr.\",\n    \"dateOfBirth\":\"04/11/1988\",\n    \"address\": \n    {\n        \"city\":\"Entenhausen\",\n        \"street\":\"Entenstrasse\",\n        \"province\":\"MM\",\n        \"zipCode\":\"55555\",\n        \"country\":\"Germany\"\n    }\n}",
+					"raw": "{\n    \"firstname\":\"Peter\",\n    \"secondname\":\"Parker\",\n    \"salutation\":\"Mr.\",\n    \"dateOfBirth\":\"13/03/1975\",\n    \"address\": \n    {\n        \"city\":\"Queens\",\n        \"street\":\"Ingram Street 20\",\n        \"province\": \"Forest Hills\",\n        \"zipCode\":\"11004\",\n        \"country\":\"United States\"\n    }\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -40,25 +40,33 @@
 			"response": []
 		},
 		{
-			"name": "Create new account for given customerId",
+			"name": "Create account for given customerId",
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYzNzk3MzMzMiwiaWF0IjoxNjM3OTU1MzMyfQ.X424rC11MHoL-tub5LjBF-iTbMRQRInIndGsFH6L396qc82oVptYxJD1uxtVaIF-y65dBKQC1J-s4hv-c3pmeQ",
+						"type": "text"
+					}
+				],
 				"url": {
-					"raw": "localhost/accounts/",
+					"raw": "localhost:8080/api/accounts/f08a45cd-0104-43eb-96f6-b6a0cf2692a4",
 					"host": [
 						"localhost"
 					],
+					"port": "8080",
 					"path": [
+						"api",
 						"accounts",
-						""
+						"f08a45cd-0104-43eb-96f6-b6a0cf2692a4"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Create a new credit for given customer",
+			"name": "Create a credit for given customer",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -88,13 +96,19 @@
 			"response": []
 		},
 		{
-			"name": "Create a new  Transaction init by Customer with id",
+			"name": "Create a Transaction init by Customer with id",
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYzNzk3MzMzMiwiaWF0IjoxNjM3OTU1MzMyfQ.X424rC11MHoL-tub5LjBF-iTbMRQRInIndGsFH6L396qc82oVptYxJD1uxtVaIF-y65dBKQC1J-s4hv-c3pmeQ",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"amountInCent\":50000,\n    \"sourceAccountId\": \"9ff528b4-bb1e-4399-a2d9-2ad9a30555dd\",\n    \"destinationAccountId\": \"65cb0ad4-c5f6-4b57-8dfd-882034165104\",\n    \"message\":\"Money for amazon bucket\"\n}",
+					"raw": "{\n    \"amountInCent\":1274000,\n    \"sourceAccountId\": \"0bdcd92c-58c6-454f-9aab-8025459b9a4d\",\n    \"destinationAccountId\": \"724492ce-66fe-492c-b329-c4ccd2eaa3fc\",\n    \"message\":\"Money for amazon bucket\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -102,15 +116,14 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/api/transactions/87a75fd7-6fd1-410e-8a1d-ac9a8d0cb9b5",
+					"raw": "localhost:8080/api/transactions",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
 						"api",
-						"transactions",
-						"87a75fd7-6fd1-410e-8a1d-ac9a8d0cb9b5"
+						"transactions"
 					]
 				},
 				"description": "transfereing money from customer to recipient"
@@ -118,7 +131,7 @@
 			"response": []
 		},
 		{
-			"name": "authentification of a user",
+			"name": "Authentification of a user",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -149,9 +162,15 @@
 			"name": "Get all Customers with address by their last name",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYzNzY5NzA0NCwiaWF0IjoxNjM3Njc5MDQ0fQ.Y4LjubWaqejax27nFayvhIxS9z4Vt9Ob90VufN-VTiKeqLBR7TqdqejGe7SFnOXCqWOwuoq__VP2PPOgrUHdxA",
+						"type": "text"
+					}
+				],
 				"url": {
-					"raw": "localhost:8080/api/customers/Mustermann",
+					"raw": "localhost:8080/api/customers/Duck",
 					"host": [
 						"localhost"
 					],
@@ -159,7 +178,7 @@
 					"path": [
 						"api",
 						"customers",
-						"Mustermann"
+						"Duck"
 					]
 				}
 			},
@@ -172,32 +191,37 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYzNTk5OTE0NiwiaWF0IjoxNjM1OTgxMTQ2fQ.Kv0QsYnuyI6em4tR4nKUAlHDDTJmz8cYA2IS-fXv15RquRcbMXtxHumeOFcavXs44IXCziSJKxxLLaskJdn4oQ",
+						"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYzNzk3MzMzMiwiaWF0IjoxNjM3OTU1MzMyfQ.X424rC11MHoL-tub5LjBF-iTbMRQRInIndGsFH6L396qc82oVptYxJD1uxtVaIF-y65dBKQC1J-s4hv-c3pmeQ",
 						"type": "text"
 					}
 				],
 				"url": {
-					"raw": "localhost:8080/api/customers/Mustermann",
+					"raw": "localhost:8080/api/customers",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
 						"api",
-						"customers",
-						"Mustermann"
+						"customers"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Get all Customers with address by their last name ordered",
+			"name": "Get all Custome by their last name ordered",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYzNzk3MzMzMiwiaWF0IjoxNjM3OTU1MzMyfQ.X424rC11MHoL-tub5LjBF-iTbMRQRInIndGsFH6L396qc82oVptYxJD1uxtVaIF-y65dBKQC1J-s4hv-c3pmeQ",
+						"type": "text"
+					}
+				],
 				"url": {
-					"raw": "localhost:8080/api/customers/Mustermann?sort=true",
+					"raw": "localhost:8080/api/customers/Duck?sort=true",
 					"host": [
 						"localhost"
 					],
@@ -205,7 +229,7 @@
 					"path": [
 						"api",
 						"customers",
-						"Mustermann"
+						"Duck"
 					],
 					"query": [
 						{
@@ -221,24 +245,37 @@
 			"name": "Get all accounts for customer by id",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYzNzk3MzMzMiwiaWF0IjoxNjM3OTU1MzMyfQ.X424rC11MHoL-tub5LjBF-iTbMRQRInIndGsFH6L396qc82oVptYxJD1uxtVaIF-y65dBKQC1J-s4hv-c3pmeQ",
+						"type": "text"
+					}
+				],
 				"url": {
-					"raw": "localhost:8080/api/customers/",
+					"raw": "localhost:8080/api/accounts/Institution",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
 						"api",
-						"customers",
-						""
+						"accounts",
+						"Institution"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "get all credits by customerId",
+			"name": "Get all credits by customerId",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -258,12 +295,18 @@
 			"response": []
 		},
 		{
-			"name": "get all transactions for a given date",
+			"name": "Get all transactions for a given date",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYzNzg2ODc4NiwiaWF0IjoxNjM3ODUwNzg2fQ.KUYtDm_inDzXO7zA1UKO-X-D0_rw2XkIUCacnVYEf-IAhm5m9ao0dfpPWuIPBAambwc2wwWiTttPkdJQDZeGrQ",
+						"type": "text"
+					}
+				],
 				"url": {
-					"raw": "localhost:8080/api/transactions?data=2021-10-26",
+					"raw": "localhost:8080/api/transactions?date=2021-11-25",
 					"host": [
 						"localhost"
 					],
@@ -274,8 +317,8 @@
 					],
 					"query": [
 						{
-							"key": "data",
-							"value": "2021-10-26"
+							"key": "date",
+							"value": "2021-11-25"
 						}
 					]
 				}
@@ -283,7 +326,7 @@
 			"response": []
 		},
 		{
-			"name": "get the balance for one customer",
+			"name": "Get the balance for one customer",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -305,10 +348,16 @@
 			"response": []
 		},
 		{
-			"name": "get balance for the institution",
+			"name": "Get balance for the institution",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYzNzk3MzMzMiwiaWF0IjoxNjM3OTU1MzMyfQ.X424rC11MHoL-tub5LjBF-iTbMRQRInIndGsFH6L396qc82oVptYxJD1uxtVaIF-y65dBKQC1J-s4hv-c3pmeQ",
+						"type": "text"
+					}
+				],
 				"url": {
 					"raw": "localhost:8080/api/accounts/balance",
 					"host": [
@@ -344,10 +393,16 @@
 			"response": []
 		},
 		{
-			"name": "get all customers grouped by their current rating",
+			"name": "Get all customers grouped by their current rating",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "P",
+						"value": "",
+						"type": "text"
+					}
+				],
 				"url": {
 					"raw": "localhost:8080/api/customers?grouped=rating",
 					"host": [
@@ -369,12 +424,18 @@
 			"response": []
 		},
 		{
-			"name": "get all transactions for given customer id",
+			"name": "Get all transactions for given customer id",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYzNzg3MDA4NCwiaWF0IjoxNjM3ODUyMDg0fQ.xWsC9KSSC8cayOXd0kbSxv2l0_bD6cy-oLXOwzyu4GS1hKULN97HfTB9sVMdHuHz96hlHZEm8N0-n5Jno5iDnw",
+						"type": "text"
+					}
+				],
 				"url": {
-					"raw": "localhost:8080/api/transactions/765da43c-bf41-4f86-b791-cfe50014353a?pageno=&pagesize=&sortby=",
+					"raw": "localhost:8080/api/transactions/ff7624e8-0ec9-4a1d-a4df-86ff9776c425?pageno=&pagesize=&sortby=",
 					"host": [
 						"localhost"
 					],
@@ -382,7 +443,7 @@
 					"path": [
 						"api",
 						"transactions",
-						"765da43c-bf41-4f86-b791-cfe50014353a"
+						"ff7624e8-0ec9-4a1d-a4df-86ff9776c425"
 					],
 					"query": [
 						{
