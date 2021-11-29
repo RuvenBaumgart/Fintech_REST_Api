@@ -11,7 +11,7 @@
 	<groupId>de.kirschUndKern.testProjectJava</groupId>
 	<artifactId>fintech</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<name>fintech</name>
 	<description>Java test project within the context financial sector banking simulation</description>
 	<properties>
@@ -34,7 +34,13 @@
 			<artifactId>springfox-boot-starter</artifactId>
 			<version>3.0.0</version>
 		</dependency>
-
+		
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>3.0.0</version>
+		</dependency>
+		
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
@@ -75,7 +81,8 @@
 			<version>1.18.22</version>
 			<scope>provided</scope>
 		</dependency>
-	
+
+
 	</dependencies>
 
 	<build>
@@ -90,6 +97,7 @@
 				<artifactId>flyway-maven-plugin</artifactId>
 				<version>8.0.2</version>
 			</plugin>
+			 
 		</plugins>
 	</build>
 
